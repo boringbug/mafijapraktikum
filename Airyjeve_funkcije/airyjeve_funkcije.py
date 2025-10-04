@@ -8,4 +8,6 @@ y1, _, y2, _ = airy(x)
 
 plt.plot(x, y1)
 plt.plot(x, y2)
+
+plt.grid(True)
 plt.show()
