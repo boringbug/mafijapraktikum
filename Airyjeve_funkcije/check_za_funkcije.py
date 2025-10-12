@@ -37,7 +37,7 @@ def Ai_neg_asim_real(x, n):
 
 x = linspace(-100, 100, 10000)
 x_pos = linspace(7, 100, 10000)
-x_neg = linspace(-100, -8, 10000)
+x_neg = linspace(-100, -10, 10000)
 
 y = airy(x)[0]
 y_pos = airy(x_pos)[0]
@@ -59,9 +59,9 @@ print("Neg: ")
 print(diff_neg)
 print("Max diff of neg: " + str(diff_neg.max()))
 
-plt.plot(x, Ai_taylor(x, 50))
-plt.plot(x, Ai_pos_asim(x, 50))
-plt.plot(x, Ai_neg_asim(x, 50))
+plt.plot(x, Ai_taylor(x, 10))
+plt.plot(x, Ai_pos_asim(x, 10))
+plt.plot(x, Ai_neg_asim(x, 10))
 plt.plot(x, y)
 plt.xlim(-10, 10)
 plt.ylim(-10, 10)
