@@ -6,8 +6,51 @@
 \usepackage{amssymb}
 \usepackage{amsthm}         % Required for theorem environments
 \usepackage{graphicx}
-\usepackage[backend=biber, style=apa]{biblatex}
-\addbibresource{literatura.bib}
+
+\newcommand{\Ai}{\mathrm{Ai}}
+\newcommand{\Bi}{\mathrm{Bi}}
+
+\renewcommand{\Re}{\mathop{\rm Re}\nolimits}
+\renewcommand{\Im}{\mathop{\rm Im}\nolimits}
+\newcommand{\Tr}{\mathop{\rm Tr}\nolimits}
+\newcommand{\diag}{\mathop{\rm diag}\nolimits}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ddd}{\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\lag}{\mathcal{L}\!}
+\newcommand{\ham}{\mathcal{H}\!}
+\newcommand{\four}[1]{\mathcal{F}\!\left(#1\right)}
+\newcommand{\bigO}[1]{\mathcal{O}\!\left(#1\right)}
+\newcommand{\sh}{\mathop{\rm sinh}\nolimits}
+\newcommand{\ch}{\mathop{\rm cosh}\nolimits}
+\renewcommand{\th}{\mathop{\rm tanh}\nolimits}
+\newcommand{\erf}{\mathop{\rm erf}\nolimits}
+\newcommand{\erfc}{\mathop{\rm erfc}\nolimits}
+\newcommand{\sinc}{\mathop{\rm sinc}\nolimits}
+\newcommand{\rect}{\mathop{\rm rect}\nolimits}
+\newcommand{\ee}[1]{\cdot 10^{#1}}
+\newcommand{\inv}[1]{\left(#1\right)^{-1}}
+\newcommand{\invf}[1]{\frac{1}{#1}}
+\newcommand{\sqr}[1]{\left(#1\right)^2}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\thalf}{\tfrac{1}{2}}
+\newcommand{\pd}{\partial}
+\newcommand{\Dd}[3][{}]{\frac{\ddd^{#1} #2}{\ddd #3^{#1}}}
+\newcommand{\Pd}[3][{}]{\frac{\pd^{#1} #2}{\pd #3^{#1}}}
+\newcommand{\avg}[1]{\left\langle#1\right\rangle}
+\newcommand{\norm}[1]{\left\Vert #1 \right\Vert}
+\newcommand{\braket}[2]{\left\langle #1 \vert#2 \right\rangle}
+\newcommand{\obraket}[3]{\left\langle #1 \vert #2 \vert #3 \right \rangle}
+\newcommand{\hex}[1]{\texttt{0x#1}}
+
+\renewcommand{\iint}{\mathop{\int\mkern-13mu\int}}
+\renewcommand{\iiint}{\mathop{\int\mkern-13mu\int\mkern-13mu\int}}
+\newcommand{\oiint}{\mathop{{\int\mkern-15mu\int}\mkern-21mu\raisebox{0.3ex}{$\bigcirc$}}}
+
+\newcommand{\wunderbrace}[2]{\vphantom{#1}\smash{\underbrace{#1}_{#2}}}
+
+\renewcommand{\vec}[1]{\overset{\smash{\hbox{\raise -0.42ex\hbox{$\scriptscriptstyle\rightharpoonup$}}}}{#1}}
+\newcommand{\bec}[1]{\mathbf{#1}}
 
 % Define theorem environments first
 \theoremstyle{definition}
@@ -18,9 +61,9 @@
 
 % Then set up numbering
 \numberwithin{definition}{section}
-\numberwithin{theorem}{section} \title{Test}
+\numberwithin{theorem}{section} \title{Izračun Ariyjevih funkcij}
 \author{Filip Jesenšek}
-\date{September 1, 2025}
+\date{Oktober 15, 2025}
 
 
 \begin{document}
@@ -32,399 +75,87 @@
 
 \newpage
 
-
-\begin{abstract}
-\end{abstract}
-
-\section{Definicije}
-Elipsoid bomo označili z 
-\begin{equation}
-	\Omega = \left\{ \boldsymbol{x} \in \mathbb{R}^3 | 
-	\sum_{i=1}^{3} \frac{x_i^2}{a_i^2} \leq 1 \right\}
-	\label{eq: elipsoid}
-\end{equation}
-
-Elipsoidi imajo veliko zanimivih matematičnih lastnosti, mi se bomo predvsem
-ukvarjali z ekscentričnost, ki bo definirna na naslednji način:
-\begin{equation}
-	e_{ij}^2 = 1 - \frac{a_j^2}{a_i^2}
-	\label{eq:ekscentricnost}
-\end{equation}
-
-Definiral bom tudi povprečno polos.
-\begin{equation}
-	a_0^3 = a_1 a_2 a_3
-	\label{eq:avg_polos}
-\end{equation}
-
-Po tej definiciji se volumen elipsoida poenostavi:
-\begin{equation}
-	V = \frac{4}{3} \pi a_0^3
-	\label{eq:volumen_avg}
-\end{equation}
-
-Vstrajnostni moment se preprosto pokaže da je
-\begin{equation}
-	I = \frac{1}{5} M
-	\begin{bmatrix}
-		a_2^2 + a_3^2 & 0 & 0 \\
-		0 & a_1^2 + a_3^2 & 0 \\
-		0 & 0 & a_1^2 + a_2^2
-	\end{bmatrix}
-	\label{eq:vstrajnostni}
-\end{equation}
-
-\section{Teoretično ozadje}
-\subsection{Teorija za gravitacijskim potencialom}
-Privzamemo lahko Newtonov gravitacijski zakon.
-$$\boldsymbol{g}(\boldsymbol{x}) = -G \frac{m}{r^{2}} \boldsymbol{e}_{r}$$
-Ta zakon velja za točkasto maso. 
-Za splošnejše oblike lahko seštejemo male prispevke
-gravitacijskega pospeška $\boldsymbol{g}$ za vsak košček mase $dm$. 
-$$\boldsymbol{g}(\boldsymbol{x}) = \int_{\Omega} d\boldsymbol{g} = 
--G \int_{\Omega} dm \frac{\boldsymbol{x} - \boldsymbol{s}}{|\boldsymbol{x} - \boldsymbol{s}|^{3}} = 
--G \int_{\Omega} dV \rho(\boldsymbol{s}) \frac{\boldsymbol{x} - \boldsymbol{s}}{|\boldsymbol{x} - \boldsymbol{s}|^{3}}$$
-
-
-Zgornjemu izrazu iz obeh strani "pomnožimo nablo" (na obeh straneh naredimo
-operacijo divergence). Dobimo izraz:
-
-$$\nabla \cdot \boldsymbol{g}(\boldsymbol{x}) = 
--G \int_{\Omega} dV \rho(\boldsymbol{s}) \nabla \cdot \frac{\boldsymbol{x} - \boldsymbol{s}}{|\boldsymbol{x} - \boldsymbol{s}|^{3}} = - 4 \pi G \int_{\Omega} dV \rho(\boldsymbol{s}) \delta(\boldsymbol{x} - \boldsymbol{s})$$
-
-Končni izraz je potem:
-$$\nabla \cdot \boldsymbol{g}(\boldsymbol{x}) = -4 \pi G \rho(\boldsymbol{x})$$
-
-Ker je $\boldsymbol{g}$ potencialno vektorsko polje, ga lahko zapišemo kot
-$$\boldsymbol{g} = - \nabla \phi$$
-
-Tukaj je $\phi$ gravitacijski potencial.
-
-Če to vstavimo v prejšni izraz, dobimo Poissonovo enačbo.
-$$\Delta \phi = 4 \pi G \rho$$
-
-Za lepoto lahko uporabljamo enote kjer je $G = \frac{1}{4 \pi}$ in dobimo najbolj
-klasično Poissonovo enačbo.
-
-$$\Delta \phi = \rho$$
-
-\subsubsection{Reševanje Poissonove enačbe}
-Zdaj ko smo dobili enačbo, ki nam povezuje obliko (gostota)
-in gravitacijski potencial, jo lahko probamo rešiti, da dobimo 
-gravitacijsko polje poljubne dovolj lepe porazdelitve gostote.
-
-V našem primeru bodo te oblike elipsoidi z različnimi razmerji.
-
-Poissonovo enačbo se reši s pomočjo Greenove funkcije v 3D. Rešitev je pa
-naslednja
-
-$$\phi(\boldsymbol{x}) = -G \int_{\Omega} \frac{\rho(\boldsymbol{s})}{|\boldsymbol{x} - \boldsymbol{s}|}dV$$
-
-\subsubsection{Gravitacijski potencial elipsoidov}
-Zdaj ko imamo splošno rešitev gravitacijskega potenciala, ga lahko izračunamo za
-raznovrstne eliposoide z polosmi $a_1, a_2, a_3$. Recimo da so vse polosi 
-med seboj različne $a_1 \neq a_2 \neq a_3$ in da je
-elipsoid homogen $\rho(\boldsymbol{x}) = \rho_0$. 
-Integral seveda ni analitično 
-rešljiv, lahko ga pa spravimo v bolj elegantno obliko.
-
-$$\phi(\boldsymbol{x}) = \pi G \rho_0 a_1 a_2 a_3 
-\int_{0}^{\infty} \left(1 - 
-\sum_{i = 1}^{3} \frac{x_{i}^{2}}{a_{i} + u} \right) 
-\frac{du}{\Xi}$$
-
-Kako smo prišli to tega izraza, je opisano v knjigi 
-The theory of the potential, William Duncan.
-
-Tukaj je notacija $x_i$ mišljena kot pri indeksni notaciji.
-
-Kjer je 
-$$\Xi = \frac{1}{\sqrt{(a_1^2 + u^2)(a_2^2 + u^2)(a_3^2 + u^2)}}$$
-Še bolj prikladne so naslednje oznake,
-$$\phi = -\frac{3}{4} G M \left(\alpha_0 - \sum_{i=1}^{3} \alpha_i x_i^2 \right)$$
-Kjer je $M$ masa elipsoida in 
-$$\alpha_0 = \int_0^{\infty} \frac{du}{\Xi}$$
-$$\alpha_i = \int_0^{\infty} \frac{du}{(a_i^2 + u)\Xi}$$
-
-
-Te integrali so v resnici znani, to so Carlson-ove simetrične forme
-eliptičnih integralov. In sicer
-
-$$\alpha_0 = \frac{1}{2} R_{F}(a_1^2,a_2^2,a_3^2)$$
-
-$$\alpha_i = \frac{3}{2} R_{J}(a_1^2,a_2^2,a_3^2,a_i^2)$$
-
-\subsection{Teorija za rotacijskim potencialom}
-Rotacijski potencial je tukaj še najlažji za izpeljati. Recimo da se elipsoid
-vrti okoli osi $z$ z konto hitrostjo $\omega$. Tedaj na vsak košček elipsoida
-deluje centrifugalna sila, 
-$\boldsymbol{F}_c = m \boldsymbol{\omega} \times (\boldsymbol{\omega} \times \boldsymbol{x})$.
-Ker je $\boldsymbol{\omega} = \omega \boldsymbol{e}_{z}$. Se centrifugalna
-sila poeostavi v:
-$$\boldsymbol{F}_{c} = m \omega^2 (x, y, 0)$$
-Zdaj lakho poiščemo rotacijski potencial $\psi$,
-tako da bo veljalo $\boldsymbol{F}_{c} = - m \nabla \psi$. Potencial dobimo 
-preprosto z integracijo. 
-
-$$\psi = - \frac{1}{2} \omega^2(x_1^2 + x_2^2)$$
-
-(Notacija $x_1, x_2$ je uporabljena samo zato da sem konsistenten)
-
-\subsection{Reševanje hidrostatske enačbe}
-Privzamemo da se planet obnaša kot kapljevina. To bo veljalo na velikih
-časovnih skalah in velikih dimenzijah planeta.
-Poglejmo si 2 Newtonov zakon.
-\begin{equation} \label{eq: newton}	
-	V \nabla p
-	= \boldsymbol{F} = m \boldsymbol{a} = m (\boldsymbol{g} + \boldsymbol{g}_{\text{rot}}) = 
-	-m (\nabla \phi + \nabla \psi)
-\end{equation}
-
-Tedaj dobimo hidrostatsko enačbo:
-\begin{equation}
-	0 = \nabla p + \rho \nabla (\phi + \psi)
-	\label{eq: hidrostatska}
-\end{equation}
-Smisleno je, da predpostavimo homogenost elipsoida, 
-torej $\rho(\boldsymbol{x}) = \rho_0$. Tedaj se lahko znebimo gradientov
-pri hidrostatični enačbi.
-$$0 = \nabla \left[ p + \rho_0 (\varphi + \psi) \right] \iff 
-p_{0}' = p + \rho_0 (\varphi + \psi)$$
-
-Če zdaj enačbo raspišemo v celoti dobimo
-$$p = p_{0}' - \frac{1}{2} \rho_0 \left[ \frac{3}{2} G M \alpha_0 +
-(\frac{3}{2} G M \alpha_1 - \omega^2) x_1^2 +
-(\frac{3}{2} G M \alpha_2 - \omega^2) x_2^2 +
-\frac{3}{2} G M \alpha_3 x_3^2 
-\right]$$
-
-Zdaj lahko najdemo tlak na sredini tega elipsoida $p_0$, torej pri 
-$x_1 = x_2 = x_3 = 0$.
-$$p_0 = p_0' - \frac{3}{4} \rho_0 G M \alpha_0$$
-
-Enačbo lahko zdaj zapišemo malo krajše:
-$$p = p_{0} - \frac{1}{2} \rho_0 \left[
-(\frac{3}{2} G M \alpha_1 - \omega^2) x_1^2 +
-(\frac{3}{2} G M \alpha_2 - \omega^2) x_2^2 +
-\frac{3}{2} G M \alpha_3 x_3^2 
-\right]$$
-
-Na tem mestu lahko upoštevamo še robni pogoj pri katerem je tlak na robu
-elipsoidu enak 0, $p|_{\partial \Omega} = 0$
-$$p_{0} = \frac{1}{2} \rho_0 \left[
-(\frac{3}{2} G M \alpha_1 - \omega^2) x_1^2 +
-(\frac{3}{2} G M \alpha_2 - \omega^2) x_2^2 +
-\frac{3}{2} G M \alpha_3 x_3^2 
-\right]$$
-
-Pri pogoju
-$$\frac{x_1^2}{a_1^2} + \frac{x_2^2}{a_2^2} + \frac{x_3^2}{a_3^2} = 1$$
-
-Če enačimo koeficiente pred $x_i^2$
-se pokaže, da bosta enačbi veljali natanko takrat ko bo:
-\begin{equation}
-	\left(\alpha_1 - \frac{2}{3GM}\omega^2\right)a_1^2 = 
-	\left(\alpha_2 - \frac{2}{3GM}\omega^2\right)a_2^2 = 
-	\alpha_3 a_3^2 
-	\label{eq: main_zveza}
-\end{equation}
-
-
-Če se osredotočimo na prvo in tretjo zvezo in jo raspišemo po definicijah $\alpha_i$.
-\begin{equation}
-	\frac{2}{3GM}\omega^2 = \frac{\alpha_1 a_1^2 - \alpha_3 a_3^2}{a_1^2} = 
-	\frac{1}{a_1^2} \int_0^{\infty}  
-	\left( \frac{a_1^2}{a_1^2 + u} - \frac{a_2^2}{a_2^2 + u} \right) \frac{du}{\Xi}
-	\label{eq:vmesni_korak}
-\end{equation}
-
-Tukaj je koristo nazaj razpisati maso kot 
-$M = \rho_{0} \frac{4}{3} \pi a_1 a_2 a_3$. 
-Zdaj lahko zapišemo eno iz med končnih enačb. Od tukaj naprej je smisleno
-definirati brez dimenzijsko kotno hitrost 
-$\tilde{\omega}^2 = \frac{\omega^2}{2 \pi G \rho_0}$.
-
-\begin{equation}
-	\tilde{\omega}^2 =
-	a_1 a_2 a_3 \left(1-\frac{a_3^2}{a_1^2}\right) \int_0^{\infty} 
-	\frac{u du}{(a_1^2 + u)(a_2^2 + u)\Xi}
-	\label{eq:1_koncna}
-\end{equation}
-
-Ker smo začeli z eno enačbo in enim robnim pogojem moramo tudi tukaj imeti 
-eno enačbo in en pogoj (ena enačba ne more biti dovolj za rešitev).
-
-Vrnimo se nazaj na prejšno zvezo (\ref{eq: main_zveza}). 
-Vzemimo prvo in drugo zvezo in vanje vstavimo (\ref{eq:vmesni_korak}), 
-da se znebimo $\omega^2$.
-\begin{equation}
-	\left(\alpha_1 - \frac{\alpha_1 a_1^2 - \alpha_3 a_3^2}{a_1^2}\right)a_1^2 = 
-	\left(\alpha_2 - \frac{\alpha_1 a_1^2 - \alpha_3 a_3^2}{a_2^2}\right)a_2^2  
-	\label{eq:vmesni_korak_2}
-\end{equation}
-
-Na tej točki lahko spet upoštevamo definicije $\alpha_i$.
-
-\begin{equation}
-	(a_1^2 - a_2^2) \int_0^{\infty} \frac{du}{\Xi}
-	\left( \frac{a_2^2 a_1^2}{(a_1^2 + u)(a_2^2 + u)} - 
-	\frac{a_3^2}{a_3^2 + u} \right) = 0
-	\label{eq:2_koncna}
-\end{equation}
-
-V enačbi ne nastopa nič drugega razen polosi elipsoida, tako da ta enačba nam 
-nekaj pove o geometriji, ki jo mora elipsoid upoštevati.
-
-\section{Analiza različnih elipsoidov}
-Zdaj lahko analiziramo enačbi, ki smo ju pridobili v prejšnjem poglavju.
-
-\begin{equation}
-	\tilde{\omega}^2 = 
-	a_1 a_2 a_3 \left(1-\frac{a_3^2}{a_1^2}\right) \int_0^{\infty} 
-	\frac{u du}{(a_1^2 + u)(a_2^2 + u)\Xi}
-\end{equation}
-
-\begin{equation}
-	(a_1^2 - a_2^2) \int_0^{\infty} \frac{du}{\Xi}
-	\left( \frac{a_2^2 a_1^2}{(a_1^2 + u)(a_2^2 + u)} - 
-	\frac{a_3^2}{a_3^2 + u} \right) = 0
-\end{equation}
-
-Kot že povedano, prva enačba nam podaja zvezo med kotno hitrostjo $\omega$
-in obliko elipsoida. Druga enačba je pa geometrijska omejitev na elipsoidu.
-
-\subsection{Maclaurinovi sferoidi}
-Predstavljajmo is, da imamo v prostoru nek dovolj velik 
-(večji od krompirjevega radija), ne vrteč, tog planet. Tak planet bo, zaradi 
-lastnega gravitacijskega privlaka, seveda sferičen. 
-(Obrazloženo v appendix-u).
-Izberimo si koordinatni sistem in na nek način zavrtimo planet okoli osi $z$.
-Ob vrtenju se nam simetrija zlomi. Planet je rotacijsko simetričen le po $z$
-osi. Tak planet je zdaj bolj podoben elipsoidu $\Omega$, z polosmi 
-$a_1, a_2, a_3$, vedar zaradi simetrije planeta velja $a_1 = a_2$. Takim
-elipsoidom pravimo Maclaurinovi sferoidi. 
-Če se vrnemo nazaj na enačbi (\ref{eq:1_koncna}) in (\ref{eq:2_koncna}),
-vidimo da je enačba, ki opisuje geometrijsko omejitev avtomatsko izpolnjena.
-Druga se pa poenostavi v 
-(tukaj bomo tudi začeli uporabljati že prej definirano ekscentričnost
-\ref{eq:ekscentricnost}):
-
-\begin{equation}
-	\tilde{\omega}^2 = a_1^2 a_3 e_{13}^2
-	\int_0^{\infty} \frac{udu}{(a_1^2+u)^2(a_3^2+u)^{3/2}}
-	\label{eq:mc_zveza}
-\end{equation}
-
-Relativno očitna substitucija tukaj je $\lambda = \frac{u}{a_1^2}$.
-
-\begin{equation}	
-	\tilde{\omega}^2 = e_{13}^2 \sqrt{1 - e_{13}^2} 
-	\int_0^{\infty} 
-	\frac{\lambda d \lambda}{(1+\lambda)^2(1 + \lambda - e_{13}^2)^{3/2}}
-	\label{eq:mc_zveza_sub}
-\end{equation}
-
-Na tej točki naredimo še eno, a malo manj očitno substitucijo 
-$1 + \lambda = \frac{e_{13}^2}{t^2}$. 
-Po malo premetavanja dobimo naslednji izraz
-\begin{equation}	
-	\tilde{\omega}^2 = 2\frac{\sqrt{1 - e_{13}^2}}{e_{13}^3}
-	\int_0^{e_{13}} 
-	\frac{(e_{13}^2 - t^2) t^2 dt}{(1 + t)^2}
-	\label{eq:mc_zveza_sub_2}
-\end{equation}
-
-Ta integral je po nekem čudežu (ukvarjamo se z elipsoidi) analitično, rešljiv. 
-Lahko se posložujemo raznih trikov, da rešimo ta integral. Jaz sem se odločil
-za še eno substitucijo $t = \sin \theta$. Po tej substituciji in nekaj
-popisanih listov pridemo do končne zveze.
-\begin{equation}
-	\tilde{\omega}^2 = 
-	\frac{(3 - 2e_{13}^2) \sqrt{1 - e_{13}^2}}{e_{13}^3} \arcsin{e_{13}} - 
-	\frac{3}{e_{13}^2}(1 - e_{13}^2)
-	\label{eq:mc_kotna_hitrost}
-\end{equation}
-
-
-Poglejmo še, kako se obnaša vrtilna količina pri Maclaurinovih sferoidih.
-\begin{equation}
-	L = \frac{2}{5} M a_1^2 \omega
-	\label{eq:def_vrtilne_mac}
-\end{equation}
-
-Zveza, ki nam tukaj pride prav je naslednje:
-\begin{equation}
-	a_1 = a_0 (1 - e_{13}^2)^{-1/6}
-	\label{eq:a1_a0}
-\end{equation}
-
-To zvezo se trivialno izpelje z upoštevanjem definicije $a_0$ in $e_{13}$. 
-Po malo preproste algebre se pokaže, da velja naslednje.
-\begin{equation}
-	\tilde{L} = \frac{\sqrt{6}}{5} (1 - e_{12}^2)^{-1/3} \tilde{\omega}
-	\label{eq:mc_vrtilna_kolicina}
-\end{equation}
-
-Kjer je $\tilde{L}$ brezdimenzijska vrtilna količina definirana kot
-$\tilde{L} = \frac{L}{\sqrt{M^3 G a_0}}$.
-
-
-
-% \subsection{Jacobijevi elipsoidi}
-% Zdaj lahko pogledamo še kakšne bolj splošne elipsoide.
-% Jacobijevi elipsoidi so taki elipsoidi, da za njih velja 
-% $a_1 \neq a_2 \neq a_3$.
-% Podre se kakršna koli simetrija. Zaradi te lastnosti postanejo integrali
-% analitično ne rešljivi. Geometrijski pogoj (\ref{eq:2_koncna}) tukaj ne
-% velja avtomatsko, kot pri Maclaurinovih sferoidih. Enačbi (\ref{eq:1_koncna})
-% in (\ref{eq:2_koncna}) lahko zapišemo z pomočjo eliptičnih integralov.
-% 
-% \begin{equation}
-	% \tilde{\omega} = a_1 a_2 a_3 \left( 1 - \frac{a_3^2}{a_1^2} \right)
-	% \frac{2}{3(a_1^2 - a_2^2)} 
-	% \left[a_1^2 R_{J}(a_1^2,a_2^2,a_3^2,a_1^2) - 
-	% a_2^2 R_{J}(a_1^2,a_2^2,a_3^2,a_2^2)\right]
-	% \label{eq:1_koncna_el}
-% \end{equation}
-% 
-% in
-% 
-% \begin{equation}
-	% \frac{a_1^2 a_2^2}{a_1^2 - a_2^2}
-	% \left[R_{J}(a_1^2,a_2^2,a_3^2,a_1^2) - 
-	% R_{J}(a_1^2,a_2^2,a_3^2,a_2^2)\right] = 
-	% a_3^2 R_{J}(a_1^2,a_2^2,a_3^2,a_3^2)
-	% \label{eq:2_koncna_el}
-% \end{equation}
-
-% To mgoče ne bo šlo not.
-% Na tej točki, za nadaljevane analize se moramo obrniti na računalnik. 
-% Za lažje račuanje sem vse polosi transformiral v brezdimenzijsko obliko
-% $\tilde{a}_{i} = a_i (\frac{4}{3} \pi V)^{\frac{1}{3}}$, tedaj je 
-% $\tilde{a}_{1}\tilde{a}_{2}\tilde{a}_{3} = 1$. Ni težko preveriti, da se
-% enečbi ne spremenita pod to transformacijo (razen da vse polosi dobijo
-% tildo nad sabo).
-
-\newpage
-
-
-\section{Zaključek}
-V tej nalogi smo uspešno analizirali gravitacijsko polje elipsoidov in povezavo med vrtilno količino ter obliko togega planeta. Ključna ugotovitev je, da se oblike elipsoidov v hidrostatskem ravnovesju določajo z ravnovesjem med gravitacijskimi in centrifugalnimi silami. Za Maclaurinove sferoide smo izpeljali analitično rešitev, ki eksplicitno povezuje ekscentričnost in kotno hitrost vrtenja. Pri tem smo pokazali, da z naraščajočo ekscentričnostjo hitrost vrtenja dosega maksimum in nato upada, kar nakazuje na obstoj meje stabilnosti za vrteče se planete. Nadaljnje raziskave bi se lahko osredotočile na analizo Jacobijevih elipsoidov in njihovih stabilnostnih lastnosti, kar bi omogočilo bolj splošno razumevanje oblik nebesnih teles v vrtenju.
-
-
-
-
-\begin{thebibliography}{9}
-
-\bibitem{Knjiga1}
-MacMillan, W. D. \textit{The Theory of Potential}. New York: Dover Publications.
-
-\bibitem{Knjiga2} 
-Dassios, G. \textit{Ellipsoidal Harmonics: Theory and Applications}. New York: Cambridge University Press.
-
-\bibitem{Article}
-Fitzpatrick, R. \textit{Theoretical Physics Notes}. Dostopno: \url{https://farside.ph.utexas.edu/teaching.html}
-
-\end{thebibliography}
-
+\section{Uvod}
+
+Airyjevi funkciji $\Ai$ in $\Bi$
+se v fiziki pojavljata predvsem v optiki in kvantni mehaniki.  Definirani sta kot neodvisni rešitvi enačbe
+%
+\begin{equation*}
+  y''(x) -xy(x) = 0
+\end{equation*}
+%
+in sta predstavljivi v integralski obliki
+%
+\begin{equation*}
+  \Ai(x) = \frac{1}{\pi} \int_0^\infty \cos (t^3/3 + x t) \dd t \>, \,
+  \Bi(x) = \frac{1}{\pi} \int_0^\infty \left[ \mathrm{e}^{-t^3/3 + x t}
+  + \sin (t^3/3 + x t) \right] \dd t \>.
+\end{equation*}
+
+Za majhne $x$ lahko funkciji $\Ai$ in $\Bi$ izrazimo
+z Maclaurinovima vrstama
+%
+\begin{equation*}
+  \Ai(x) = \alpha f(x) - \beta g(x)\>,\qquad
+  \Bi(x) = \sqrt{3}\, \Bigl[\alpha f (x) + \beta g(x) \Bigr]\>,
+\end{equation*}
+kjer v $x=0$ veljata zvezi
+%
+$\alpha = \Ai(0) = \Bi(0)/\sqrt{3}\approx 0.355028053887817239$ in
+$\beta = -\Ai'(0) = \Bi'(0)/\sqrt{3}\approx 0.258819403792806798$.
+Vrsti za $f$ in $g$ sta
+\begin{equation*}
+  f(x) = \sum_{k=0}^\infty
+  \left(\frac{1}{3}\right)_k \frac{3^k x^{3k}}{(3k)!} \>, \qquad
+  g(x) = \sum_{k=0}^\infty
+  \left(\frac{2}{3}\right)_k \frac{3^k x^{3k+1}}{(3k+1)!} \>,
+\end{equation*}
+kjer je
+\begin{equation*}
+  (z)_n = \Gamma(z+n)/\Gamma(z) \>, \qquad (z)_0 = 1 \>.
+\end{equation*}
+
+Za velike vrednosti $|x|$ Airyjevi funkciji aproksimiramo
+z njunima asimp\-tot\-ski\-ma razvojema.  Z novo spremenljivko
+$\xi=\frac{2}{3} |x|^{3/2}$ in asimptotskimi vrstami
+%
+\begin{equation*}
+  L(z) \sim \sum_{s=0}^\infty \frac{u_s}{z^s}\>,\qquad
+  P(z) \sim \sum_{s=0}^\infty (-1)^s \frac{u_{2s}}{z^{2 s}}\>,\qquad
+  Q(z) \sim \sum_{s=0}^\infty (-1)^s \frac{u_{2s+1}}{z^{2 s+1}}\>,
+\end{equation*}
+s koeficienti
+\begin{equation*}
+u_s = \frac{ \Gamma(3s + \frac{1}{2})}
+        {54^s s!\, \Gamma(s + \frac{1}{2}) }
+\end{equation*}
+za velike pozitivne $x$ izrazimo
+%
+\begin{equation*}
+\Ai(x)\sim  \frac{\mathrm{e}^{-\xi}}{2\sqrt{\pi} x^{1/4}} \, L(-\xi) \>, \qquad
+\Bi(x)\sim  \frac{\mathrm{e}^{\xi}} { \sqrt{\pi} x^{1/4}} \, L(\xi)\>,
+\end{equation*}
+%
+za po absolutni vrednosti velike negativne $x$ pa
+%
+%
+\begin{align*}
+    \Ai(x)&\sim  \frac{1}{\sqrt{\pi} (-x)^{1/4}}
+    \Bigl[ \phantom{-}\sin(\xi-\pi/4) \, Q(\xi)
+                    + \cos(\xi-\pi/4) \, P(\xi)\Bigr] \>, \\
+    \Bi(x)&\sim  \frac{1}{\sqrt{\pi} (-x)^{1/4}}
+    \Bigl[ - \sin(\xi-\pi/4) \, P(\xi)
+      + \cos(\xi-\pi/4) \, Q(\xi)\Bigr]\>.
+\end{align*}
+
+\bigskip
+
+{\sl Naloga:} Z uporabo kombinacije Maclaurinove vrste in asimptotskega
+razvoja poišči čim učinkovitejši postopek za izračun
+vrednosti Airyjevih funkcij $\Ai$ in $\Bi$ na vsej real\-ni osi
+z {\bf absolutno} napako, manjšo od $10^{-10}$. Enako naredi tudi z {\bf relativno} napako in ugotovi,
+ali je tudi pri le-tej dosegljiva natančnost, manjša od $10^{-10}$.
+Pri oceni napak si po\-ma\-gaj s programi, ki znajo računati s poljubno
+natančnostjo, na primer z {\sc Mathematico} in/ali paketi {\sc mpmath} in {\sc decimal} v programskem
+jeziku {\sc Python}.
 \end{document}
