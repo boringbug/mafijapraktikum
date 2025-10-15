@@ -67,3 +67,16 @@ plt.xlim(-10, 10)
 plt.ylim(-10, 10)
 plt.legend()
 plt.show()
+
+# Neki k bom zbrisu
+x_line = linspace(-50, 10, 10000)
+line = [1e-10 for i in x_line]
+
+plt.title("Abslutna napaka aproksimacij v semi-log")
+plt.semilogy(x_neg, abs(y_neg - Ai_neg_asim(x_neg, 10)), label='taylor abs diff')
+#plt.semilogy(x_pos, diff_pos_asim, label='pos asim abs diff')
+plt.plot(x_line, line, color='red')
+#plt.semilogy(x_neg, diff_neg_asim, label='pos asim abs diff')
+plt.grid()
+plt.legend()
+plt.show()
