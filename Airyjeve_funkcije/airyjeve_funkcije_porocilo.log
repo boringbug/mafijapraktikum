@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.8.31)  15 OCT 2025 19:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.10.15)  16 OCT 2025 00:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -319,63 +319,114 @@ File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen164
 \Gin@req@width=\dimen165
+) (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+ (/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\c@definition=\count305
-\c@theorem=\count306
+\Gm@cnth=\count305
+\Gm@cntv=\count306
+\c@Gm@tempcnt=\count307
+\Gm@bindingoffset=\dimen166
+\Gm@wd@mp=\dimen167
+\Gm@odd@mp=\dimen168
+\Gm@even@mp=\dimen169
+\Gm@layoutwidth=\dimen170
+\Gm@layoutheight=\dimen171
+\Gm@layouthoffset=\dimen172
+\Gm@layoutvoffset=\dimen173
+\Gm@dimlist=\toks30
+)
+\c@definition=\count308
+\c@theorem=\count309
  (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count307
+\l__color_backend_stack_int=\count310
 \l__pdf_internal_box=\box100
 ) (./airyjeve_funkcije_porocilo.aux)
 \openout1 = `airyjeve_funkcije_porocilo.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-Package hyperref Info: Link coloring OFF on input line 69.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 70.
+LaTeX Font Info:    ... okay on input line 70.
+Package hyperref Info: Link coloring OFF on input line 70.
  (./airyjeve_funkcije_porocilo.out) (./airyjeve_funkcije_porocilo.out)
 \@outlinefile=\write4
 \openout4 = `airyjeve_funkcije_porocilo.out'.
 
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count308
-\scratchdimen=\dimen166
+\scratchcounter=\count311
+\scratchdimen=\dimen174
 \scratchbox=\box101
-\nofMPsegments=\count309
-\nofMParguments=\count310
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count311
-\MPscratchDim=\dimen167
-\MPnumerator=\count312
-\makeMPintoPDFobject=\count313
-\everyMPtoPDFconversion=\toks31
+\nofMPsegments=\count312
+\nofMParguments=\count313
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count314
+\MPscratchDim=\dimen175
+\MPnumerator=\count315
+\makeMPintoPDFobject=\count316
+\everyMPtoPDFconversion=\toks32
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 71.
- (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(42.67912pt, 528.93675pt, 42.67912pt)
+* v-part:(T,H,B)=(42.67912pt, 709.61174pt, 42.67912pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=528.93675pt
+* \textheight=709.61174pt
+* \oddsidemargin=-29.59087pt
+* \evensidemargin=-29.59087pt
+* \topmargin=-66.59087pt
+* \headheight=12.0pt
+* \headsep=25.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=65.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 72.
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 71.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 72.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -389,35 +440,61 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 [2]
-
-[3]
-Overfull \hbox (2.07475pt too wide) in paragraph at lines 163--175
-\OT1/cmr/m/n/10 Za re^^Tsitev te naloge sem upor-bil pro-gram-ski jezik Python. Ideja mo-jega re^^Tsevanja
+Overfull \hbox (23.64696pt too wide) in paragraph at lines 102--108
+\OT1/cmr/m/n/10 kjer v $\OML/cmm/m/it/10 x \OT1/cmr/m/n/10 = 0$ vel-jata zvezi $\OML/cmm/m/it/10  \OT1/cmr/m/n/10 = [](0) = [](0)\OML/cmm/m/it/10 =[] \OMS/cmsy/m/n/10 ^^Y \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 355028053887817239$ in $\OML/cmm/m/it/10 ^^L \OT1/cmr/m/n/10 = \OMS/cmsy/m/n/10 ^^@[][]\OT1/cmr/m/n/10 (0) = [][](0)\OML/cmm/m/it/10 =[] \OMS/cmsy/m/n/10 ^^Y \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 258819403792806798$.
  []
 
 
 
-[4] (./airyjeve_funkcije_porocilo.aux)
+[3]
+<ai_abs.pdf, id=63, 867.24pt x 578.16pt>
+File: ai_abs.pdf Graphic file (type pdf)
+<use ai_abs.pdf>
+Package pdftex.def Info: ai_abs.pdf  used on input line 185.
+(pdftex.def)             Requested size: 370.2541pt x 246.83955pt.
+<ai_rel.pdf, id=64, 867.24pt x 578.16pt>
+File: ai_rel.pdf Graphic file (type pdf)
+<use ai_rel.pdf>
+Package pdftex.def Info: ai_rel.pdf  used on input line 191.
+(pdftex.def)             Requested size: 370.2541pt x 246.83955pt.
+
+
+[4 <./ai_abs.pdf> <./ai_rel.pdf>]
+<bi_abs.pdf, id=151, 867.24pt x 578.16pt>
+File: bi_abs.pdf Graphic file (type pdf)
+<use bi_abs.pdf>
+Package pdftex.def Info: bi_abs.pdf  used on input line 206.
+(pdftex.def)             Requested size: 370.2541pt x 246.83955pt.
+<bi_rel.pdf, id=152, 867.24pt x 578.16pt>
+File: bi_rel.pdf Graphic file (type pdf)
+<use bi_rel.pdf>
+Package pdftex.def Info: bi_rel.pdf  used on input line 212.
+(pdftex.def)             Requested size: 370.2541pt x 246.83955pt.
+
+
+[5 <./bi_abs.pdf> <./bi_rel.pdf>]
+
+[6] (./airyjeve_funkcije_porocilo.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `airyjeve_funkcije_porocilo.out' has not changed.
-(rerunfilecheck)             Checksum: 501111A395D464C21C1DAA411283D068;250.
+(rerunfilecheck)             Checksum: 83ABCE9371C986E9A02430E114585D45;566.
  ) 
 Here is how much of TeX's memory you used:
- 10339 strings out of 475171
- 155920 string characters out of 5767095
- 554484 words of memory out of 5000000
- 33192 multiletter control sequences out of 15000+600000
- 567047 words of font info for 68 fonts, out of 8000000 for 9000
+ 10868 strings out of 475171
+ 164076 string characters out of 5767094
+ 570829 words of memory out of 5000000
+ 33710 multiletter control sequences out of 15000+600000
+ 567354 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,12n,79p,563b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,80p,563b,441s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsl10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on airyjeve_funkcije_porocilo.pdf (4 pages, 168922 bytes).
+Output written on airyjeve_funkcije_porocilo.pdf (6 pages, 298643 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 500000)
- 25 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 316 PDF objects out of 1000 (max. 8388607)
+ 124 compressed objects within 2 object streams
+ 14 named destinations out of 1000 (max. 500000)
+ 69 words of extra memory for PDF output out of 10000 (max. 10000000)
 

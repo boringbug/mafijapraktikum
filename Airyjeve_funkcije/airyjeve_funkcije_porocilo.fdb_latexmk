@@ -1,12 +1,11 @@
 # Fdb version 4
-["makeindex airyjeve_funkcije_porocilo.idx"] 1760544352.05981 "airyjeve_funkcije_porocilo.idx" "airyjeve_funkcije_porocilo.ind" "airyjeve_funkcije_porocilo" 1760547906.95184 0
-  "airyjeve_funkcije_porocilo.idx" 1760547906.75031 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+["makeindex airyjeve_funkcije_porocilo.idx"] 1760549695.8656 "airyjeve_funkcije_porocilo.idx" "airyjeve_funkcije_porocilo.ind" "airyjeve_funkcije_porocilo" 1760568366.10475 0
+  "airyjeve_funkcije_porocilo.idx" 1760568365.91315 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   (generated)
   "airyjeve_funkcije_porocilo.ilg"
   "airyjeve_funkcije_porocilo.ind"
   (rewritten before read)
-["pdflatex"] 1760547906.67168 "airyjeve_funkcije_porocilo.tex" "airyjeve_funkcije_porocilo.pdf" "airyjeve_funkcije_porocilo" 1760547906.95193 0
-  "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1755987285 3524 cb3e574dea2d1052e39280babc910dc8 ""
+["pdflatex"] 1760568365.85663 "airyjeve_funkcije_porocilo.tex" "airyjeve_funkcije_porocilo.pdf" "airyjeve_funkcije_porocilo" 1760568366.10486 0
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1755987285 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1755987285 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1755987285 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -52,6 +51,7 @@
   "/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty" 1755987285 8371 9d55b8bd010bc717624922fb3477d92e ""
   "/usr/share/texmf-dist/tex/generic/iftex/ifluatex.sty" 1755987285 492 1994775aa15b0d1289725a0b1bbc2d4c ""
   "/usr/share/texmf-dist/tex/generic/iftex/iftex.sty" 1755987285 7984 7dbb9280f03c0a315425f1b4f35d43ee ""
+  "/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty" 1755987285 1057 525c2192b5febbd8c1f662c9468335bb ""
   "/usr/share/texmf-dist/tex/generic/iftex/ifxetex.sty" 1755987285 488 4565444a3e75e59cb2702dc42e18f482 ""
   "/usr/share/texmf-dist/tex/generic/infwarerr/infwarerr.sty" 1755987285 8356 7bbb2c2373aa810be568c29e333da8ed ""
   "/usr/share/texmf-dist/tex/generic/intcalc/intcalc.sty" 1755987285 31769 002a487f55041f8e805cfbf6385ffd97 ""
@@ -81,6 +81,7 @@
   "/usr/share/texmf-dist/tex/latex/base/size10.clo" 1755987285 8448 5cf247d4bd0c7d5d711bbbdf111fae2e ""
   "/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1755987285 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1755987285 46850 d87daedc2abdc653769a6f1067849fe0 ""
+  "/usr/share/texmf-dist/tex/latex/geometry/geometry.sty" 1755987285 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "/usr/share/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1755987285 1224 978390e9c2234eab29404bc21b268d1e ""
   "/usr/share/texmf-dist/tex/latex/graphics-def/pdftex.def" 1755987285 19440 9da9dcbb27470349a580fca7372d454b ""
   "/usr/share/texmf-dist/tex/latex/graphics/graphics.sty" 1755987285 18363 dee506cb8d56825d8a4d020f5d5f8704 ""
@@ -104,13 +105,17 @@
   "/usr/share/texmf-dist/tex/latex/url/url.sty" 1755987285 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texmf-dist/tex/latex/xkeyval/xkeyval.sty" 1755987285 4937 4ce600ce9bd4ec84d0250eb6892fcf4f ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1755987285 42087 b0f9697c952c8f5a8eede4134282cb0d ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1756653249 5311557 9da84c45f5b388655502706482323571 ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1756653189 2008250 799fb065cdffbab33d83636699bc4da3 ""
-  "airyjeve_funkcije_porocilo.aux" 1760547906.91598 477 32bac570e58015e9cacc0a63eedf83c3 "pdflatex"
-  "airyjeve_funkcije_porocilo.ind" 1760544352.09593 0 d41d8cd98f00b204e9800998ecf8427e "makeindex airyjeve_funkcije_porocilo.idx"
-  "airyjeve_funkcije_porocilo.out" 1760547906.91699 250 501111a395d464c21c1daa411283d068 "pdflatex"
-  "airyjeve_funkcije_porocilo.tex" 1760547904.85599 6664 3ad6677f51003184eb5237a220d2cc95 ""
-  "airyjeve_funkcije_porocilo.toc" 1760547906.91699 192 1aa42dc51904c158a66eb7ebd3ec25ed "pdflatex"
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1760539938 325717 59a65e600f662ceace641c3ea8b5d4af ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1760539938 2008252 3987d31f926d32a6cfa8c70a9df1e17f ""
+  "ai_abs.pdf" 1760564970.1102 32873 3fd8620c2615fee278821cc900bdcc93 ""
+  "ai_rel.pdf" 1760564994.6042 31380 29dfc6e67ee1d6446e0f0bdd1a007698 ""
+  "airyjeve_funkcije_porocilo.aux" 1760568366.06715 819 f15b392c022ad9cb9186e8909be04f96 "pdflatex"
+  "airyjeve_funkcije_porocilo.ind" 1760549695.87244 0 d41d8cd98f00b204e9800998ecf8427e "makeindex airyjeve_funkcije_porocilo.idx"
+  "airyjeve_funkcije_porocilo.out" 1760568366.06805 566 83abce9371c986e9a02430e114585d45 "pdflatex"
+  "airyjeve_funkcije_porocilo.tex" 1760568365.32715 8472 b9abf3ad897ee322f25cf63c3cb39122 ""
+  "airyjeve_funkcije_porocilo.toc" 1760568366.06805 411 a38712df3e2a248bb1f5374e41217170 "pdflatex"
+  "bi_abs.pdf" 1760564989.7792 35856 d83c620fd049627cd244cafdf0779054 ""
+  "bi_rel.pdf" 1760564998.5382 35898 77bb5458bb18894882075166a023d8cc ""
   (generated)
   "airyjeve_funkcije_porocilo.aux"
   "airyjeve_funkcije_porocilo.idx"
