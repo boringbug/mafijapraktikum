@@ -158,4 +158,25 @@ ali je tudi pri le-tej dosegljiva natančnost, manjša od $10^{-10}$.
 Pri oceni napak si po\-ma\-gaj s programi, ki znajo računati s poljubno
 natančnostjo, na primer z {\sc Mathematico} in/ali paketi {\sc mpmath} in {\sc decimal} v programskem
 jeziku {\sc Python}.
+
+\section{Potek dela}
+Za rešitev te naloge sem uporbil programski jezik Python. 
+Ideja mojega reševanja je bila naslednja. Najprej sem vpleljal vse funckije, 
+v moj program kar po definiciji, 
+da bom imel za nadalnje korake neko referenco. Računanje sem optimiziral,
+tako da sem vse vrste prevedel v rekurzivni zapis, s pomočjo katerega sem
+znižal število operacij. Za rekurzivni zapis sem moral poenostaviti
+ulomek oblike $\frac{a_{n+1}}{a_n}$ za vse aprokcimacijske funkcije 
+$f, g, L, P, Q$, kjer so $a_n$ koeficienti pred vsakim členom v dani vrsti.
+Ko sem imel vse funkcije zapisane rekurzivno, sem začel računati 
+in si izrisovati absolutne in relativne napake med referenčno funkcijo in 
+aproksimirano funkcijo. Na tej točki sem dodal pogoj, da se moje seštevanje
+členov konča, ko dosežem želeno toleranco, ki sem jo nastavil na $10^{-11}$.
+
+\section{Izpolšave}
+Poleg tega, da bi moral popravit funkcijo $\Bi$, je da bi lahko znižal 
+natančnost mest in bi s tem še pohitril program. Poleg tega, bi lahko pogledal
+kakšno odstopanje ima sami referenčni funkciji glede na ta pravi $\Ai, \Bi$.
+
+
 \end{document}
