@@ -6,6 +6,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}         % Required for theorem environments
 \usepackage{graphicx}
+\usepackage[margin=1.5cm]{geometry}
 
 \newcommand{\Ai}{\mathrm{Ai}}
 \newcommand{\Bi}{\mathrm{Bi}}
@@ -62,7 +63,7 @@
 % Then set up numbering
 \numberwithin{definition}{section}
 \numberwithin{theorem}{section} \title{Izračun Ariyjevih funkcij}
-\author{Filip Jesenšek}
+\author{Filip Jesenšek (28231064)}
 \date{Oktober 15, 2025}
 
 
@@ -170,13 +171,60 @@ ulomek oblike $\frac{a_{n+1}}{a_n}$ za vse aprokcimacijske funkcije
 $f, g, L, P, Q$, kjer so $a_n$ koeficienti pred vsakim členom v dani vrsti.
 Ko sem imel vse funkcije zapisane rekurzivno, sem začel računati 
 in si izrisovati absolutne in relativne napake med referenčno funkcijo in 
-aproksimirano funkcijo. Na tej točki sem dodal pogoj, da se moje seštevanje
-členov konča, ko dosežem želeno toleranco, ki sem jo nastavil na $10^{-11}$.
+aproksimirano funkcijo. 
 
+\newpage
+
+\subsection{Funkcija Ai}
+Funkcija $\Ai$ se je iskazala, kot bolj pohlevna v primerjavi z $\Bi$. Zanimivo je obnašanje v obeh ekstremih.
+Ko gremo proti $-\infty$ izgleda, kot da sta absolutna in relativna napaka konstantni glede na $x$. Proti
+$+\infty$ se pa absolutna napaka ustrajno niža, med tem ko relativna napaka ostaja konstantna.
+
+\begin{figure}[hb]
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{ai_abs.pdf}
+	\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{ai_rel.pdf}
+	\end{center}
+\end{figure}
+
+\newpage
+
+\subsection{Funkcija Bi}
+Iz grafa za absolutno napako je razvidno, da njegova vrednost divergira, kar je ravno nasprotno od funkcije $\Ai$.
+Nasprotno vedenje lahko pričakujemo, saj se sami funkciji obnašata čisto drugače v pozitivnih eksremih, 
+ena se ustali in konvergira proti $0$, med tem ko druga ekplodira v $\infty$. Ampak ko pogledamo relativno napako,
+vidimo da se ne spreminja in je konstantno pod vrednostjo $10^{-10}$, kar je praktično identično vedenje, kot pri 
+funkcij $\Ai$.
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{bi_abs.pdf}
+	\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+		\includegraphics[width=0.7\textwidth]{bi_rel.pdf}
+	\end{center}
+\end{figure}
+
+\newpage
 \section{Izpolšave}
-Poleg tega, da bi moral popravit funkcijo $\Bi$, je da bi lahko znižal 
-natančnost mest in bi s tem še pohitril program. Poleg tega, bi lahko pogledal
-kakšno odstopanje ima sami referenčni funkciji glede na ta pravi $\Ai, \Bi$.
+Mogoče najbolj trivialna izpolšava, bi bila znižanje 
+natančnost mest, saj bi s tem pohitril računanje. Poleg tega, bi lahko pogledal
+kakšno odstopanje ima sami referenčni funkciji glede na ta pravi $\Ai, \Bi$. Lahko bi tudi dodal logiko, ki bi 
+mi omejila, do katerega člena bi računal svojo vrsto, s tem bi si prihranil čas, ki bi ga drugač uporabil za
+prazno računanje. Naletel sem tudi na težavo, da so zelo velike številke v pythonu interperirane kot neskončno.
+Ta problem bi se dalo rešiti, če bi računal svoje vrednosti pod logaritmom.
+
+\section{Zakluček}
+Opazil sem, da pri relativnem odsopanju je preprosto priti do vrednosti pod $10^{-10}$, pri funkciji $\Ai$ in $\Bi$.
+Absolutna napaka, se pa obnaša dosti drugače, pri $\Ai$ se spušča in pri $\Bi$ raste čez vse meje.
 
 
 \end{document}
