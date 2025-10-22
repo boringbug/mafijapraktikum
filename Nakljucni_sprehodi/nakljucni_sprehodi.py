@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-from numpy import array, sin, cos, pi, random, sqrt, log
+from numpy import array, save, sin, cos, pi, random, sqrt, log
 import matplotlib.pyplot as plt
 
 def power_law_random(mu, size=1):
@@ -116,9 +116,10 @@ def analyze_diffusion(mu_values, num_walks=1000, steps=1000):
     
     plt.xlabel('Time (steps)')
     plt.ylabel('Variance')
-    plt.title('Anomalous Diffusion: Variance Growth')
+    plt.title('Variance Growth')
     plt.legend()
     plt.grid(True, alpha=0.3)
+    plt.savefig("variance_growth.pdf", dpi=1200)
     plt.show()
 
 # Plot some example walks
@@ -142,6 +143,7 @@ def plot_example_walks():
         axes[i].grid(True, alpha=0.3)
     
     plt.tight_layout()
+    plt.savefig("levy_walk.pdf", dpi=1200)
     plt.show()
 
 # Run the analysis
@@ -152,5 +154,5 @@ if __name__ == "__main__":
     
     # 2. Analyze diffusion for different μ values
     print("\nAnalyzing diffusion exponents...")
-    mu_values = [1.5, 2.0, 2.5, 2.8]
+    mu_values = [1.5, 2.0, 2.5, 3.2]
     analyze_diffusion(mu_values, num_walks=500, steps=1000)
