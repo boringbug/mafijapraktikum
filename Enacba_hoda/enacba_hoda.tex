@@ -1,0 +1,211 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{geometry}
+
+\geometry{a4paper, margin=2.5cm}
+
+\title{Enačbe hoda}
+\author{Filip Jesenšek (28231064)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+V tem poročilu preučujemo numerične metode za reševanje navadnih diferencialnih enačb, 
+posebej enačbe hoda za model ohlajanja. Preučujemo osnovno enačbo ohlajanja 
+$\frac{dT}{dt} = -k(T - T_{\mathrm{zun}})$ in njeno razširitev s periodičnim segrevanjem. 
+Primerjamo različne numerične metode: Eulerjevo metodo, Midpoint metodo, Heunovo metodo 
+in Runge-Kutta metodo 4. reda. Analiziramo njihovo natančnost, stabilnost in učinkovitost 
+za različne vrednosti parametrov.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+\section{Uvod}
+
+\subsection{Teoretično ozadje}
+Enačbe hoda opisujejo razvoj fizikalnih sistemov v času in so temeljni orodje v fizikalnem modeliranju. 
+Osnovna enačba ohlajanja je podana z:
+
+\[
+\frac{dT}{dt} = -k(T - T_{\mathrm{zun}})
+\]
+
+z analitično rešitvijo:
+\[
+T(t) = T_{\mathrm{zun}} + e^{-kt}(T(0) - T_{\mathrm{zun}})
+\]
+
+Razširjena enačba s periodičnim segrevanjem:
+\[
+\frac{dT}{dt} = -k(T - T_{\mathrm{zun}}) + A\sin\left(\frac{2\pi}{24}(t-\delta)\right)
+\]
+
+\subsection{Numerične metode}
+Preučujemo naslednje numerične metode:
+
+\begin{itemize}
+    \item \textbf{Eulerjeva metoda} (1. red): $y_{n+1} = y_n + h f(x_n, y_n)$
+    \item \textbf{Midpoint metoda} (2. red): $y_{n+1} = y_n + h f(x_n + \frac{h}{2}, y_n + \frac{h}{2} f(x_n, y_n))$
+    \item \textbf{Heunova metoda} (2. red): Prediktor-korektor shema
+    \item \textbf{Runge-Kutta 4. red}: $y_{n+1} = y_n + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)$
+\end{itemize}
+
+\section{Metode}
+
+\subsection{Implementacija metod}
+
+Za reševanje enačb smo implementirali vse štiri metode v programskem jeziku Python. 
+Uporabili smo naslednje parametre:
+\begin{itemize}
+    \item Začetni temperaturi: $T(0) = 21^\circ$C in $T(0) = -15^\circ$C
+    \item Zunanja temperatura: $T_{\mathrm{zun}} = -5^\circ$C
+    \item Parameter ohlajanja: $k = 0.1$
+    \item Časovni razpon: $t \in [0, 50]$ ur
+\end{itemize}
+
+\subsection{Analiza napak}
+
+Za vsako metodo smo analizirali:
+\begin{itemize}
+    \item Absolutno napako: $|T_{\mathrm{numeric}} - T_{\mathrm{analitic}}|$
+    \item Relativno napako: $\frac{|T_{\mathrm{numeric}} - T_{\mathrm{analitic}}|}{|T_{\mathrm{analitic}}|}$
+    \item Odvisnost napake od velikosti koraka $h$
+    \item Konvergenco z zmanjševanjem koraka
+\end{itemize}
+
+\newpage
+
+\section{Rezultati}
+
+\subsection{Primerjava metod za osnovno enačbo}
+
+\begin{figure}[hb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/01_basic_cooling_comparison.pdf}
+    \caption{Primerjava numeričnih metod za osnovno enačbo ohlajanja: (a) za $T(0)=21^\circ$C, (b) za $T(0)=-15^\circ$C, (c) odvisnost napake od velikosti koraka, (d) vpliv parametra $k$ na ohlajanje}
+    \label{fig:basic_comparison}
+\end{figure}
+
+Na sliki \ref{fig:basic_comparison} vidimo, da vse metode sledijo analitični rešitvi. 
+Runge-Kutta metoda 4. reda kaže najboljšo natančnost tudi pri večjih korakih.
+
+\newpage
+
+\subsection{Odvisnost od velikosti koraka}
+
+\begin{figure}[hb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diffeq_plots/02_step_size_dependence.pdf}
+    \caption{Odvisnost napake od velikosti koraka za različne metode. Runge-Kutta 4. red kaže najhitrejšo konvergenco.}
+    \label{fig:step_size}
+\end{figure}
+
+Iz slike \ref{fig:step_size} je razvidno, da se napaka zmanjšuje s potenco, ki ustreza redu metode:
+\begin{itemize}
+    \item Euler: $\mathcal{O}(h)$
+    \item Midpoint/Heun: $\mathcal{O}(h^2)$  
+    \item RK4: $\mathcal{O}(h^4)$
+\end{itemize}
+
+\newpage
+
+\subsection{Periodično segrevanje}
+
+\begin{figure}[hb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/03_periodic_heating.pdf}
+    \caption{Rešitev enačbe s periodičnim segrevanjem: (a) primerjava metod za $A=1$, (b) vpliv amplitude $A$, (c) določanje maksimalnih temperatur, (d) ustaljeno stanje}
+    \label{fig:periodic}
+\end{figure}
+
+Za enačbo s periodičnim segrevanjem ($A=1$, $\delta=10$) opazimo karakteristično nihanje temperature. 
+Maksimalne temperature se pojavljajo s periodo 24 ur, kar ustreza dnevnemu ciklu.
+
+\newpage
+
+\subsection{Analiza maksimalnih temperatur}
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{ccc}
+        \toprule
+        Število maksimumov & Povprečna maksimalna temperatura & Perioda [h] \\
+        \midrule
+        4 & 18.23$^\circ$C & 24.02 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Analiza maksimalnih temperatur za $A=1$, $\delta=10$}
+    \label{tab:max_temp}
+\end{table}
+
+Za natančno določanje maksimalnih temperatur se je izkazala za najboljšo Runge-Kutta metoda 4. reda 
+z majhnim korakom ($h = 0.1$ ure).
+
+\subsection{Študij parametrov}
+
+\begin{figure}[hb]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/04_parameter_study.pdf}
+    \caption{Vpliv parametrov: (a) različne amplitude $A$, (b) različni fazni zamiki $\delta$, (c) različni $k$, (d) razpon temperature v odvisnosti od parametrov}
+    \label{fig:parameters}
+\end{figure}
+
+\newpage
+
+\section{Analiza}
+
+\subsection{Izbira metode in koraka}
+
+Za večino aplikacij se je Runge-Kutta metoda 4. reda izkazala za najboljšo izbiro:
+\begin{itemize}
+    \item Zadostna natančnost že pri sorazmerno velikih korakih
+    \item Stabilna tudi za daljše časovne intervale
+    \item Učinkovita v računskem smislu
+\end{itemize}
+
+Pri zahtevah za visoko natančnost ($<10^{-6}$) je priporočljiv korak $h = 0.1$ ure.
+
+\subsection{Periodično segrevanje}
+
+Za analizo periodičnega segrevanja je pomembno:
+\begin{itemize}
+    \item Izbrati dovolj majhen korak za zajem hitrih sprememb
+    \item Simulirati dovolj dolg čas za dosego stacionarnega stanja
+    \item Uporabiti metodo, ki ohranja amplitudo nihanj
+\end{itemize}
+
+\subsection{Numerična stabilnost}
+
+Eulerjeva metoda je pokazala največjo občutljivost na velikost koraka. 
+Pri $h > 2$ je postala nestabilna, medtem ko so metode višjih redov ostale stabilne tudi pri večjih korakih.
+
+\newpage
+
+\section{Zaključek}
+
+Preučili smo različne numerične metode za reševanje enačb hoda in dosegli naslednje ugotovitve:
+
+\begin{itemize}
+    \item \textbf{Runge-Kutta 4. red} je najboljša izbira za večino aplikacij, ker združuje dobro natančnost in stabilnost z razmeroma velikimi koraki.
+    \item Za osnovno enačbo ohlajanja je zadosten korak $h = 0.5$ ure za natančnost $10^{-4}$.
+    \item Pri periodičnem segrevanju je potreben manjši korak ($h = 0.1$ ure) za natančno zajemanje maksimumov.
+    \item Vse metode so sposobne doseči absolutno napako pod $10^{-10}$ z dovolj majhnim korakom.
+    \item Relativna napaka je bolj zahteven kriterij, vendar je tudi ta dosegljiv z ustreznimi metodami.
+\end{itemize}
+
+Numerične metode za reševanje diferencialnih enačb so močno orodje za modeliranje fizikalnih procesov. 
+Pravilna izbira metode in koraka je ključna za doseganje želene natančnosti in učinkovitosti.
+
+\end{document}
