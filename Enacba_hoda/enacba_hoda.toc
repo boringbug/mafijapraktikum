@@ -1,17 +1,16 @@
 \contentsline {section}{\numberline {1}Uvod}{2}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Teoretično ozadje}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Numerične metode}{2}{subsection.1.2}%
-\contentsline {section}{\numberline {2}Metode}{2}{section.2}%
+\contentsline {section}{\numberline {2}Metodologija}{2}{section.2}%
 \contentsline {subsection}{\numberline {2.1}Implementacija metod}{2}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Analiza napak}{2}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Rezultati}{3}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Primerjava metod za osnovno enačbo}{3}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Odvisnost od velikosti koraka}{4}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Periodično segrevanje}{5}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Analiza maksimalnih temperatur}{6}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Študij parametrov}{6}{subsection.3.5}%
-\contentsline {section}{\numberline {4}Diskusija}{7}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Izbira metode in koraka}{7}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Periodično segrevanje}{7}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Numerična stabilnost}{7}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Zaključek}{8}{section.5}%
+\contentsline {subsection}{\numberline {3.2}Analiza konvergence}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Periodično segrevanje}{4}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Vpliv parametrov}{4}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Računska učinkovitost}{4}{subsection.3.5}%
+\contentsline {section}{\numberline {4}Razprava}{7}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Izbira metode}{7}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Vpliv koraka}{7}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Zaključek}{7}{section.5}%
