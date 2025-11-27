@@ -1,8 +1,8 @@
 \contentsline {section}{\numberline {1}Uvod}{2}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Teoretično ozadje}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Numerične metode}{2}{subsection.1.2}%
-\contentsline {section}{\numberline {2}Metodologija}{2}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Implementacija metod}{2}{subsection.2.1}%
+\contentsline {section}{\numberline {2}Metodologija}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Implementacija metod}{3}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Analiza napak}{3}{subsection.2.2}%
 \contentsline {section}{\numberline {3}Rezultati}{4}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Primerjava metod za osnovno enačbo}{4}{subsection.3.1}%

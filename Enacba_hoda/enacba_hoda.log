@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.11.14)  27 NOV 2025 08:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2026/dev/Arch Linux) (preloaded format=pdflatex 2025.11.14)  27 NOV 2025 08:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -453,12 +453,12 @@ Overfull \hbox (0.5543pt too wide) in paragraph at lines 76--87
 <diffeq_plots/01_basic_cooling_comparison.pdf, id=113, 1071.78358pt x 855.25148pt>
 File: diffeq_plots/01_basic_cooling_comparison.pdf Graphic file (type pdf)
 <use diffeq_plots/01_basic_cooling_comparison.pdf>
-Package pdftex.def Info: diffeq_plots/01_basic_cooling_comparison.pdf  used on input line 133.
+Package pdftex.def Info: diffeq_plots/01_basic_cooling_comparison.pdf  used on input line 135.
 (pdftex.def)             Requested size: 460.93153pt x 367.81622pt.
 <diffeq_plots/02_step_size_dependence.pdf, id=115, 1072.15019pt x 419.86873pt>
 File: diffeq_plots/02_step_size_dependence.pdf Graphic file (type pdf)
 <use diffeq_plots/02_step_size_dependence.pdf>
-Package pdftex.def Info: diffeq_plots/02_step_size_dependence.pdf  used on input line 156.
+Package pdftex.def Info: diffeq_plots/02_step_size_dependence.pdf  used on input line 158.
 (pdftex.def)             Requested size: 460.93153pt x 180.508pt.
 
 
@@ -466,12 +466,12 @@ Package pdftex.def Info: diffeq_plots/02_step_size_dependence.pdf  used on input
 <diffeq_plots/03_periodic_heating.pdf, id=179, 1071.8331pt x 855.27403pt>
 File: diffeq_plots/03_periodic_heating.pdf Graphic file (type pdf)
 <use diffeq_plots/03_periodic_heating.pdf>
-Package pdftex.def Info: diffeq_plots/03_periodic_heating.pdf  used on input line 195.
+Package pdftex.def Info: diffeq_plots/03_periodic_heating.pdf  used on input line 197.
 (pdftex.def)             Requested size: 460.93153pt x 367.79982pt.
 <diffeq_plots/04_parameter_study.pdf, id=181, 1071.8331pt x 710.97057pt>
 File: diffeq_plots/04_parameter_study.pdf Graphic file (type pdf)
 <use diffeq_plots/04_parameter_study.pdf>
-Package pdftex.def Info: diffeq_plots/04_parameter_study.pdf  used on input line 218.
+Package pdftex.def Info: diffeq_plots/04_parameter_study.pdf  used on input line 220.
 (pdftex.def)             Requested size: 460.93153pt x 305.74393pt.
 
 
@@ -481,7 +481,7 @@ Package pdftex.def Info: diffeq_plots/04_parameter_study.pdf  used on input line
 <diffeq_plots/06_computational_efficiency.pdf, id=373, 1071.8951pt x 420.03877pt>
 File: diffeq_plots/06_computational_efficiency.pdf Graphic file (type pdf)
 <use diffeq_plots/06_computational_efficiency.pdf>
-Package pdftex.def Info: diffeq_plots/06_computational_efficiency.pdf  used on input line 239.
+Package pdftex.def Info: diffeq_plots/06_computational_efficiency.pdf  used on input line 241.
 (pdftex.def)             Requested size: 460.93153pt x 180.62596pt.
 
 
@@ -504,7 +504,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  75i,10n,79p,314b,1031s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on enacba_hoda.pdf (8 pages, 289390 bytes).
+Output written on enacba_hoda.pdf (8 pages, 289515 bytes).
 PDF statistics:
  492 PDF objects out of 1000 (max. 8388607)
  194 compressed objects within 2 object streams
