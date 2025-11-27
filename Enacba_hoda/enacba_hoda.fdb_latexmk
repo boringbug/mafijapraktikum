@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1764149564.27446 "enacba_hoda.tex" "enacba_hoda.pdf" "enacba_hoda" 1764149564.68747 0
+["pdflatex"] 1764228698.74615 "enacba_hoda.tex" "enacba_hoda.pdf" "enacba_hoda" 1764228699.12879 0
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1755987285 1004 54797486969f23fa377b128694d548df ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1755987285 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
   "/usr/share/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1755987285 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -102,10 +102,10 @@
   "diffeq_plots/03_periodic_heating.pdf" 1764147954.91085 43679 2058a4c1985c527826835af5c2e09b8e ""
   "diffeq_plots/04_parameter_study.pdf" 1764147958.17285 39959 39af505dce30727dc0dfc10d9623f216 ""
   "diffeq_plots/06_computational_efficiency.pdf" 1764147971.70785 22114 0e48128866d7a2fe582b0af3589d2faa ""
-  "enacba_hoda.aux" 1764149564.64883 4761 cf9cba7d1788aceef10fb892c32712bc "pdflatex"
-  "enacba_hoda.out" 1764149564.65031 2132 5c6ccd369e2e7f7da1f4b97124df993d "pdflatex"
-  "enacba_hoda.tex" 1764149563.31483 14389 01bf4a4796b2f5428a7f9cd74bacc757 ""
-  "enacba_hoda.toc" 1764149564.65031 1257 38988ecc93bb47c50c750fccf9c13b94 "pdflatex"
+  "enacba_hoda.aux" 1764228699.0936 4761 8df4a8d6300cacb6ad6251891be4efa9 "pdflatex"
+  "enacba_hoda.out" 1764228699.09528 2132 5c6ccd369e2e7f7da1f4b97124df993d "pdflatex"
+  "enacba_hoda.tex" 1764228694.9736 14389 2fa63990a5251de6745da866b7529c22 ""
+  "enacba_hoda.toc" 1764228699.09528 1257 e21301a7ecb098b7961384d47875575a "pdflatex"
   (generated)
   "enacba_hoda.aux"
   "enacba_hoda.log"
