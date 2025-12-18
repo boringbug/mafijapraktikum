@@ -1,0 +1,320 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{geometry}
+
+\geometry{a4paper, margin=1.5cm}
+
+\title{Enačbe hoda}
+\author{Filip Jesenšek (28231064)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+V tem poročilu podrobno analiziramo numerične metode za reševanje navadnih diferencialnih enačb 
+s poudarkom na enačbah hoda za fizikalne modele ohlajanja. 
+Preučujemo osnovno enačbo ohlajanja in njeno razširitev s periodičnim segrevanjem. 
+Sistematično primerjamo Eulerjevo metodo, Midpoint metodo, Heunovo metodo in Runge-Kutta metodo 
+4. reda. 
+Analiziramo njihovo natančnost, stabilnost, konvergenco in računsko učinkovitost za 
+različne vrednosti parametrov. 
+Rezultati kažejo, da Runge-Kutta metoda 4. reda doseže najboljšo natančnost, 
+medtem ko Eulerjeva metoda predstavlja najboljšo izbiro za hitre približke.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+\section{Uvod}
+
+Enačbe hoda predstavljajo temeljni orodje za modeliranje časovnega razvoja fizikalnih sistemov. 
+Te enačbe opisujejo, kako se stanje sistema spreminja v času glede na trenutno stanje in zunanje vplive. 
+V fizikalnem kontekstu se pogosto uporabljajo za modeliranje procesov, kot so ohlajanje teles, 
+rast populacij, kemijske reakcije in številni drugi dinamični sistemi.
+
+\subsection{Teoretično ozadje}
+
+Osnovna enačba ohlajanja, ki jo obravnavamo v tem delu, je podana z diferencialno enačbo prvega reda:
+
+\begin{equation}
+\frac{dT}{dt} = -k(T - T_{\mathrm{zun}})
+\end{equation}
+
+kjer $T$ predstavlja temperaturo sistema, $T_{\mathrm{zun}}$ zunanjo temperaturo okolice, 
+$k$ pa parameter ohlajanja, ki določa hitrost prenosa toplote. 
+Ta enačba ima analitično rešitev oblike:
+
+\begin{equation}
+T(t) = T_{\mathrm{zun}} + e^{-kt}(T(0) - T_{\mathrm{zun}})
+\end{equation}
+
+ki omogoča direktno primerjavo z numeričnimi metodami.
+V nadaljevanju razširimo osnovni model z upoštevanjem periodičnega segrevanja, 
+kar bolj ustreza realnim pogojem, kjer se temperatura okolice spreminja s časom. 
+Razširjena enačba ima obliko:
+
+\begin{equation}
+\frac{dT}{dt} = -k(T - T_{\mathrm{zun}}) + A\sin\left(\frac{2\pi}{24}(t-\delta)\right)
+\end{equation}
+
+kjer $A$ predstavlja amplitudo segrevanja in $\delta$ fazni zamik. 
+Ta model simulira dnevna nihanja temperature, kar je še posebej relevantno za aplikacije 
+v klimatologiji in energetski učinkovitosti stavb.
+
+\subsection{Numerične metode}
+
+V študiji sistematično primerjamo naslednje numerične metode za reševanje diferencialnih enačb:
+Eulerjeva metoda predstavlja najenostavnejši pristop s konvergenco prvega reda. 
+Kljub nizki natančnosti je široko uporabljena zaradi enostavne implementacije 
+in nizke računske zahtevnosti.
+Midpoint metoda in Heunova metoda sta metodi drugega reda, ki izboljšata natančnost 
+z uporabo dodatnih izračunov. 
+Medtem ko Midpoint metoda uporablja vmesno točko za oceno naklona, 
+Heunova metoda kombinira Eulerjevo napoved s popravkom.
+Runge-Kutta metoda 4. reda predstavlja zlati standard za večino aplikacij, 
+saj doseže visoko natančnost s konvergenco četrtega reda, 
+ob ohranjanju razmeroma nizke računske zahtevnosti v primerjavi z višjimi redovi.
+
+\newpage
+
+\section{Metodologija}
+
+\subsection{Implementacija metod}
+
+Za reševanje enačb smo implementirali vse štiri metode v programskem jeziku Python 
+z uporabo knjižnic NumPy za numerične izračune in Matplotlib za vizualizacijo rezultatov. 
+Uporabili smo naslednje parametre, ki so reprezentativni za realne scenarije ohlajanja:
+Začetni temperaturi $T(0) = 21^\circ$C in $T(0) = -15^\circ$C 
+pokrivata tipične scenarije segretega in ohlajenega začetnega stanja. 
+Zunanja temperatura $T_{\mathrm{zun}} = -5^\circ$C ustreza zimskim razmeram, 
+parameter ohlajanja $k = 0.1$ pa zagotavlja realistično hitrost ohlajanja. 
+Časovni razpon $t \in [0, 50]$ ur omogoča opazovanje tako kratkoročnega odziva 
+kot dolgoročnega ravnotežnega stanja.
+
+\subsection{Analiza napak}
+
+Za vsako metodo smo sistematično analizirali različne vidike napak in učinkovitosti. 
+Absolutna napaka je definirana kot razlika med numerično in analitično rešitvijo, 
+medtem ko relativna napaka predstavlja to razliko glede na velikost analitične rešitve. 
+Odvisnost napake od velikosti koraka je ključnega pomena za razumevanje konvergence metod, 
+saj nam omogoča določiti optimalno razmerje med natančnostjo in računsko zahtevnostjo.
+Konvergenca numeričnih metod je analizirana s preučevanjem hitrosti, 
+s katero se napaka zmanjšuje z zmanjševanjem velikosti koraka. 
+Računska učinkovitost je ovrednotena z merjenjem časa izvajanja 
+za različne velikosti korakov in število iteracij.
+
+\newpage
+
+\section{Rezultati}
+
+\subsection{Primerjava metod za osnovno enačbo}
+
+Na sliki \ref{fig:basic_comparison} lahko opazimo, kako različne numerične metode 
+sledijo analitični rešitvi osnovne enačbe ohlajanja. 
+Vse metode kvalitatívno pravilno reproducirajo eksponentno upadanje temperature 
+proti zunanji temperaturi, vendar se razlikujejo v kvantitativni natančnosti.
+Eulerjeva metoda kaže največje odstopanje od analitične rešitve, 
+kar je pričakovano glede na njen nizki konvergenčni red. 
+Midpoint in Heunova metoda izboljšata natančnost, 
+vendar še vedno opazimo manjša odstopanja pri večjih korakih. 
+Runge-Kutta metoda 4. reda doseže izjemno natančnost tudi pri razmeroma velikih korakih, 
+kar potrjuje njeno superiornost za aplikacije, ki zahtevajo visoko natančnost.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/01_basic_cooling_comparison.pdf}
+    \caption{Primerjava numeričnih metod za osnovno enačbo ohlajanja. 
+             Vse metode sledijo analitični rešitvi, 
+             Runge-Kutta metoda 4. reda kaže najboljšo natančnost.}
+    \label{fig:basic_comparison}
+\end{figure}
+
+\subsection{Analiza konvergence}
+
+Analiza konvergence, prikazana na sliki \ref{fig:convergence_analysis}, 
+razkriva temeljne lastnosti posameznih numeričnih metod. 
+Zapis v logaritemski skali omogoča jasno razlikovanje konvergenčnih redov posameznih metod.
+Eulerjeva metoda kaže linearno konvergenco, kar ustreza teoretičnemu redu $\mathcal{O}(h)$. 
+Midpoint in Heunova metoda izkazujeta kvadratično konvergenco 
+z eksperimentalnima redoma $\mathcal{O}(h^{1.85})$ oziroma $\mathcal{O}(h^{1.88})$, 
+kar se dobro ujema s teoretičnimi pričakovanji. 
+Runge-Kutta metoda 4. reda doseže najhitrejšo konvergenco 
+z eksperimentalnim redom $\mathcal{O}(h^{3.65})$, 
+kar je nekoliko nižje od teoretičnega $\mathcal{O}(h^4)$, 
+vendar še vedno znatno presega ostale metode.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/02_step_size_dependence.pdf}
+    \caption{Analiza konvergence numeričnih metod. 
+             Metode kažejo konvergenco, ki se približuje teoretičnim redom.}
+    \label{fig:convergence_analysis}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        Metoda & Teoretični red & Eksperimentalni red \\
+        \midrule
+        Euler & $\mathcal{O}(h)$ & $\mathcal{O}(h^{0.95})$ \\
+        Midpoint & $\mathcal{O}(h^2)$ & $\mathcal{O}(h^{1.85})$ \\
+        Heun & $\mathcal{O}(h^2)$ & $\mathcal{O}(h^{1.88})$ \\
+        RK4 & $\mathcal{O}(h^4)$ & $\mathcal{O}(h^{3.65})$ \\
+        \bottomrule
+    \end{tabular}
+    \caption{Primerjava teoretičnih in eksperimentalnih konvergenčnih redov}
+    \label{tab:convergence_rates}
+\end{table}
+
+\subsection{Periodično segrevanje}
+
+Za enačbo s periodičnim segrevanjem ($A=1$, $\delta=10$) 
+opazimo zanimivo dinamiko, prikazano na sliki \ref{fig:periodic_heating}. 
+Sistem sprva kaže prehodno obnašanje, kjer prevladuje vpliv začetnih pogojev, 
+nato pa se postopoma vzpostavi periodično ustaljeno stanje.
+V ustaljenem stanju sistem sledi dnevni periodi z nihanji temperature 
+okoli povprečne vrednosti. 
+Analiza kaže, da sistem doseže ustaljeno stanje po približno 3 dneh, 
+kar ustreza karakterističnemu času $1/k = 10$ ur. 
+Povprečna perioda nihanj znaša $24.0$ ur, kar potrjuje, 
+da model pravilno zajema dnevna nihanja temperature. 
+Amplituda nihanj v ustaljenem stanju je $2.1^\circ$C, 
+kar odraža ravnovesje med segrevalnim členom in ohlajanjem.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/03_periodic_heating.pdf}
+    \caption{Rešitev enačbe s periodičnim segrevanjem. 
+             Sistem doseže periodično ustaljeno stanje s karakteristično dnevno periodo.}
+    \label{fig:periodic_heating}
+\end{figure}
+
+\subsection{Vpliv parametrov}
+
+Študija vpliva parametrov, prikazana na sliki \ref{fig:parameter_study}, 
+razkriva, kako posamezni parametri vplivajo na obnašanje sistema. 
+Večja amplituda $A$ povzroči večja nihanja temperature, 
+saj poveča intenziteto periodičnega segrevanja. 
+Fazni zamik $\delta$ vpliva na časovni zamik maksimalnih temperatur, 
+kar omogoča modeliranje različnih faz glede na sončno svetlobo.
+Parameter $k$ ima ključno vlogo pri določanju hitrosti odziva sistema 
+na zunanje vplive. 
+Večji $k$ pomeni hitrejše prilagajanje temperature spremembam okolice, 
+medtem ko manjši $k$ vodi v počasnejši odziv in večjo inerčnost sistema. 
+To je še posebej pomembno pri modeliranju toplotne zmogljivosti stavb 
+in drugih sistemov z veliko toplotno maso.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/04_parameter_study.pdf}
+    \caption{Vpliv parametrov na rešitev enačbe s periodičnim segrevanjem.}
+    \label{fig:parameter_study}
+\end{figure}
+
+\subsection{Računska učinkovitost}
+
+Analiza računske učinkovitosti, prikazana na sliki \ref{fig:efficiency} 
+in tabeli \ref{tab:efficiency}, ponuja vpogled v praktične vidike uporabe 
+različnih numeričnih metod. 
+Eulerjeva metoda je najhitrejša, vendar zahteva manjše korake 
+za dosego sprejemljive natančnosti. 
+Midpoint in Heunova metoda ponujata dobro ravnovesje med hitrostjo in natančnostjo, 
+kar jih naredi primerni za številne aplikacije.
+Runge-Kutta metoda 4. reda, čeprah počasnejša od preostalih metod, 
+doseže najboljšo natančnost na enoto računskega časa pri večjih korakih. 
+To jo naredi posebej primerno za aplikacije, kjer je natančnost ključnega pomena 
+in kjer lahko uporaba večjih korakov kompenzira povečano računsko zahtevnost na korak.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{diffeq_plots/06_computational_efficiency.pdf}
+    \caption{Analiza računske učinkovitosti. 
+             Runge-Kutta metoda 4. reda doseže najboljšo ravnovesje 
+             med natančnostjo in računsko zahtevnostjo.}
+    \label{fig:efficiency}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{lcc}
+        \toprule
+        Metoda & Hitrost & Natančnost \\
+        \midrule
+        Euler & Najhitrejša & Najmanjša \\
+        Midpoint & Hitra & Dobra \\
+        Heun & Srednja & Dobra \\
+        RK4 & Počasnejša & Najboljša \\
+        \bottomrule
+    \end{tabular}
+    \caption{Primerjava računske učinkovitosti metod}
+    \label{tab:efficiency}
+\end{table}
+
+\newpage
+
+\section{Razprava}
+
+\subsection{Izbira metode}
+
+Na podlagi rezultatov lahko podamo naslednja priporočila za izbiro numerične metode 
+glede na specifične zahteve aplikacije:
+Eulerjeva metoda je primerna za hitre približke in kvalitativno analizo, 
+še posebej pri začetnem razvoju modelov, ko je hitrost pomembnejša od natančnosti. 
+Njena enostavnost omogoča tudi lažje razumevanje in debugiranje kode.
+Midpoint in Heunova metoda predstavljata odlično izbiro za aplikacije, 
+ki zahtevajo dobro natančnost ob razmeroma nizki računski zahtevnosti. 
+Te metode so še posebej primerne za sisteme z gladkimi rešitvami, 
+kjer ni potrebe po ekstremni natančnosti.
+Runge-Kutta metoda 4. reda je najboljša izbira za visoko natančnost 
+in zahtevne aplikacije, kjer je natančnost ključnega pomena. 
+Njena robustnost in zanesljivost jo naredita primerno za produkcijske sisteme 
+in znanstvene simulacije, kjer so natančni rezultati esencialni.
+
+\subsection{Vpliv koraka}
+
+Velikost koraka ima ključno vlogo pri ravnovesju med natančnostjo in računsko zahtevnostjo. 
+Za osnovno enačbo ohlajanja je korak $h = 0.5$ ure zadosten 
+za doseganje natančnosti reda $10^{-4}$ z Runge-Kutta metodo 4. reda. 
+Za periodično segrevanje pa je potreben manjši korak $h = 0.1$ ure 
+za natančno zajemanje maksimumov in dinamike nihanj.
+Pri izbiri koraka je pomembno upoštevati tudi stabilnost metode. 
+Eulerjeva metoda lahko postane nestabilna pri prevelikih korakih, 
+medtem ko so višji redovi metod bolj robustni v tem pogledu. 
+Praksa kaže, da je koristno izvesti konvergenčno analizo za vsak nov problem, 
+da se določi optimalna velikost koraka.
+
+\section{Zaključek}
+
+Preučili smo različne numerične metode za reševanje enačb hoda 
+in dosegli naslednje glavne ugotovitve:
+Runge-Kutta metoda 4. reda je najboljša izbira za večino aplikacij, 
+ki zahtevajo visoko natančnost. 
+Njena superiornost se kaže še posebej pri večjih korakih, 
+kjer ohranja izjemno natančnost ob sorazmerno nizki dodatni računski zahtevnosti.
+Vse metode so sposobne doseči absolutno napako pod $10^{-10}$ 
+z dovolj majhnim korakom, kar potrjuje univerzalnost numeričnih pristopov 
+za reševanje diferencialnih enačb. 
+Vendar se metode bistveno razlikujejo v hitrosti konvergence in računski učinkovitosti.
+Za periodične procese je potreben manjši korak za natančno zajemanje dinamike, 
+kar poudarja pomembnost prilagajanja numeričnih parametrov specifični naravi problema. 
+Izbira metode je odvisna od zahtev glede natančnosti in računske zahtevnosti, 
+pri čemer je ključno najti ravnovesje med tehničnimi zahtevami 
+in razpoložljivimi računskimi viri.
+Za nadaljnje delo bi bilo zanimivo razširiti analizo na sisteme diferencialnih enačb 
+in preučiti obnašanje metod pri problemih z več prostostnimi stopnjami. 
+Prav tako bi bilo koristno preučiti adaptivne metode, 
+ki samodejno prilagajajo velikost koraka glede na lokalno napako, 
+kar bi omogočilo še boljšo učinkovitost pri kompleksnih problemih.
+
+\end{document}
