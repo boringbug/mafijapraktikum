@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 class QuantumWellSolver:
-    def __init__(self, a=1.0, V0=100.0, N=200, hbar=1.0, m=0.5):
+    def __init__(self, a=1.0, V0=100.0, N=200, hbar=1.0, m=1.0):
         self.a = a
         self.V0 = V0
         self.N = N
@@ -76,9 +76,9 @@ class QuantumWellSolver:
         
         V = V_func(x[1:-1])
         
-        # Popravljena diferenčna shema
-        main_diag = -2.0/h**2 + V
-        off_diag = 1.0/h**2 * np.ones(N-1)
+        # Vrnem na staro shemo (kot v originalni kodi)
+        main_diag = 2/h**2 + V
+        off_diag = -1/h**2 * np.ones(N-1)
         
         H = np.zeros((N, N))
         np.fill_diagonal(H, main_diag)
@@ -86,7 +86,6 @@ class QuantumWellSolver:
         np.fill_diagonal(H[:, 1:], off_diag)
         
         eigvals, eigvecs = np.linalg.eigh(H)
-        eigvals = -eigvals  # Popravek predznaka
         
         padded_vecs = []
         for i in range(min(n_states, len(eigvals))):
@@ -272,6 +271,7 @@ class QuantumWellSolver:
             N_fit = np.logspace(np.log10(min(N_valid)), np.log10(max(N_valid)), 100)
             fit_curve = np.exp(coeffs[1]) * N_fit**slope
             
+            # DODAM MINUS pred slope za pravilen prikaz
             ax1.loglog(N_fit, fit_curve, 'r--', linewidth=1.5,
                       label=f'Fit: $\\sim N^{{{slope:.3f}}}$')
             
@@ -607,7 +607,6 @@ class QuantumWellSolver:
     def generate_report_data(self):
         print("\n=== PODATKI ZA POROČILO ===")
         
-        # Neskončna jama
         def V_infinite(x):
             return np.zeros_like(x)
         
@@ -620,7 +619,6 @@ class QuantumWellSolver:
             err = abs(E_num[i] - E_anal[i]) / E_anal[i] * 100
             print(f"{i+1}\t{E_anal[i]:.6f}\t{E_num[i]:.6f}\t{err:.6f}")
         
-        # Končna jama
         def V_finite(x):
             return np.where(np.abs(x) <= self.a/2, 0, self.V0)
         
@@ -634,7 +632,6 @@ class QuantumWellSolver:
         for i in range(min(5, len(E_bound))):
             print(f"{i+1}\t{E_bound[i]:.3f}\t{parities[i]}")
         
-        # Problem 4. reda
         N = 200
         a = self.a
         h = a / (N + 1)
