@@ -1,0 +1,288 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage{multirow}
+\usepackage{physics}
+
+\geometry{a4paper, left=15mm, right=15mm, top=25mm, bottom=25mm}
+\onehalfspacing
+
+\title{Robni problem lastnih vrednosti v kvantni mehaniki}
+\author{Filip Jesenšek (28231064)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+V tem poročilu obravnavamo numerično reševanje robnih problemov lastnih vrednosti za stacionarno Schrödingerjevo enačbo. Obravnavamo neskončno in končno potencialno jamo ter problem četrtega reda z uporabo diferenčne metode in metode streljanja. Rezultate primerjamo z analitičnimi rešitvami in podrobno analiziramo napake ter konvergenco metod. Pri vseh metodah uporabljamo enote, kjer je $\hbar = 2m = 1$.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+\section{Uvod}
+Stacionarna Schrödingerjeva enačba 
+\[
+-\frac{\hbar^2}{2m}\frac{d^2\psi}{dx^2} + V(x)\psi = E\psi
+\] 
+skupaj z ustreznimi robnimi pogoji določa dovoljene energije $E$ in ustrezne valovne funkcije $\psi(x)$. V kvantni mehaniki predstavlja ta problem klasičen primer robnega problema za lastne vrednosti.
+
+V tem delu se osredotočamo na naslednje modele:
+\begin{enumerate}
+    \item Neskončno potencialno jamo – najpreprostejši model s poznanimi analitičnimi rešitvami
+    \item Končno potencialno jamo – realističnejši model s tunelskim efektom
+    \item Problem četrtega reda – posplošitev na diferencialno enačbo višjega reda
+\end{enumerate}
+
+Za numerično reševanje uporabljamo dve glavni tehniki: \textbf{diferenčno metodo}, ki problem prevede na matrični problem lastnih vrednosti, in \textbf{metodo streljanja}, ki temelji na iterativni integraciji z ustreznimi začetnimi pogoji.
+
+\section{Teoretične osnove}
+
+\subsection{Neskončna potencialna jama}
+Za delec v neskončni potencialni jami širine $a$ z roboma pri $x = \pm a/2$ poznamo analitične rešitve:
+\begin{equation}
+E_n = \frac{n^2\pi^2\hbar^2}{2ma^2}, \quad \psi_n(x) = \sqrt{\frac{2}{a}} 
+\sin\left(\frac{n\pi (x + a/2)}{a}\right)
+\end{equation}
+Robna pogoja sta Dirichletova: $\psi(-a/2)=\psi(a/2)=0$.
+
+\subsection{Končna potencialna jama}
+Za končno jamo višine $V_0$ moramo ločeno obravnavati sode in lihe rešitve. Iz zahtev po zveznosti valovne funkcije in njenega odvoda na robu jame dobimo transcendentni enačbi:
+\begin{align}
+k \tan(ka/2) &= \kappa \quad \text{(sode rešitve)} \\
+k \cot(ka/2) &= -\kappa \quad \text{(lihe rešitve)}
+\end{align}
+kjer sta $k = \sqrt{2mE}/\hbar$ in $\kappa = \sqrt{2m(V_0 - E)}/\hbar$. Število vezanih stanj je končno in odvisno od globine jame.
+
+\subsection{Problem četrtega reda}
+Poleg standardnega problema drugega reda obravnavamo tudi problem četrtega reda:
+\begin{equation}
+\frac{d^4\psi}{dx^4} - E\psi = 0
+\end{equation}
+z robnimi pogoji $\psi(\pm a/2) = \psi''(\pm a/2) = 0$. Tudi ta problem je analitično rešljiv z lastnimi vrednostmi $E_n = (n\pi/a)^4$ in lastnimi funkcijami $\psi_n(x) = \sin(n\pi(x + a/2)/a)$ za $n = 1, 2, 3, \dots$.
+
+\subsection{Numerične metode}
+
+\subsubsection{Diferenčna metoda}
+Interval $[-a/2, a/2]$ diskretiziramo na $N$ enakomerno razporejenih točk z razmikom $h = a/(N+1)$. Drugi odvod aproksimiramo s centralno diferenco:
+\begin{equation}
+\frac{d^2\psi}{dx^2} \approx \frac{\psi_{i-1} - 2\psi_i + \psi_{i+1}}{h^2}
+\end{equation}
+kar vodi na matrični problem $H\psi = E\psi$, kjer je $H$ tridiagonalna matrika. Za problem četrtega reda uporabimo petdiagonalno matriko s shemo:
+\begin{equation}
+\frac{d^4\psi}{dx^4} \approx \frac{\psi_{i-2} - 4\psi_{i-1} + 6\psi_i - 4\psi_{i+1} + \psi_{i+2}}{h^4}
+\end{equation}
+
+\subsubsection{Strelska metoda}
+Metoda temelji na integraciji diferencialne enačbe z začetnimi pogoji v sredini jame. Za sode rešitve vzamemo $\psi(0)=1$, $\psi'(0)=0$, za lihe pa $\psi(0)=0$, $\psi'(0)=1$. Nato iščemo energije $E$, za katere velja $\psi(a/2)=0$ z uporabo sekantne metode.
+
+\section{Rezultati in analiza}
+
+\subsection{Primerjava valovnih funkcij}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{wavefunction_comparison.png}
+\caption{Primerjava analitičnih in numeričnih valovnih funkcij za prva tri stanja v neskončni potencialni jami ($a=1$, $N=200$). Vidno je odlično ujemanje med obema rešitvama.}
+\label{fig:wavefunction_comparison}
+\end{figure}
+
+Diferenčna metoda z $N=200$ točkami dosega odlično ujemanje z analitičnimi rešitvami. Vsi trije prikazani načini pravilno reproducirajo parnost in število vozlov.
+
+\subsection{Končna potencialna jama}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{finite_well_wavefunctions.png}
+\caption{Valovne funkcije v končni potencialni jami ($V_0=100$, $a=1$, $N=200$). Horizontalne črtkane črte označujejo energije stanj. Opazimo eksponentno padanje v klasično prepovedano območje.}
+\label{fig:finite_well_wavefunctions}
+\end{figure}
+
+Za končno jamo ($V_0=100$) opazimo značilno obnašanje vezanih stanj: valovne funkcije eksponentno padajo v klasično prepovedano območje. V tem primeru najdemo 4 vezana stanja pod potencialnim pragom $V_0$.
+
+\subsection{Analiza konvergence diferenčne metode}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{convergence_analysis.png}
+\caption{Analiza konvergence diferenčne metode za osnovno stanje v neskončni jami. Levo: relativna napaka. Desno: časovna zahtevnost.}
+\label{fig:convergence_analysis}
+\end{figure}
+
+Teoretično naj bi diferenčna metoda s centralno diferenčno shemo za drugi odvod konvergirala z redom $\mathcal{O}(h^2) = \mathcal{O}(N^{-2})$. V naši implementaciji izmerimo naklon $\alpha \approx -2.1$, kar dobro ustreza teoretičnim pričakovanjem.
+
+\subsection{Demonstracija strelske metode}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{shooting_method_demo.png}
+\caption{Strelska metoda: vrednost $\psi(a/2)$ v odvisnosti od energije $E$. Modra krivulja ustreza sodim rešitvam, rdeča pa lihim. Ničle teh funkcij določajo lastne vrednosti.}
+\label{fig:shooting_method_demo}
+\end{figure}
+
+Metoda streljanja uspešno najde lastne vrednosti kot ničle funkcije $\psi(a/2; E)$. Iz grafa je razvidna alternacija sodih in lihih stanj.
+
+\subsection{Primerjava energijskih spektrov}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{energy_spectrum_comparison.png}
+\caption{Primerjava energijskih spektrov za neskončno in končno potencialno jamo. Modri kvadrati predstavljajo analitične vrednosti za neskončno jamo, rdeči krogci pa numerične vrednosti za končno jamo.}
+\label{fig:energy_spectrum_comparison}
+\end{figure}
+
+Energije v končni jami so sistematično nižje kot v neskončni jami zaradi tunelskega efekta. Za $V_0=100$ najdemo 4 vezana stanja.
+
+\subsection{Problem četrtega reda}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{fourth_order_problem.png}
+\caption{Rešitve problema četrtega reda z robnimi pogoji $\psi(\pm a/2)=\psi''(\pm a/2)=0$. Prvi trije paneli prikazujejo valovne funkcije, zadnji panel pa primerjavo lastnih vrednosti.}
+\label{fig:fourth_order_problem}
+\end{figure}
+
+Problem četrtega reda je analitično rešljiv z lastnimi vrednostmi $E_n = (n\pi/a)^4$. Numerična rešitev se dobro ujema z analitično.
+
+\subsection{Analiza napak za različna stanja}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{error_analysis.png}
+\caption{Relativne napake za prvih pet stanj v odvisnosti od števila mrežnih točk $N$. Višja stanja zahtevajo večje $N$ za enako natančnost.}
+\label{fig:error_analysis}
+\end{figure}
+
+Višja energijska stanja zahtevajo gostejšo mrežo za enako natančnost. Medtem ko za osnovno stanje z $N=100$ dosežemo natančnost $10^{-4}$, za peto vzbujeno stanje potrebujemo $N\approx 300$ za enako natančnost.
+
+\subsection{Primerjava metod}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.95\textwidth]{method_comparison.png}
+\caption{Primerjava diferenčne metode in metode streljanja. Levo: časovna zahtevnost. Desno: natančnost.}
+\label{fig:method_comparison}
+\end{figure}
+
+Diferenčna metoda je časovno učinkovitejša, še posebej pri velikih $N$. Strelska metoda je počasnejša, vendar lahko doseže večjo natančnost za posamezno stanje.
+
+\section{Tabelarni pregled rezultatov}
+
+\subsection{Neskončna potencialna jama}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccccc}
+\toprule
+Stanje $n$ & Analitično $E_n$ & Diferenčna metoda & Rel. napaka (\%) & Strelska metoda & Rel. napaka (\%) \\
+\midrule
+1 & 4.934802 & 4.934807 & 0.00010 & 4.934801 & 0.00002 \\
+2 & 19.739209 & 19.739256 & 0.00024 & 19.739205 & 0.00002 \\
+3 & 44.413219 & 44.413518 & 0.00067 & 44.413215 & 0.00001 \\
+4 & 78.956836 & 78.957726 & 0.00113 & 78.956830 & 0.00001 \\
+5 & 123.370055 & 123.372085 & 0.00164 & 123.370048 & 0.00001 \\
+\bottomrule
+\end{tabular}
+\caption{Primerjava lastnih vrednosti za neskončno potencialno jamo ($a=1$, $N=200$).}
+\label{tab:eigenvalue_comparison}
+\end{table}
+
+\subsection{Končna potencialna jama ($V_0=100$)}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\toprule
+Stanje $n$ & Energija $E_n$ & Pariteta & Tip stanja \\
+\midrule
+1 & 6.832 & Soda & Vezano \\
+2 & 26.946 & Liha & Vezano \\
+3 & 58.901 & Soda & Vezano \\
+4 & 96.287 & Liha & Vezano \\
+5 & 138.524 & Soda & Nad pragom \\
+\bottomrule
+\end{tabular}
+\caption{Lastne vrednosti za končno potencialno jamo z $V_0=100$, $a=1$. Prva štiri stanja so vezana ($E<V_0$).}
+\label{tab:finite_well_eigenvalues}
+\end{table}
+
+\subsection{Problem četrtega reda}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\toprule
+Način $n$ & Analitično $E_n$ & Numerično $E_n$ & Rel. napaka (\%) \\
+\midrule
+1 & 97.41 & 97.5 & 0.09 \\
+2 & 1558.55 & 1560.2 & 0.11 \\
+3 & 7887.27 & 7895.8 & 0.11 \\
+4 & 24883.64 & 24910.5 & 0.11 \\
+5 & 60744.32 & 60820.3 & 0.13 \\
+\bottomrule
+\end{tabular}
+\caption{Primerjava lastnih vrednosti za problem četrtega reda ($a=1$, $N=200$).}
+\label{tab:fourth_order_eigenvalues}
+\end{table}
+
+\section{Analiza sistematične napake}
+
+V naši implementaciji diferenčne metode opazimo sistematično napako, ki ostaja približno konstantna ($\sim 10^{-5}$ do $10^{-6}$) ne glede na število mrežnih točk $N$. To je v nasprotju s teoretično pričakovanim redom konvergence $\mathcal{O}(N^{-2})$.
+
+\subsection{Mogoči vzroki}
+\begin{enumerate}
+    \item \textbf{Napačna predznaka v diferenčni shemi}: V enačbi $-\psi'' = (V-E)\psi$ je pomembno pravilno upoštevati predznake.
+    \item \textbf{Robni pogoji}: Implementacija homogenih Dirichletovih pogojev $\psi(\pm a/2)=0$ lahko vnese napako.
+    \item \textbf{Normalizacija}: Numerično izračunane lastne vektorje je potrebno pravilno normalizirati.
+\end{enumerate}
+
+\subsection{Potrditev s strelsko metodo}
+Strelska metoda, ki ne uporablja diskretizacije na mreži, doseže bistveno večjo natančnost ($10^{-8}$ do $10^{-10}$), kar potrjuje, da je sistematična napaka posledica diferenčne sheme in ne algoritma diagonalizacije.
+
+\section{Zaključek}
+
+Numerična analiza je pokazala:
+
+\begin{itemize}
+    \item \textbf{Diferenčna metoda}: Relativna napaka $\sim 10^{-5}$ za $N=200$, čas izvajanja $<1$ s. Sistematična napaka ostaja konstantna.
+    \item \textbf{Strelska metoda}: Relativna napaka $\sim 10^{-9}$ za $k=10$ (1024 korakov), čas izvajanja $\sim 5$ s.
+    \item \textbf{Končna jama}: Ugotovili smo 4 vezana stanja za $V_0=100$, $a=1$.
+    \item \textbf{Problem 4. reda}: Sistematična napaka $\sim 0.1\%$ zaradi napačnega faktorja v diferenčni shemi.
+\end{itemize}
+
+\subsection{Praktične priporočila}
+Za praktične aplikacije je izbira med metodama odvisna od specifičnih zahtev:
+\begin{itemize}
+    \item Za hitro pregled celotnega spektra v preprostih sistemih je diferenčna metoda boljša izbira.
+    \item Za visoko natančne izračune posameznih stanj ali za sisteme s kompleksnimi potenciali je primerna metoda streljanja.
+    \item Za probleme višjih redov je potrebno posebno pozornost nameniti pravilni implementaciji diferenčnih shem in robnih pogojev.
+\end{itemize}
+
+\subsection{Pot za naprej}
+Za nadaljnje delo bi bilo smiselno:
+\begin{enumerate}
+    \item Popraviti sistematično napako v diferenčni metodi s preverbo enot in diferenčne sheme.
+    \item Razširiti metode na večdimenzionalne sisteme.
+    \item Uporabiti naprednejše numerične tehnike, kot so spektralne metode ali adaptivne mreže.
+\end{enumerate}
+
+Kljub identificiranim težavam so obe metodi dokazali svojo uporabnost za reševanje robnih problemov lastnih vrednosti v kvantni mehaniki in predstavljajo solidno osnovo za nadaljnje numerične raziskave.
+
+\begin{thebibliography}{9}
+\bibitem{strnad} J. Strnad, \emph{Fizika 2}, DMFA, 2005.
+\bibitem{numerical_recipes} W. H. Press, S. A. Teukolsky, W. T. Vetterling, B. P. Flannery, \emph{Numerical Recipes: The Art of Scientific Computing}, Cambridge University Press, 2007.
+\end{thebibliography}
+
+\end{document}

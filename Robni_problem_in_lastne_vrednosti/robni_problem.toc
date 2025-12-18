@@ -1,0 +1,27 @@
+\contentsline {section}{\numberline {1}Uvod}{3}{section.1}%
+\contentsline {section}{\numberline {2}Teoretične osnove}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Neskončna potencialna jama}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Končna potencialna jama}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Problem četrtega reda}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Numerične metode}{4}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Diferenčna metoda}{4}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Strelska metoda}{4}{subsubsection.2.4.2}%
+\contentsline {section}{\numberline {3}Rezultati in analiza}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Primerjava valovnih funkcij}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Končna potencialna jama}{5}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Analiza konvergence diferenčne metode}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Demonstracija strelske metode}{7}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Primerjava energijskih spektrov}{8}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Problem četrtega reda}{9}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Analiza napak za različna stanja}{10}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Primerjava metod}{11}{subsection.3.8}%
+\contentsline {section}{\numberline {4}Tabelarni pregled rezultatov}{11}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Neskončna potencialna jama}{11}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Končna potencialna jama ($V_0=100$)}{12}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Problem četrtega reda}{12}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Analiza sistematične napake}{12}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Mogoči vzroki}{12}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Potrditev s strelsko metodo}{12}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Zaključek}{13}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Praktične priporočila}{13}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Pot za naprej}{13}{subsection.6.2}%
