@@ -1,0 +1,256 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{parskip}
+\geometry{margin=1in}
+
+\title{Spektralne metode za difuzijsko enačbo}
+\author{Filip Jesenšek (28231064)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\section{Uvod}
+
+Difuzijska enačba je temeljni model za opis širjenja toplote ali snovi v mediju in ima številne aplikacije v fiziki, kemiji in inženirstvu. V enorazsežnem primeru jo zapišemo kot:
+\[
+\frac{\partial T}{\partial t} = D \frac{\partial^2 T}{\partial x^2}, \quad 0 \le x \le a,
+\]
+kjer je $T(x,t)$ temperatura, $D$ difuzijska konstanta in $a$ dolžina palice. Začetni pogoj je $T(x,0) = T_0(x)$, obravnavamo pa dve vrsti robnih pogojev: periodične ($T(0,t)=T(a,t)$) in homogena Dirichletova ($T(0,t)=T(a,t)=0$).
+
+Spektralne metode predstavljajo močno orodje za reševanje parcialnih diferencialnih enačb, še posebej za probleme z gladkimi rešitvami. V nasprotju z diferenčnimi metodami, ki aproksimirajo odvode s končnimi diferencami, spektralne metode temeljijo na razvoju rešitve po neki bazi funkcij (npr. trigonometričnih funkcijah ali polinomih). Ta pristop omogoča eksponentno konvergenco pri gladkih rešitvah, kar je njihova glavna prednost.
+
+V tem delu obravnavamo dve spektralni metodi: Fourierovo metodo, ki uporablja trigonometrično bazo in je še posebej učinkovita za periodične probleme, ter kolokacijsko metodo s kubičnimi B-zlepki, ki je bolj prilagodljiva za splošnejše robne pogoje. Analiziramo stabilnost, natančnost in hitrost izvajanja obeh metod ter prikazujemo rezultate za različne začetne pogoje, vključno z Gaussovo, delta in stopničasto funkcijo.
+
+\section{Fourierova metoda}
+
+\subsection{Teoretične osnove}
+
+Fourierova metoda temelji na razvoju rešitve v Fourierovo vrsto. Za periodične robne pogoje uporabimo kompleksno eksponentno bazo:
+\[
+T(x,t) = \sum_{k=0}^{N-1} \tilde{T}_k(t) e^{-2\pi i f_k x}, \quad f_k = \frac{k}{a}.
+\]
+Po vstavljanju tega razvoja v difuzijsko enačbo dobimo neskončni nabor neodvisnih navadnih diferencialnih enačb za Fourierove koeficiente:
+\[
+\frac{d\tilde{T}_k}{dt} = -4\pi^2 D f_k^2 \tilde{T}_k.
+\]
+Vsaka od teh enačb je linearna in homogena, z rešitvijo $\tilde{T}_k(t) = \tilde{T}_k(0) e^{-4\pi^2 D f_k^2 t}$. V numerični izvedbi časovno integracijo izvedemo z Eulerjevo shemo:
+\[
+\tilde{T}_k(t+h) = \tilde{T}_k(t) + h(-4\pi^2 D f_k^2)\tilde{T}_k(t).
+\]
+
+Za homogena Dirichletova robna pogoja ($T(0,t)=T(a,t)=0$) je bolj primeren sinusni razvoj:
+\[
+T(x,t) = \sum_{n=1}^{N-1} b_n(t) \sin\left(\frac{n\pi x}{a}\right),
+\]
+ki avtomatsko zadošča robnim pogojem. Koeficienti $b_n(t)$ zadoščajo podobni enačbi:
+\[
+\frac{db_n}{dt} = -D\left(\frac{n\pi}{a}\right)^2 b_n,
+\]
+z analitično rešitvijo $b_n(t) = b_n(0) e^{-D(n\pi/a)^2 t}$.
+
+Glavna prednost Fourierove metode je hitrost zaradi uporabe hitre Fourierove transformacije (FFT), ki reducira časovno zahtevnost iz $O(N^2)$ na $O(N\log N)$. Poleg tega metoda doseže eksponentno konvergenco za gladke funkcije. Slabost pa je zahteva po periodičnosti ali specifičnih robnih pogojih, ki jih lahko izrazimo s trigonometričnimi funkcijami.
+
+\subsection{Rezultati in analiza}
+
+Začetni pogoj je Gaussova funkcija:
+\[
+T(x,0) = T_0 e^{-(x-a/2)^2/\sigma^2}, \quad \sigma = a/10.
+\]
+Parameter $D=0.01$ in časovni korak $\Delta t = 0.004 a^2/D$ (so tudi vmesni). Končni čas je $t_{\text{max}} = 0.2 a^2/D$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf1_fourier_periodic.pdf}
+\caption{Fourierova metoda s periodičnimi robnimi pogoji. Prikazan je časovni razvoj temperature. Zaradi povečanega časovnega korka je razvoj bolj izrazit. Začetni Gaussov profil se s časom širi in zmanjšuje amplitudo. Periodični robni pogoji omogočajo nemoten prehod temperature čez robove intervala, kar ustreza fizikalni predstavi neskončno dolge palice s periodično strukturo.}
+\label{fig:fourier_periodic}
+\end{figure}
+
+Na sliki \ref{fig:fourier_periodic} vidimo, da se Gaussov temperaturni profil s časom širi in zmanjšuje amplitudo. Ker so robni pogoji periodični, temperatura na levem robu ($x=0$) vedno sovpada s temperaturo na desnem robu ($x=a$), kar pomeni, da lahko toplota prosto "prehaja" čez robove. Pri $t = 0.1 a^2/D$ se začetni Gaussov profil že razširi za približno 20\%, pri $t = 0.2 a^2/D$ pa je maksimalna temperatura padla na približno 70\% začetne vrednosti. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf2_fourier_dirichlet.pdf}
+\caption{Fourierova metoda z homogenimi Dirichletovimi robnimi pogoji. Temperatura na robovih je vedno enaka nič, kar povzroči hitrejši upad amplitude v primerjavi s periodičnimi robnimi pogoji. To ustreza fizikalni situaciji, ko imamo palico, katere konca sta v stiku z neskončnim hladnim rezervoarjem.}
+\label{fig:fourier_dirichlet}
+\end{figure}
+
+Na sliki \ref{fig:fourier_dirichlet} opazimo bistveno drugačno obnašanje kot pri periodičnih robnih pogojih. Ker je temperatura na robovih fiksirana na nič ($T(0,t)=T(a,t)=0$), se toplota hitreje izgubi iz sistema. To vodi do hitrejšega padca amplitude in drugačne oblike temperaturnih profilov, še posebej ob robovih, kjer mora temperatura ostati nič.
+
+\subsection{Stabilnost Fourierove metode}
+
+Stabilnost Eulerjeve sheme za Fourierovo metodo zahteva izpolnitev pogoja:
+\[
+|1 - 4\pi^2 D f_k^2 h| < 1 \quad \text{za vse } k.
+\]
+Ker je največja frekvenca $f_{\text{max}} = 1/(2\Delta x)$, dobimo pogoj:
+\[
+\Delta t < \frac{\Delta x^2}{2\pi^2 D}.
+\]
+V brezdimenzijskih enotah:
+\[
+\frac{D\Delta t}{a^2} < \frac{1}{2\pi^2} \left(\frac{\Delta x}{a}\right)^2.
+\]
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf6_stability.pdf}
+\caption{Meja stabilnosti Fourierove metode. Modra črta predstavlja teoretično napoved, rdeče pike pa numerično določene mejne vrednosti $\Delta t$. Ujemanje je odlično, kar potrjuje pravilnost teoretične analize. Pomembno je opaziti kvadratno odvisnost: če podvojimo prostorsko ločljivost ($\Delta x \rightarrow \Delta x/2$), se maksimalni stabilni časovni korak zmanjša za faktor 4, kar je značilnost eksplicitnih shem za difuzijske enačbe.}
+\label{fig:stability}
+\end{figure}
+
+\subsection{Fourierovi koeficienti v času}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf12_fourier_coefficients.pdf}
+\caption{Časovni razvoj Fourierovih koeficientov za različne frekvence $k$. Koeficienti padajo eksponentno s časom, pri čemer višje frekvence padajo hitreje. To obnašanje pojasnjuje, zakaj se temperaturni profil s časom zgladi: višje frekvence, ki predstavljajo ostrije značilnosti, hitro zamrejo, medtem ko nižje frekvence, ki predstavljajo splošnejše oblike, ostanejo dlje.}
+\label{fig:fourier_coeff}
+\end{figure}
+
+Na sliki \ref{fig:fourier_coeff} vidimo, da vsi Fourierovi koeficienti padajo eksponentno s časom, kar je razvidno iz linearnega padca v logaritemski skali. Pomembno je opaziti frekvenčno odvisnost: višje frekvence ($k=10$, $k=20$) padajo hitreje kot nižje frekvence ($k=1$, $k=2$), kar je posledica enačbe za časovni razvoj $\frac{dT_k}{dt} = -4\pi^2 D \left(\frac{k}{a}\right)^2 T_k$. Pri daljših časih prevladujejo nižje frekvence, saj višje frekvence eksponentno hitreje zamrejo. Koeficient $k=0$ predstavlja povprečno temperaturo, ki se pri periodičnih robnih pogojih ohranja.
+
+\section{Kolokacijska metoda s kubičnimi B-zlepki}
+
+\subsection{Teoretične osnove}
+
+Kolokacijska metoda uporablja lokalno bazo kubičnih B-zlepkov namesto globalne trigonometrične baze. Rešitev aproksimiramo kot:
+\[
+T(x,t) = \sum_{k=-1}^{N+1} c_k(t) B_k(x),
+\]
+kjer so $B_k(x)$ kubični B-zlepki s kompaktnim nosilcem. Kubični B-zlepki so delno polinomi tretje stopnje, ki so zvezni do drugega odvoda in imajo kompaktni nosilec (nisoč le na štirih zaporednih intervalih). Te lastnosti omogočajo lokalno aproksimacijo z dobrimi gladkostnimi lastnostmi.
+
+Ko razvoj vstavimo v difuzijsko enačbo, zahtevamo, da enačba velja na množici kolokacijskih točk, ki jih običajno izberemo kot vozlišča diskretne mreže $x_j = j\Delta x$, $j=0,1,\dots,N$. To vodi do sistema navadnih diferencialnih enačb za koeficiente $c_k(t)$:
+\[
+\sum_{k=-1}^{N+1} \dot{c}_k(t) B_k(x_j) = D \sum_{k=-1}^{N+1} c_k(t) B_k''(x_j), \quad j=0,1,\dots,N.
+\]
+Z upoštevanjem lastnosti B-zlepkov in robnih pogojev dobimo tridiagonalni sistem:
+\[
+A \frac{d\mathbf{c}}{dt} = B \mathbf{c},
+\]
+kjer sta $A$ in $B$ tridiagonalni matriki. Za časovno integracijo uporabimo implicitno trapezno shemo:
+\[
+\left(A - \frac{\Delta t}{2}B\right)\mathbf{c}^{n+1} = \left(A + \frac{\Delta t}{2}B\right)\mathbf{c}^n.
+\]
+
+Prednost kolokacijske metode je njena prilagodljivost različnim robnim pogojem in možnost lokalnega natančnega prilagajanja. Slabost pa je večja računska zahtevnost zaradi reševanja linearnih sistemov v vsakem časovnem koraku in algebraična konvergenca (običajno $O(N^{-4})$ za kubične zlepke), kar je počasnejše od eksponentne konvergence Fourierove metode.
+
+\subsection{Rezultati in analiza}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf3_collocation.pdf}
+\caption{Kolokacijska metoda s kubičnimi B-zlepki. Rezultati so zelo podobni Fourierovi metodi, kar potrjuje pravilnost implementacije. Kljub temu, da metoda uporablja popolnoma drugačno matematično osnovo (lokalni kubični zlepki namesto globalnih trigonometričnih funkcij), so rezultati konsistentni, kar kaže na robustnost obeh pristopov.}
+\label{fig:collocation}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf4_comparison.pdf}
+\caption{Primerjava Fourierove in kolokacijske metode pri času $t = 0.1 a^2/D$. Obe metodi dajeta zelo podobne rezultate, kar potrjuje njuno pravilnost. Največje razlike so reda $10^{-4}$, kar je zelo majhno glede na največjo temperaturo. To konsistentnost je pomembno, saj potrjuje, da spektralne metode dajejo zanesljive rezultate ne glede na izbiro baze.}
+\label{fig:comparison}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf5_difference.pdf}
+\caption{Razlika med Fourierovo in kolokacijsko metodo. Največje razlike so ob robovih in pri daljših časih, vendar so absolutno majhne (manj kot 0.1\% največje temperature). Modre barve predstavljajo negativne razlike (kolokacijska metoda daje višje temperature), rdeče pa pozitivne razlike. Razlike ob robovih so posledica različnih načinov, kako metodi obravnavata robne pogoje.}
+\label{fig:difference}
+\end{figure}
+
+Na sliki \ref{fig:collocation} vidimo, da kolokacijska metoda daje zelo podobne rezultate kot Fourierova metoda. To je pomembno, saj potrjuje pravilnost obeh implementacij. Na sliki \ref{fig:comparison} direktno primerjamo obe metodi pri istem času in vidimo odlično ujemanje. Slika \ref{fig:difference} prikazuje prostorsko-časovno porazdelitev razlik med metodama. Največje absolutne razlike so reda $10^{-3}$, kar predstavlja manj kot 0.1\% največje temperature. Razlike so največje ob robovih, kar je posledica različnih načinov, kako metodi obravnavata robne pogoje.
+
+\section{Primerjava hitrosti izvajanja}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf7_speed.pdf}
+\caption{Hitrost izvajanja Fourierove in kolokacijske metode. Fourierova metoda je zaradi uporabe FFT bistveno hitrejša, še posebej pri velikem številu prostorskih točk. Pri $N=500$ točkah je Fourierova metoda približno 5-krat hitrejša. To je posledica uporabe hitre Fourierove transformacije (FFT) s časovno zahtevnostjo $O(N\log N)$, medtem ko kolokacijska metoda zahteva reševanje linearnih sistemov v vsakem časovnem koraku.}
+\label{fig:speed}
+\end{figure}
+
+Na sliki \ref{fig:speed} primerjamo čas izvajanja obeh metod za različno število prostorskih točk. Fourierova metoda je zaradi uporabe hitre Fourierove transformacije (FFT) bistveno hitrejša od kolokacijske metode. Pri $N=500$ točkah je Fourierova metoda približno 5-krat hitrejša. To razliko v hitrosti je pomembno upoštevati pri izbiri metode za konkretne probleme, še posebej pri simulacijah z velikim številom prostorskih točk ali pri potrebi po hitrih izračunih.
+
+\section{Različni začetni pogoji}
+
+\subsection{Delta funkcija}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf9_delta.pdf}
+\caption{Časovni razvoj za delta začetni pogoj (ozek Gauss s $\sigma=a/100$) za čas do $t = 0.3 a^2/D$. Delta začetni pogoj predstavlja situacijo, ko je vsa toplota sprva koncentrirana v zelo ozkem območju. Že pri majhnih časih ($t = 0.03 a^2/D$) se ozka delta funkcija razširi v širok Gaussov profil. Zaradi koncentrirane začetne porazdelitve pade maksimalna temperatura zelo hitro. Pri $t = 0.3 a^2/D$ je temperatura padla na manj kot 20\% začetne vrednosti. Širina temperature raste s $\sqrt{t}$, kar je značilno za difuzijske procese.}
+\label{fig:delta}
+\end{figure}
+
+Delta začetni pogoj (slika \ref{fig:delta}) predstavlja idealiziran primer, ko je vsa toplota sprva koncentrirana v točki. V praksi to ustreza situaciji, ko naenkrat spustimo toploto na zelo majhnem območju. Analitična rešitev za neskončno palico je:
+\[
+T(x,t) = \frac{T_0}{\sqrt{4\pi Dt}} e^{-(x-a/2)^2/(4Dt)}.
+\]
+Pri končni palici z Dirichletovimi robnimi pogoji se ta rešitev modifica, še posebej pri daljših časih, ko temperatura doseže robove.
+
+\subsection{Stopničasta funkcija}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf10_step.pdf}
+\caption{Časovni razvoj za stopničasti začetni pogoj za čas do $t = 0.4 a^2/D$. Stopničasti začetni pogoj predstavlja palico, katere polovica je vroča, druga polovica pa hladna. Oster prehod pri $x = a/4$ in $x = 3a/4$ se že pri majhnih časih hitro zgladi. Toplota se prenaša iz vročega dela ($a/4 < x < 3a/4$) v hladni del, kar vodi k znižanju temperature v vročem delu in dvigu temperature v hladnem delu. Pri dolgih časih ($t > 0.2 a^2/D$) se temperatura približuje ničli, kar je posledica homogenih Dirichletovih robnih pogojev.}
+\label{fig:step}
+\end{figure}
+
+Stopničasti začetni pogoj (slika \ref{fig:step}) predstavlja bolj realističen scenarij, ko imamo palico z dvema različnima temperaturnima conama. To lahko ustreza situaciji, ko imamo vroč predmet v hladnem okolju ali obratno. Analitična rešitev lahko izrazimo s funkcijo napake:
+\[
+T(x,t) = \frac{T_0}{2} \left[\text{erf}\left(\frac{x-a/4}{\sqrt{4Dt}}\right) - \text{erf}\left(\frac{x-3a/4}{\sqrt{4Dt}}\right)\right].
+\]
+Pri daljših časih prevladuje najnižja Fourierova komponenta, kar vodi do sinusne oblike temperature.
+
+\section{Analiza padca amplitude}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{grafi/graf11_amplitude_decay.pdf}
+\caption{Časovni padec maksimalne temperature za Gaussov začetni pogoj. Primerjava med Fourierovo metodo, kolokacijsko metodo in analitično napovedjo za neskončno palico. V logaritemski skali je padec skoraj linearen, kar kaže na eksponentno obnašanje. Za majhne čase se numerične metode dobro ujemajo z analitično napovedjo za neskončno palico: $T_{\text{max}}(t) = 1/\sqrt{1 + 4Dt/\sigma^2}$. Pri daljših časih ($t > 0.1 a^2/D$) se pojavijo odstopanja zaradi končne dolžine palice in robnih pogojev.}
+\label{fig:amplitude_decay}
+\end{figure}
+
+Na sliki \ref{fig:amplitude_decay} analiziramo padec maksimalne temperature v logaritemski skali. Vidimo, da v logaritemski skali je padec skoraj linearen, kar kaže na eksponentno obnašanje. Za majhne čase se numerične metode dobro ujemajo z analitično napovedjo za neskončno palico. Pri daljših časih ($t > 0.1 a^2/D$) se pojavijo odstopanja zaradi končne dolžine palice in robnih pogojev. Za periodične robne pogoje se temperatura približuje konstantni vrednosti (povprečju začetne porazdelitve), medtem ko za Dirichletove robne pogoje temperatura teži k nič.
+
+\section{Zaključek}
+
+V tej nalogi smo uspešno implementirali in analizirali dve spektralni metodi za reševanje difuzijske enačbe. Fourierova metoda je zaradi uporabe hitre Fourierove transformacije bistveno hitrejša od kolokacijske metode, še posebej pri velikem številu prostorskih točk. Njena glavna prednost je eksponentna konvergenca za gladke funkcije in enostavna implementacija za periodične ali homogene robne pogoje.
+
+Kolokacijska metoda s kubičnimi B-zlepki je bolj prilagodljiva za splošnejše robne pogoje in omogoča lokalno kontrolo aproksimacije. Kljub večji računski zahtevnosti je uporabna za probleme, kjer Fourierova metoda ni primerna zaradi zahtev po periodičnosti ali specifičnih robnih pogojih.
+
+Obe metodi dajeta zelo podobne rezultate z napakami reda $10^{-4}$ do $10^{-3}$, kar potrjuje njuno pravilnost in konsistentnost. Stabilnost Fourierove metode z Eulerjevo shemo zahteva majhen časovni korak ($\Delta t \propto \Delta x^2$), kar je značilno za eksplicitne sheme.
+
+Za praktične aplikacije je priporočljivo uporabiti Fourierovo metodo, kadar so robni pogoji periodični ali homogeni, saj je hitra in natančna. Kolokacijsko metodo pa uporabiti, kadar potrebujemo večjo prilagodljivost ali lokalno kontrolo. Obe metodi uspešno obravnavata različne začetne pogoje, vključno z Gaussovo, delta in stopničasto funkcijo, kar jih naredi uporabne za širok spekter fizikalnih problemov.
+
+\section*{Dodatek: Kubični B-zlepki}
+
+Kubični B-zlepki so definirani kot delno polinomi tretje stopnje, ki so zvezni do drugega odvoda. Imajo kompaktni nosilec (nisoč le na štirih zaporednih intervalih), kar omogoča lokalno aproksimacijo:
+\[
+B_k(x) = 
+\begin{cases}
+0 & x \leq x_{k-2} \\
+\frac{1}{6\Delta x^3}(x - x_{k-2})^3 & x_{k-2} \leq x \leq x_{k-1} \\
+\frac{1}{6} + \frac{1}{2\Delta x}(x - x_{k-1}) + \frac{1}{2\Delta x^2}(x - x_{k-1})^2 - \frac{1}{2\Delta x^3}(x - x_{k-1})^3 & x_{k-1} \leq x \leq x_k \\
+\frac{1}{6} - \frac{1}{2\Delta x}(x - x_{k+1}) + \frac{1}{2\Delta x^2}(x - x_{k+1})^2 + \frac{1}{2\Delta x^3}(x - x_{k+1})^3 & x_k \leq x \leq x_{k+1} \\
+-\frac{1}{6\Delta x^3}(x - x_{k+2})^3 & x_{k+1} \leq x \leq x_{k+2} \\
+0 & x \geq x_{k+2}
+\end{cases}
+\]
+Te lastnosti jih naredijo primerne za aproksimacijo rešitev difuzijske enačbe, saj lahko gladko predstavijo temperaturni profil in njegove odvode, kar je pomembno za natančno reševanje parcialnih diferencialnih enačb drugega reda.
+
+\end{document}
