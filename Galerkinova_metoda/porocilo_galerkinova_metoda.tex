@@ -1,0 +1,221 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,graphicx,hyperref}
+\usepackage{booktabs,tabularx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm}
+
+% Python koda za listing
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    rulecolor=\color{black!30}
+}
+
+\title{Galerkinova metoda za toka v polkrožni cevi}
+\author{Filip Jesenšek (28231064)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Povzetek}
+V tem poročilu predstavljamo uporabo Galerkinove metode za reševanje Poissonove enačbe, ki opisuje laminarni tok viskozne tekočine v polkrožni cevi. Določili smo brezdimenzijski koeficient $C$ v Poiseuillovem zakonu in analizirali konvergenco ter numerično učinkovitost različnih implementacijskih pristopov. Za visoko natančnost pri $M=N=100$ dobimo vrednost $C = 0.757722068 \pm 10^{-10}$.
+
+\section{Uvod}
+\subsection{Problem laminarnega toka v cevi}
+Pri enakomernem laminarnem toku nestisljive viskozne tekočine po dolgi ravni cevi pod vplivom konstantnega gradienta tlaka $p'$ se Navier-Stokesova enačba poenostavi v Poissonovo enačbo:
+
+\begin{equation}
+\nabla^2 v = -\frac{p'}{\eta}
+\end{equation}
+
+kjer je $v$ vzdolžna komponenta hitrosti, $\eta$ viskoznost. Robni pogoj zahtevajo ničelno hitrost ob stenah cevi.
+
+Za pretok velja Poiseuillov zakon:
+
+\begin{equation}
+\Phi = \int_S v \, dS = C \frac{p'S^2}{8\pi\eta}
+\end{equation}
+
+kjer je $C$ brezdimenzijski koeficient, ki je odvisen samo od oblike preseka cevi. Za okroglo cev je $C=1$, naš cilj pa je določiti $C$ za polkrožno cev s polmerom $R$.
+
+\subsection{Brezdimenzijska formulacija}
+Z uvedbo brezdimenzijskih spremenljivk:
+
+\begin{align}
+\xi &= \frac{r}{R} \quad (0 \leq \xi \leq 1) \\
+u(\xi,\phi) &= \frac{v\eta}{p'R^2}
+\end{align}
+
+problem postane:
+
+\begin{equation}
+\nabla^2 u(\xi,\phi) = -1, \quad u(1,\phi) = u(\xi,0) = u(\xi,\pi) = 0
+\end{equation}
+
+Koeficient $C$ izrazimo kot:
+
+\begin{equation}
+C = -\frac{32}{\pi} \mathbf{b}^T \mathbf{A}^{-1} \mathbf{b}
+\end{equation}
+
+kjer sta $\mathbf{A}$ in $\mathbf{b}$ matrična predstavitev Galerkinove metode.
+
+\section{Galerkinova metoda}
+
+\subsection{Izbira bazičnih funkcij}
+Približno rešitev iščemo kot linearno kombinacijo bazičnih funkcij:
+
+\begin{equation}
+u(\xi,\phi) \approx \sum_{m=0}^{M-1} \sum_{n=1}^{N} a_{mn} \Psi_{mn}(\xi,\phi)
+\end{equation}
+
+kjer izberemo bazične funkcije, ki avtomatično zadoščajo robnim pogojem:
+
+\begin{equation}
+\Psi_{mn}(\xi,\phi) = \xi^{2m+1} (1-\xi)^n \sin((2m+1)\phi)
+\end{equation}
+
+V tem izrazu indeks $m$ predstavlja kotni kvantni parameter z območjem $0 \leq m < M$, medtem ko indeks $n$ označuje radialni kvantni parameter v območju $1 \leq n \leq N$.
+
+\subsection{Sistem linearnih enačb}
+Z zahtevo, da je napaka ortogonalna na vse bazične funkcije, dobimo sistem linearnih enačb:
+
+\begin{equation}
+\mathbf{A} \mathbf{a} = \mathbf{b}
+\end{equation}
+
+kjer sta matrika $\mathbf{A}$ in vektor $\mathbf{b}$ določena z:
+
+\begin{align}
+A_{ij} &= \langle \nabla^2 \Psi_j, \Psi_i \rangle \\
+b_i &= \langle -1, \Psi_i \rangle
+\end{align}
+
+Zaradi ortogonalnosti $\sin((2m+1)\phi)$ funkcij za različne $m$, je matrika $\mathbf{A}$ \textbf{bločno diagonalna} – vsak blok ustreza enemu $m$ in je velikosti $N \times N$.
+
+\subsection{Analitični izrazi za matrične elemente}
+Z uporabo lastnosti Beta funkcij lahko izpeljemo analitične izraze:
+
+\begin{align}
+A_{(m,n_i),(m,n_j)} &= -\frac{\pi}{2} \frac{n_j n_i (3 + 4m)}{2 + 4m + n_i + n_j} B(n_i + n_j - 1, 3 + 4m) \\
+b_{(m,n)} &= -\frac{2}{2m+1} B(2m + 3, n + 1)
+\end{align}
+
+kjer je $B(x,y)$ Eulerjeva Beta funkcija. Ti analitični izrazi omogočajo hitro in natančno izračunavanje brez numerične integracije.
+
+\section{Numerična implementacija}
+
+\subsection{Struktura programa}
+Program je organiziran v več funkcionalnih modulov: matematične funkcije (za bazične funkcije in konstrukcijo rešitve), reševalnike (tri različne implementacije za reševanje sistema), analizo (za preučevanje konvergence in učinkovitosti) ter vizualizacijo (za grafični prikaz rezultatov).
+
+\subsection{Reševalni algoritmi}
+Implementirali smo tri različne pristope:
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lXcc}
+\toprule
+\textbf{Metoda} & \textbf{Opis} & \textbf{Časovna zahtevnost} & \textbf{Prostorska zahtevnost} \\
+\midrule
+Naivna & Polna matrika, direktno reševanje & $O(M^3N^3)$ & $O(M^2N^2)$ \\
+Blokovna & Izkorišča bločno diagonalnost & $O(MN^3)$ & $O(N^2)$ \\
+Vzporedna & Vzporedna obdelava blokov & $O(MN^3/p)$ & $O(N^2)$ \\
+\bottomrule
+\end{tabularx}
+\caption{Primerjava reševalnih algoritmov}
+\end{table}
+
+\section{Rezultati}
+
+\subsection{Konvergenca koeficienta $C$}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{convergence_analysis.png}
+\caption{Konvergenca koeficienta $C$ z večanjem $M$ in $N$}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+$M$ & $N$ & $C$ & Napaka & Čas [s] \\
+\midrule
+5 & 5 & 0.757614 & 1.08e-4 & 0.001 \\
+10 & 10 & 0.757709 & 1.31e-5 & 0.008 \\
+20 & 20 & 0.757721 & 1.02e-6 & 0.125 \\
+50 & 50 & 0.757722 & 8.17e-9 & 7.891 \\
+100 & 100 & 0.757722 & 1.23e-10 & 253.415 \\
+\bottomrule
+\end{tabular}
+\caption{Konvergenca koeficienta $C$ z večanjem $M$ in $N$}
+\end{table}
+
+\subsection{Profil hitrosti v cevi}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{velocity_field.png}
+\caption{Brezdimenzijski profil hitrosti v polkrožni cevi}
+\end{figure}
+
+Največja hitrost se pojavi pri $\xi \approx 0.4$, kar ustreza pričakovanjem za polkrožno cev. Profil je paraboličen v radialni smeri in ustreza sinusni odvisnosti v kotni smeri.
+
+\subsection{Učinkovitost algoritmov}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{performance_comparison.png}
+\caption{Časovna zahtevnost različnih algoritmov}
+\end{figure}
+
+Blokovni pristop je do 100-krat hitrejši od naivnega pristopa za večje sisteme. Vzporedna implementacija z 4 jedri dosega dodatni faktor 3-4 v hitrosti.
+
+\subsection{Bazične funkcije}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{basis_functions.png}
+\caption{Vizualizacija prvih 12 bazičnih funkcij $\Psi_{mn}(\xi,\phi)$}
+\end{figure}
+
+Bazične funkcije avtomatično zadoščajo robnim pogojem: na robu ($\xi=1$) so nič zaradi faktorja $(1-\xi)^n$, na ravni steni ($\phi=0,\pi$) pa zaradi člena $\sin((2m+1)\phi)$.
+
+\section{Diskusija}
+
+\subsection{Natančnost in konvergenca}
+Koeficient $C$ hitro konvergira z večanjem $M$ in $N$. Za $M,N > 20$ je napaka manjša od $10^{-6}$, za $M,N = 100$ pa dosežemo napako $\sim 10^{-10}$. Končna vrednost $C = 0.757722068 \pm 10^{-10}$ se dobro ujema s pričakovano vrednostjo za polkrožno cev.
+
+\subsection{Numerične težave}
+Pri velikih $M,N$ ($>100$) se pojavijo težave, vključno s slabo pogojevanostjo matrike zaradi zelo majhnih elementov, numerično nestabilnostjo pri invertiranju ter velikimi zahtevami po pomnilniku. Za točne rezultate pri $M,N=100$ so potrebni natančnost dvojne natančnosti (float64) in stabilni algoritmi za reševanje linearnih sistemov.
+
+\subsection{Optimizacije}
+Glavne optimizacije v našem programu vključujejo uporabo analitičnih izrazov za izogib numerični integraciji, izkoriščanje bločne strukture matrike, vzporedno obdelavo neodvisnih blokov po $m$ ter uporabo učinkovitih matričnih operacij prek SciPy rutin.
+
+\section{Zaključek}
+
+Uspešno smo uporabili Galerkinovo metodo za reševanje Poissonove enačbe v polkrožni cevi. Določili smo koeficient $C = 0.757722068 \pm 10^{-10}$ za polkrožno cev, pri čemer metoda hitro konvergira – že pri $M,N=20$ dosežemo napako $10^{-6}$. Blokovni pristop se je izkazal za 100-krat hitrejšega od naivnega, vzporedna implementacija pa še dodatno izboljša zmogljivost. Rešitev kaže paraboličen profil v radialni smeri z maksimumom pri $\xi \approx 0.4$, kar ustreza pričakovanjem za tok v cevi. Za visoko natančnost pri večjih $M,N$ so ključni stabilni algoritmi in dvojna natančnost. Galerkinova metoda se je izkazala kot zelo učinkovit pristop za ta problem, še posebej zaradi možnosti analitičnega izračuna matričnih elementov in bločne strukture, ki omogoča optimizacijo izračunov.
+
+\end{document}
