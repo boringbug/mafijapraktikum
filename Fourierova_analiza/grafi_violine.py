@@ -24,15 +24,16 @@ for i, rate in enumerate(sampling_rates):
     ax.axvline(x=nyquist_freq, color='red', linestyle='--', linewidth=1.5, alpha=0.7, label=f'Nyquist: {nyquist_freq} Hz')
     
     ax.set_title(f"{rate} Hz", fontsize=10)
-    ax.set_xlabel("Frequency (Hz)", fontsize=8)
-    ax.set_ylabel("Amplitude", fontsize=8)
+    ax.set_xlabel("Frekvenca (Hz)", fontsize=8)
+    ax.set_ylabel("Amplituda", fontsize=8)
     ax.set_xlim(0, min(7000, nyquist_freq * 1.1))  # Adjust xlim to show Nyquist
     ax.grid(True, alpha=0.3, linestyle='--')
     ax.tick_params(labelsize=8)
     ax.legend(fontsize=6)
 
-plt.suptitle("Fourier Analysis at Different Sampling Rates", fontsize=14)
+plt.suptitle("Fourierova analiza pri različnih vzorčenjih", fontsize=14)
 plt.tight_layout()
+plt.savefig("seperate_dft_polots.pdf", dpi=1200)
 plt.show()
 
 # 2. Comparison plot with vertical shifts (all on same axes, stacked vertically)
@@ -95,14 +96,15 @@ for i, rate in enumerate(sampling_rates):
     nyquist_freq = rate / 2
     plt.axvline(x=nyquist_freq, color=colors[i], linestyle='--', linewidth=1, alpha=0.4)
 
-plt.xlabel("Frequency (Hz)", fontsize=12)
-plt.ylabel("Normalized Amplitude (stacked)", fontsize=12)
-plt.title("Normalized Fourier Spectra with Vertical Offset", fontsize=14)
+plt.xlabel("Frekvenca (Hz)", fontsize=12)
+plt.ylabel("Normirana amplituda", fontsize=12)
+plt.title("Normiran Fourierov spekter", fontsize=14)
 plt.xlim(0, 7000)
 plt.ylim(-0.1, len(sampling_rates) * 0.15 + 0.2)
 plt.legend(loc='upper right', fontsize=10)
 plt.grid(True, alpha=0.3)
 plt.tight_layout()
+plt.savefig("dft_together_plot.pdf", dpi=1200)
 plt.show()
 
 # 4. Log scale plot with vertical shifts
@@ -162,14 +164,15 @@ for i, rate in enumerate(sampling_rates):
         ax.plot([nyquist_freq, nyquist_freq], [i, i], [0, mag_trimmed.max()], 
                 color=colors[i], linestyle='--', linewidth=1, alpha=0.5)
 
-ax.set_xlabel('Frequency (Hz)', fontsize=10)
-ax.set_ylabel('Sampling Rate Index', fontsize=10)
-ax.set_zlabel('Amplitude', fontsize=10)
-ax.set_title('Waterfall Plot of Fourier Spectra', fontsize=14)
+ax.set_xlabel('Frekvenca (Hz)', fontsize=10)
+ax.set_ylabel('Vzorčenje', fontsize=10)
+ax.set_zlabel('Amplituda', fontsize=10)
+ax.set_title('Fourier Spectra', fontsize=14)
 ax.set_yticks(range(len(sampling_rates)))
 ax.set_yticklabels([f'{rate}' for rate in sampling_rates])
 ax.view_init(elev=20, azim=-60)
 plt.tight_layout()
+plt.savefig("3D_dft_plots.pdf", dpi=1200)
 plt.show()
 
 # 6. Print summary statistics with Nyquist info
