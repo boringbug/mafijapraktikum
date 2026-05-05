@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fft import fft, ifft, fftfreq
+from scipy.signal import spectrogram
 import gzip
 from pathlib import Path
 from typing import Dict, Tuple, List, Optional, Any, Union
@@ -167,30 +168,6 @@ def normalized_autocorrelation(signal: SignalData) -> Tuple[AutocorrelationResul
     
     return normalized_autocorr, stats
 
-def compute_fft_magnitude(signal: SignalData, samplerate: int) -> Tuple[SignalData, SignalData]:
-    """
-    Compute FFT magnitude spectrum of a signal.
-    
-    Args:
-        signal: Input signal array
-        samplerate: Sampling rate in Hz
-        
-    Returns:
-        Tuple of (frequencies array, magnitude spectrum array)
-    """
-    N: int = len(signal)
-    
-    # Compute FFT
-    fft_vals = fft(signal)
-    
-    # Get magnitude spectrum (only positive frequencies)
-    magnitude: SignalData = np.abs(fft_vals[:N//2])
-    
-    # Frequency axis
-    freqs: SignalData = fftfreq(N, 1/samplerate)[:N//2]
-    
-    return freqs, magnitude
-
 def estimate_samplerate(signal_length: int, typical_rates: List[int] = None) -> int:
     """
     Estimate samplerate based on signal length and typical audio rates.
@@ -211,53 +188,6 @@ def estimate_samplerate(signal_length: int, typical_rates: List[int] = None) -> 
             return rate
     # Default to 44100 Hz if no match found
     return 44100
-
-def find_dominant_frequencies(signal: SignalData, samplerate: int, num_peaks: int = 5) -> List[DominantFrequency]:
-    """
-    Find dominant frequencies using FFT.
-    
-    Args:
-        signal: Input signal array
-        samplerate: Sampling rate in Hz
-        num_peaks: Number of dominant frequencies to find
-        
-    Returns:
-        List of dominant frequencies with their magnitudes
-    """
-    N: int = len(signal)
-    
-    # Compute FFT
-    fft_vals = fft(signal)
-    fft_magnitude: SignalData = np.abs(fft_vals[:N//2])
-    
-    # Frequency axis
-    freqs: SignalData = np.fft.fftfreq(N, 1/samplerate)[:N//2]
-    
-    # Find peaks (excluding very low frequencies)
-    min_freq: int = 50  # Owl calls are typically above 50 Hz
-    max_freq: int = 5000  # Upper limit for owl calls
-    start_idx: int = np.searchsorted(freqs, min_freq)
-    end_idx: int = np.searchsorted(freqs, max_freq)
-    
-    peaks, properties = find_peaks(fft_magnitude[start_idx:end_idx], 
-                                   height=np.max(fft_magnitude[start_idx:end_idx]) * 0.1,
-                                   distance=10)
-    peaks = peaks + start_idx
-    
-    # Sort by magnitude and take top peaks
-    peak_mags: SignalData = fft_magnitude[peaks]
-    sorted_indices: np.ndarray = np.argsort(peak_mags)[::-1]
-    
-    dominant: List[DominantFrequency] = []
-    for i in sorted_indices[:num_peaks]:
-        freq: float = freqs[peaks[i]]
-        dominant.append(DominantFrequency(
-            frequency=freq,
-            magnitude=float(peak_mags[i]),
-            period_seconds=1.0 / freq if freq > 0 else 0.0
-        ))
-    
-    return dominant
 
 def find_autocorrelation_peaks(autocorr: AutocorrelationResult, samplerate: int, 
                                num_peaks: int = 5, min_lag_samples: int = 50) -> List[PeriodPeak]:
@@ -379,15 +309,6 @@ def analyze_signals(signals: Dict[str, SignalData], samplerate: int) -> Tuple[Di
         
         print(f"  Signal mean: {signal_stats.mean:.6f}")
         print(f"  Signal variance: {signal_stats.variance:.6f}")
-        
-        # Find dominant frequencies
-        dom_freqs: List[DominantFrequency] = find_dominant_frequencies(
-            signal_zm[:min(len(signal_zm), samplerate*5)], samplerate
-        )
-        if dom_freqs:
-            print(f"  Dominant frequencies:")
-            for f in dom_freqs[:3]:
-                print(f"    {f.frequency:.1f} Hz (period: {f.period_seconds:.3f}s, magnitude: {f.magnitude:.1f})")
     
     # Extract periods from autocorrelation for references
     print("\n" + "="*70)
@@ -453,175 +374,143 @@ def analyze_signals(signals: Dict[str, SignalData], samplerate: int) -> Tuple[Di
     
     return autocorrs, results
 
-def plot_fft_spectra(signals: Dict[str, SignalData], samplerate: int, 
-                     results: Dict[str, IdentificationResult]) -> None:
+def plot_spectrogram(signal: SignalData, samplerate: int, title: str, filename: str) -> None:
     """
-    Plot Fourier transform magnitude spectra for all signals with Slovene labels.
+    Plot a spectrogram (waterfall plot) of the signal.
+    
+    Args:
+        signal: Input signal array
+        samplerate: Sampling rate in Hz
+        title: Title for the plot
+        filename: Filename to save the figure
+    """
+    # Compute spectrogram
+    # Use window size of 2048 samples (~46ms at 44.1kHz), overlap of 50%
+    nperseg = min(2048, len(signal) // 4)
+    noverlap = nperseg // 2
+    
+    f, t, Sxx = spectrogram(signal, fs=samplerate, nperseg=nperseg, 
+                            noverlap=noverlap, scaling='density')
+    
+    # Convert to dB scale
+    Sxx_db = 10 * np.log10(Sxx + 1e-10)
+    
+    # Create figure
+    fig, ax = plt.subplots(figsize=(14, 8))
+    
+    # Plot spectrogram
+    im = ax.pcolormesh(t, f, Sxx_db, shading='gouraud', cmap='viridis')
+    
+    # Set labels and title
+    ax.set_xlabel('Čas (sekunde)', fontsize=12)
+    ax.set_ylabel('Frekvenca (Hz)', fontsize=12)
+    ax.set_title(title, fontsize=14, fontweight='bold')
+    
+    # Set frequency limits (0-5000 Hz for owl calls)
+    ax.set_ylim([0, min(5000, f[-1])])
+    
+    # Add colorbar
+    cbar = plt.colorbar(im, ax=ax)
+    cbar.set_label('Magnituda (dB)', fontsize=11)
+    
+    # Add grid for better readability
+    ax.grid(True, alpha=0.3, linestyle='--')
+    
+    plt.tight_layout()
+    plt.savefig(filename, dpi=300, bbox_inches='tight')
+    print(f"  Saved: {filename}")
+    plt.close()  # Close to free memory
+
+def plot_all_spectrograms(signals: Dict[str, SignalData], samplerate: int, 
+                          results: Dict[str, IdentificationResult]) -> None:
+    """
+    Plot and save spectrograms for all signals individually.
     
     Args:
         signals: Dictionary of signal names to signal data
         samplerate: Sampling rate in Hz
         results: Identification results dictionary
     """
-    n_signals: int = len(signals)
-    fig, axes = plt.subplots(n_signals, 1, figsize=(14, 3*n_signals))
+    print("\n" + "="*70)
+    print("PLOTTING SPECTROGRAMS (WATERFALL PLOTS)")
+    print("="*70)
     
-    if n_signals == 1:
-        axes = [axes]
-    
-    colors: List[str] = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd', '#8c564b']
-    
-    # Frequency range for plotting (0-5000 Hz, typical for owl calls)
-    max_freq_plot: int = 5000
-    
-    for idx, (name, signal) in enumerate(signals.items()):
-        color: str = colors[idx % len(colors)]
-        
-        # Compute FFT magnitude spectrum
-        freqs, magnitude = compute_fft_magnitude(signal, samplerate)
-        
-        # Limit to frequency range of interest
-        freq_limit_idx: int = np.searchsorted(freqs, max_freq_plot)
-        freqs_plot = freqs[:freq_limit_idx]
-        magnitude_plot = magnitude[:freq_limit_idx]
-        
-        # Convert to dB scale for better visualization
-        magnitude_db: SignalData = 20 * np.log10(magnitude_plot + 1e-10)
-        
-        axes[idx].plot(freqs_plot, magnitude_db, color=color, linewidth=1)
-        axes[idx].fill_between(freqs_plot, magnitude_db, alpha=0.3, color=color)
-        
-        # Add title with identification if it's a mixed signal
+    for name, signal in signals.items():
+        # Create title with identification if it's a mixed signal
         if name in results:
             result: IdentificationResult = results[name]
-            title: str = f"{name} - IDENTIFICIRANO: {result.identified_as} (zaupanje: {result.confidence:.1%})"
+            title = f"Spektrogram signala: {name} - IDENTIFICIRANO: {result.identified_as} (zaupanje: {result.confidence:.1%})"
         else:
-            title = f"{name} (Referenca)"
+            title = f"Spektrogram signala: {name} (Referenca)"
         
-        axes[idx].set_title(title, fontsize=11, fontweight='bold')
-        axes[idx].set_xlabel('Frekvenca (Hz)', fontsize=10)
-        axes[idx].set_ylabel('Magnituda (dB)', fontsize=10)
-        axes[idx].grid(True, alpha=0.3)
-        axes[idx].set_xlim([0, max_freq_plot])
+        filename = f"{name}_spectrogram.pdf"
         
-        # Mark dominant frequencies
-        dom_freqs: List[DominantFrequency] = find_dominant_frequencies(signal, samplerate, num_peaks=5)
-        for f in dom_freqs[:3]:
-            if f.frequency <= max_freq_plot:
-                axes[idx].axvline(x=f.frequency, color='red', linestyle=':', alpha=0.7, linewidth=1)
-                axes[idx].text(f.frequency, np.max(magnitude_db) - 5, 
-                             f"{f.frequency:.0f} Hz", 
-                             fontsize=8, alpha=0.8, ha='center')
-        
-        # Annotate with fundamental frequency
-        if dom_freqs:
-            axes[idx].text(0.98, 0.98, f'Fundamentalna frekvenca:\n{dom_freqs[0].frequency:.1f} Hz', 
-                          transform=axes[idx].transAxes, fontsize=9,
-                          verticalalignment='top', horizontalalignment='right',
-                          bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.8))
+        print(f"\nGenerating spectrogram for {name}...")
+        plot_spectrogram(signal, samplerate, title, filename)
     
-    plt.suptitle('Fourierovi spektri signalov (magnitude)', fontsize=14, fontweight='bold')
-    plt.tight_layout()
-    plt.show()
-
-def plot_fft_comparison(signals: Dict[str, SignalData], samplerate: int, 
-                        mixed_name: str, results: Dict[str, IdentificationResult]) -> None:
-    """
-    Detailed FFT comparison plot for a specific mixed signal with Slovene labels.
-    
-    Args:
-        signals: Dictionary of signal names to signal data
-        samplerate: Sampling rate in Hz
-        mixed_name: Name of the mixed signal to analyze
-        results: Identification results dictionary
-    """
-    if mixed_name not in signals:
-        print(f"Signal {mixed_name} not found")
-        return
-    
-    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
-    
-    # Frequency range for plotting
-    max_freq_plot: int = 5000
-    
-    # Compute FFT for all three signals
-    signals_to_plot = ['bubomono', 'bubo2mono', mixed_name]
-    
-    for idx, name in enumerate(signals_to_plot):
-        if name not in signals:
-            continue
+    # Also create a combined comparison spectrogram for mix2 and mix22 with references
+    for mixed_name in ['mix2', 'mix22']:
+        if mixed_name in signals:
+            # Create figure with 3 subplots (no colorbar to avoid tight_layout issues)
+            fig, axes = plt.subplots(3, 1, figsize=(14, 12))
             
-        row: int = idx // 2
-        col: int = idx % 2
-        
-        signal = signals[name]
-        freqs, magnitude = compute_fft_magnitude(signal, samplerate)
-        
-        # Limit to frequency range of interest
-        freq_limit_idx: int = np.searchsorted(freqs, max_freq_plot)
-        freqs_plot = freqs[:freq_limit_idx]
-        magnitude_plot = magnitude[:freq_limit_idx]
-        
-        # Convert to dB scale
-        magnitude_db: SignalData = 20 * np.log10(magnitude_plot + 1e-10)
-        
-        color = 'b' if name == 'bubomono' else ('g' if name == 'bubo2mono' else 'r')
-        axes[row, col].plot(freqs_plot, magnitude_db, color=color, linewidth=1.5)
-        axes[row, col].fill_between(freqs_plot, magnitude_db, alpha=0.3, color=color)
-        
-        title = 'Referenca: bubomono' if name == 'bubomono' else ('Referenca: bubo2mono' if name == 'bubo2mono' else f'Testni signal: {name}')
-        axes[row, col].set_title(title, fontsize=11, fontweight='bold')
-        axes[row, col].set_xlabel('Frekvenca (Hz)', fontsize=10)
-        axes[row, col].set_ylabel('Magnituda (dB)', fontsize=10)
-        axes[row, col].grid(True, alpha=0.3)
-        axes[row, col].set_xlim([0, max_freq_plot])
-        
-        # Mark dominant frequencies
-        dom_freqs: List[DominantFrequency] = find_dominant_frequencies(signal, samplerate, num_peaks=3)
-        for f in dom_freqs:
-            if f.frequency <= max_freq_plot:
-                axes[row, col].axvline(x=f.frequency, color='red', linestyle=':', alpha=0.7, linewidth=1)
-                axes[row, col].text(f.frequency, np.max(magnitude_db) - 3, 
-                                   f"{f.frequency:.0f} Hz", 
-                                   fontsize=8, alpha=0.8, ha='center')
-    
-    # Fourth subplot - overlay comparison
-    ax_overlay = axes[1, 1]
-    
-    for name, color in [('bubomono', 'b'), ('bubo2mono', 'g'), (mixed_name, 'r')]:
-        if name not in signals:
-            continue
-        signal = signals[name]
-        freqs, magnitude = compute_fft_magnitude(signal, samplerate)
-        
-        freq_limit_idx: int = np.searchsorted(freqs, max_freq_plot)
-        freqs_plot = freqs[:freq_limit_idx]
-        magnitude_plot = magnitude[:freq_limit_idx]
-        magnitude_db = 20 * np.log10(magnitude_plot + 1e-10)
-        
-        label = 'bubomono' if name == 'bubomono' else ('bubo2mono' if name == 'bubo2mono' else mixed_name)
-        ax_overlay.plot(freqs_plot, magnitude_db, color=color, linewidth=1.5, alpha=0.7, label=label)
-    
-    ax_overlay.set_title('Primerjava Fourierovih spektrov', fontsize=11, fontweight='bold')
-    ax_overlay.set_xlabel('Frekvenca (Hz)', fontsize=10)
-    ax_overlay.set_ylabel('Magnituda (dB)', fontsize=10)
-    ax_overlay.legend(loc='best')
-    ax_overlay.grid(True, alpha=0.3)
-    ax_overlay.set_xlim([0, max_freq_plot])
-    
-    # Add identification text
-    if mixed_name in results:
-        result: IdentificationResult = results[mixed_name]
-        text: str = f"IDENTIFICIRANO: {result.identified_as}\nZaupanje: {result.confidence:.1%}\n"
-        text += f"Podobnost z bubomono: {result.similarity_to_bubomono:.3f}\n"
-        text += f"Podobnost z bubo2mono: {result.similarity_to_bubo2mono:.3f}"
-        ax_overlay.text(0.02, 0.98, text, transform=ax_overlay.transAxes,
-                       fontsize=10, verticalalignment='top',
-                       bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.9))
-    
-    plt.suptitle(f'Fourierova analiza signala: {mixed_name}', fontsize=14, fontweight='bold')
-    plt.tight_layout()
-    plt.show()
+            # Plot spectrogram for bubomono
+            nperseg = min(2048, len(signals['bubomono']) // 4)
+            noverlap = nperseg // 2
+            f1, t1, Sxx1 = spectrogram(signals['bubomono'], fs=samplerate, 
+                                        nperseg=nperseg, noverlap=noverlap, scaling='density')
+            Sxx1_db = 10 * np.log10(Sxx1 + 1e-10)
+            im1 = axes[0].pcolormesh(t1, f1, Sxx1_db, shading='gouraud', cmap='viridis')
+            axes[0].set_ylabel('Frekvenca (Hz)', fontsize=10)
+            axes[0].set_title('Referenca: bubomono', fontsize=11, fontweight='bold')
+            axes[0].set_ylim([0, 5000])
+            axes[0].grid(True, alpha=0.3, linestyle='--')
+            
+            # Plot spectrogram for bubo2mono
+            nperseg2 = min(2048, len(signals['bubo2mono']) // 4)
+            noverlap2 = nperseg2 // 2
+            f2, t2, Sxx2 = spectrogram(signals['bubo2mono'], fs=samplerate,
+                                        nperseg=nperseg2, noverlap=noverlap2, scaling='density')
+            Sxx2_db = 10 * np.log10(Sxx2 + 1e-10)
+            im2 = axes[1].pcolormesh(t2, f2, Sxx2_db, shading='gouraud', cmap='viridis')
+            axes[1].set_ylabel('Frekvenca (Hz)', fontsize=10)
+            axes[1].set_title('Referenca: bubo2mono', fontsize=11, fontweight='bold')
+            axes[1].set_ylim([0, 5000])
+            axes[1].grid(True, alpha=0.3, linestyle='--')
+            
+            # Plot spectrogram for mixed signal
+            nperseg3 = min(2048, len(signals[mixed_name]) // 4)
+            noverlap3 = nperseg3 // 2
+            f3, t3, Sxx3 = spectrogram(signals[mixed_name], fs=samplerate,
+                                        nperseg=nperseg3, noverlap=noverlap3, scaling='density')
+            Sxx3_db = 10 * np.log10(Sxx3 + 1e-10)
+            im3 = axes[2].pcolormesh(t3, f3, Sxx3_db, shading='gouraud', cmap='viridis')
+            axes[2].set_xlabel('Čas (sekunde)', fontsize=10)
+            axes[2].set_ylabel('Frekvenca (Hz)', fontsize=10)
+            
+            if mixed_name in results:
+                result = results[mixed_name]
+                axes[2].set_title(f'Testni signal: {mixed_name} - IDENTIFICIRANO: {result.identified_as}', 
+                                 fontsize=11, fontweight='bold')
+            else:
+                axes[2].set_title(f'Testni signal: {mixed_name}', fontsize=11, fontweight='bold')
+            
+            axes[2].set_ylim([0, 5000])
+            axes[2].grid(True, alpha=0.3, linestyle='--')
+            
+            # Add a single colorbar for all subplots (placed at the bottom to avoid layout issues)
+            plt.subplots_adjust(bottom=0.1)
+            cbar_ax = fig.add_axes([0.15, 0.05, 0.7, 0.02])  # [left, bottom, width, height]
+            cbar = fig.colorbar(im3, cax=cbar_ax, orientation='horizontal')
+            cbar.set_label('Magnituda (dB)', fontsize=10)
+            
+            plt.suptitle(f'Primerjava spektrogramov: {mixed_name} z referenčnima signaloma', 
+                        fontsize=14, fontweight='bold', y=0.98)
+            
+            comparison_filename = f"{mixed_name}_spectrograms_comparison.pdf"
+            plt.savefig(comparison_filename, dpi=300, bbox_inches='tight')
+            print(f"\n  Saved: {comparison_filename}")
+            plt.close()
 
 def plot_autocorrelations(autocorrs: Dict[str, AutocorrelationResult], 
                          samplerate: int, 
@@ -681,6 +570,8 @@ def plot_autocorrelations(autocorrs: Dict[str, AutocorrelationResult],
     
     plt.suptitle('Normalizirane avtokorelacijske funkcije signalov', fontsize=14, fontweight='bold')
     plt.tight_layout()
+    plt.savefig("normalized_autocorrelations.pdf", dpi=300, bbox_inches='tight')
+    print("  Saved: normalized_autocorrelations.pdf")
     plt.show()
 
 def plot_comparison(signals: Dict[str, SignalData], 
@@ -764,6 +655,8 @@ def plot_comparison(signals: Dict[str, SignalData],
     
     plt.suptitle(f'Podrobna analiza signala: {mixed_name}', fontsize=14, fontweight='bold')
     plt.tight_layout()
+    plt.savefig(f"{mixed_name}_comparison.pdf", dpi=300, bbox_inches='tight')
+    print(f"  Saved: {mixed_name}_comparison.pdf")
     plt.show()
 
 def main() -> None:
@@ -817,16 +710,8 @@ def main() -> None:
     # Analyze signals using autocorrelation
     autocorrs, results = analyze_signals(signals, samplerate)
     
-    # Plot Fourier transform spectra
-    print("\n" + "="*70)
-    print("PLOTTING FOURIER TRANSFORM SPECTRA")
-    print("="*70)
-    plot_fft_spectra(signals, samplerate, results)
-    
-    # Plot FFT comparison for noisy signals
-    for mixed_name in ['mix2', 'mix22']:
-        if mixed_name in signals:
-            plot_fft_comparison(signals, samplerate, mixed_name, results)
+    # Plot spectrograms (waterfall plots) for all signals
+    plot_all_spectrograms(signals, samplerate, results)
     
     # Plot all autocorrelations
     print("\n" + "="*70)
