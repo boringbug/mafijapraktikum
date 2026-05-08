@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  7 MAY 2026 14:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.4.16)  7 MAY 2026 15:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -267,24 +267,24 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 ) (./filip_jesensek_07.aux)
 \openout1 = `filip_jesensek_07.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
-LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
+LaTeX Font Info:    ... okay on input line 15.
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count312
@@ -338,16 +338,16 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 16.
+Package hyperref Info: Link coloring OFF on input line 15.
 (./filip_jesensek_07.out) (./filip_jesensek_07.out)
 \@outlinefile=\write3
 \openout3 = `filip_jesensek_07.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 18.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 19.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 18.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
@@ -356,52 +356,52 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 <slika4_analiza_napak.pdf, id=154, 715.45296pt x 426.25009pt>
 File: slika4_analiza_napak.pdf Graphic file (type pdf)
 <use slika4_analiza_napak.pdf>
-Package pdftex.def Info: slika4_analiza_napak.pdf  used on input line 194.
+Package pdftex.def Info: slika4_analiza_napak.pdf  used on input line 193.
 (pdftex.def)             Requested size: 409.71692pt x 244.10327pt.
  [5] [6 <./slika4_analiza_napak.pdf>]
 <slika5_stabilnost.pdf, id=185, 1076.91176pt x 357.76912pt>
 File: slika5_stabilnost.pdf Graphic file (type pdf)
 <use slika5_stabilnost.pdf>
-Package pdftex.def Info: slika5_stabilnost.pdf  used on input line 226.
+Package pdftex.def Info: slika5_stabilnost.pdf  used on input line 225.
 (pdftex.def)             Requested size: 409.71692pt x 136.11198pt.
 <slika2_fazni_portreti.pdf, id=187, 1074.7919pt x 357.40778pt>
 File: slika2_fazni_portreti.pdf Graphic file (type pdf)
 <use slika2_fazni_portreti.pdf>
-Package pdftex.def Info: slika2_fazni_portreti.pdf  used on input line 243.
+Package pdftex.def Info: slika2_fazni_portreti.pdf  used on input line 242.
 (pdftex.def)             Requested size: 409.71692pt x 136.24174pt.
  [7 <./slika5_stabilnost.pdf>]
 <slika9_vsiljeno_nihalo_rezimi.pdf, id=206, 1148.67143pt x 569.87967pt>
 File: slika9_vsiljeno_nihalo_rezimi.pdf Graphic file (type pdf)
 <use slika9_vsiljeno_nihalo_rezimi.pdf>
-Package pdftex.def Info: slika9_vsiljeno_nihalo_rezimi.pdf  used on input line 262.
+Package pdftex.def Info: slika9_vsiljeno_nihalo_rezimi.pdf  used on input line 261.
 (pdftex.def)             Requested size: 409.71692pt x 203.26956pt.
  [8 <./slika2_fazni_portreti.pdf>]
-Overfull \hbox (0.13982pt too wide) in paragraph at lines 271--272
+Overfull \hbox (0.13982pt too wide) in paragraph at lines 270--271
 \T1/cmr/m/n/12 Slika []5[] prikazuje res-o-nan£ne krivulje za ra-zli£ne am-pli-tude vzbu-janja. Res-o-nan£na krivulja
  []
 
 <slika12_resonancne_krivulje.pdf, id=222, 715.57652pt x 426.49336pt>
 File: slika12_resonancne_krivulje.pdf Graphic file (type pdf)
 <use slika12_resonancne_krivulje.pdf>
-Package pdftex.def Info: slika12_resonancne_krivulje.pdf  used on input line 275.
+Package pdftex.def Info: slika12_resonancne_krivulje.pdf  used on input line 274.
 (pdftex.def)             Requested size: 409.71692pt x 244.19704pt.
 [9 <./slika9_vsiljeno_nihalo_rezimi.pdf>]
 <slika13_histereza.pdf, id=237, 715.5878pt x 426.72987pt>
 File: slika13_histereza.pdf Graphic file (type pdf)
 <use slika13_histereza.pdf>
-Package pdftex.def Info: slika13_histereza.pdf  used on input line 288.
+Package pdftex.def Info: slika13_histereza.pdf  used on input line 287.
 (pdftex.def)             Requested size: 409.71692pt x 244.33246pt.
  [10 <./slika12_resonancne_krivulje.pdf>]
 <slika14_vanderpol.pdf, id=257, 1076.87634pt x 712.00378pt>
 File: slika14_vanderpol.pdf Graphic file (type pdf)
 <use slika14_vanderpol.pdf>
-Package pdftex.def Info: slika14_vanderpol.pdf  used on input line 307.
+Package pdftex.def Info: slika14_vanderpol.pdf  used on input line 306.
 (pdftex.def)             Requested size: 409.71692pt x 270.90103pt.
  [11 <./slika13_histereza.pdf>]
 <slika16_hudicevo_stopnisce.pdf, id=275, 859.97224pt x 426.49336pt>
 File: slika16_hudicevo_stopnisce.pdf Graphic file (type pdf)
 <use slika16_hudicevo_stopnisce.pdf>
-Package pdftex.def Info: slika16_hudicevo_stopnisce.pdf  used on input line 320.
+Package pdftex.def Info: slika16_hudicevo_stopnisce.pdf  used on input line 319.
 (pdftex.def)             Requested size: 409.71692pt x 203.19167pt.
  [12 <./slika14_vanderpol.pdf>] [13 <./slika16_hudicevo_stopnisce.pdf>] [14] (./filip_jesensek_07.aux)
  ***********
