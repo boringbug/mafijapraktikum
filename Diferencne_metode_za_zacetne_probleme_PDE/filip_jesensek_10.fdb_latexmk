@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1778160809.43897 "filip_jesensek_10.tex" "filip_jesensek_10.pdf" "filip_jesensek_10" 1778160809.62601 0
+["pdflatex"] 1778414256.8373 "filip_jesensek_10.tex" "filip_jesensek_10.pdf" "filip_jesensek_10" 1778414257.04844 0
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1775415801 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1775415801 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/tfm/jknappen/ec/ecbx1095.tfm" 1775415801 3584 21b378cca2e40816b0e6d74a4dc98f04 ""
@@ -82,8 +82,8 @@
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1775415801 43569 fd570f2fa160877d211e859f687312ba ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1776343481 325717 59a65e600f662ceace641c3ea8b5d4af ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1776343465 2328191 e3c8570c188e7d93946241d0eb966037 ""
-  "filip_jesensek_10.aux" 1778160809.58728 3119 5e4989bf00fd9f276c3c4e912f73a754 "pdflatex"
-  "filip_jesensek_10.tex" 1778160657.2073 13361 e236d6583d8c5ff9b0d71cde3e24b15d ""
+  "filip_jesensek_10.aux" 1778414257.0061 3119 5e4989bf00fd9f276c3c4e912f73a754 "pdflatex"
+  "filip_jesensek_10.tex" 1778414256.0301 13490 d64d2be2904bfa303cd840182ffe7272 ""
   "free_particle_heatmap.pdf" 1778160806.65428 2106346 0f3ca4587c0db1ffd2a33de826b49240 ""
   "harmonic_oscillator_heatmap.pdf" 1778160802.78028 714819 ec36417cc481a3208c654b55d09ee215 ""
   "max_height_analysis.pdf" 1778160806.97129 20959 606b28f1e57fcdd57c440357976fdd4c ""
