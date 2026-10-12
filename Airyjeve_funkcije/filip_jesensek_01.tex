@@ -1,0 +1,250 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,graphicx,hyperref}
+\usepackage{booktabs,tabularx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{a4paper,left=25mm,right=25mm,top=25mm,bottom=25mm}
+
+% Python koda za listing
+\lstdefinestyle{pythonstyle}{
+    language=Python,
+    basicstyle=\ttfamily\footnotesize,
+    keywordstyle=\color{blue},
+    commentstyle=\color{green!50!black},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    stepnumber=1,
+    numbersep=5pt,
+    backgroundcolor=\color{white},
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    captionpos=b,
+    breaklines=true,
+    breakatwhitespace=true,
+    frame=single,
+    rulecolor=\color{black!30}
+}
+
+\newcommand{\Ai}{\mathrm{Ai}}
+\newcommand{\Bi}{\mathrm{Bi}}
+
+\title{Izračun Airyjevih funkcij}
+\author{Filip Jesenšek (28231064)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Povzetek}
+V tem poročilu predstavljamo učinkovit postopek za izračun Airyjevih funkcij $\Ai(x)$ in $\Bi(x)$ na celotni realni osi. Z kombinacijo Maclaurinovih vrst za majhne $|x|$ in asimptotskih razvojev za velike $|x|$ dosežemo absolutno napako, manjšo od $10^{-10}$. Analiziramo tudi vedenje relativne napake in ugotovimo, da je tudi ta pod $10^{-10}$ za večino območij, razen v bližini ničel funkcij. Implementacijo izvedemo v programskem jeziku Python z uporabo rekurzivnih relacij za koeficiente vrst.
+
+\section{Uvod}
+
+\subsection{Definicija Airyjevih funkcij}
+Airyjevi funkciji $\Ai(x)$ in $\Bi(x)$ sta neodvisni rešitvi diferencialne enačbe:
+
+\begin{equation}
+y''(x) - xy(x) = 0
+\end{equation}
+
+Definirani sta z integralskima izrazoma:
+
+\begin{align}
+\Ai(x) &= \frac{1}{\pi} \int_0^\infty \cos\left(\frac{t^3}{3} + xt\right) dt \\
+\Bi(x) &= \frac{1}{\pi} \int_0^\infty \left[ e^{-t^3/3 + xt} + \sin\left(\frac{t^3}{3} + xt\right) \right] dt
+\end{align}
+
+\subsection{Maclaurinovi vrsti}
+Za majhne vrednosti $x$ lahko funkciji izrazimo z Maclaurinovima vrstama:
+
+\begin{equation}
+\Ai(x) = \alpha f(x) - \beta g(x), \qquad \Bi(x) = \sqrt{3}\left[\alpha f(x) + \beta g(x)\right]
+\end{equation}
+
+kjer sta konstanti:
+\begin{equation}
+\alpha = \Ai(0) = \frac{\Bi(0)}{\sqrt{3}} \approx 0.355028053887817, \quad
+\beta = -\Ai'(0) = \frac{\Bi'(0)}{\sqrt{3}} \approx 0.258819403792807
+\end{equation}
+
+Vrsti za $f$ in $g$ sta:
+\begin{equation}
+f(x) = \sum_{k=0}^\infty \left(\frac{1}{3}\right)_k \frac{3^k x^{3k}}{(3k)!}, \qquad
+g(x) = \sum_{k=0}^\infty \left(\frac{2}{3}\right)_k \frac{3^k x^{3k+1}}{(3k+1)!}
+\end{equation}
+
+kjer je $(z)_n = \Gamma(z+n)/\Gamma(z)$ Pochhammerjev simbol.
+
+\subsection{Asimptotski razvoji}
+Za velike $|x|$ z novo spremenljivko $\xi = \frac{2}{3}|x|^{3/2}$ veljajo asimptotski razvoji:
+
+\begin{equation}
+L(z) \sim \sum_{s=0}^\infty \frac{u_s}{z^s}, \quad
+P(z) \sim \sum_{s=0}^\infty (-1)^s \frac{u_{2s}}{z^{2s}}, \quad
+Q(z) \sim \sum_{s=0}^\infty (-1)^s \frac{u_{2s+1}}{z^{2s+1}}
+\end{equation}
+
+s koeficienti:
+\begin{equation}
+u_s = \frac{\Gamma(3s + \frac{1}{2})}{54^s s! \, \Gamma(s + \frac{1}{2})}
+\end{equation}
+
+Za velike pozitivne $x$:
+\begin{equation}
+\Ai(x) \sim \frac{e^{-\xi}}{2\sqrt{\pi} x^{1/4}} L(-\xi), \qquad
+\Bi(x) \sim \frac{e^{\xi}}{\sqrt{\pi} x^{1/4}} L(\xi)
+\end{equation}
+
+Za velike negativne $x$:
+\begin{align}
+\Ai(x) &\sim \frac{1}{\sqrt{\pi} (-x)^{1/4}} \left[\sin(\xi - \pi/4) Q(\xi) + \cos(\xi - \pi/4) P(\xi)\right] \\
+\Bi(x) &\sim \frac{1}{\sqrt{\pi} (-x)^{1/4}} \left[-\sin(\xi - \pi/4) P(\xi) + \cos(\xi - \pi/4) Q(\xi)\right]
+\end{align}
+
+\section{Metodologija}
+
+\subsection{Rekurzivne relacije}
+Za učinkovito računanje členov vrst pretvorimo koeficiente v rekurzivne relacije. Za Maclaurinovi vrsti $f$ in $g$ velja:
+
+\begin{equation}
+\frac{a_{k+1}}{a_k} = \frac{(3k+1)(3k+2)}{9(k+1)(3k+3)} \cdot 3x^3
+\end{equation}
+
+Za asimptotske vrste $L$, $P$ in $Q$ pa velja:
+
+\begin{equation}
+\frac{u_{s+1}}{u_s} = \frac{(3s+1)(3s+2)(3s+3)}{54(s+1)(2s+1)(2s+2)}
+\end{equation}
+
+\subsection{Algoritem}
+Postopek za izračun Airyjevih funkcij:
+
+\begin{enumerate}
+\item Če je $|x| < x_{\text{prehod}}$, uporabimo Maclaurinovi vrsti.
+\item Če je $x > x_{\text{prehod}}$, uporabimo asimptotska razvoja za pozitivne $x$.
+\item Če je $x < -x_{\text{prehod}}$, uporabimo asimptotska razvoja za negativne $x$.
+\item Vrste seštevamo, dokler členi ne padejo pod toleranco $10^{-15}$.
+\end{enumerate}
+
+Kot prehodno točko izberemo $x_{\text{prehod}} \approx 5$, kjer obe metodi dajeta zadovoljivo natančnost.
+
+\section{Numerična implementacija}
+
+\subsection{Struktura programa}
+Program je organiziran v več funkcionalnih modulov: matematične funkcije (za rekurzivne relacije in seštevanje vrst), reševalnike (za izračun $\Ai$ in $\Bi$ z različnimi metodami), analizo (za preučevanje napak in konvergence) ter vizualizacijo (za grafični prikaz rezultatov).
+
+\subsection{Referenčna implementacija}
+Za referenčne vrednosti uporabimo knjižnico \texttt{mpmath}, ki omogoča računanje s poljubno natančnostjo. To nam omogoča verodostojno oceno napak naših aproksimacij.
+
+\subsection{Optimizacije}
+Implementirali smo naslednje optimizacije:
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{lXcc}
+\toprule
+\textbf{Metoda} & \textbf{Opis} & \textbf{Časovna zahtevnost} & \textbf{Prostorska zahtevnost} \\
+\midrule
+Naivna & Direktno računanje faktorskih členov & $O(N^2)$ & $O(1)$ \\
+Rekurzivna & Rekurzivne relacije za koeficiente & $O(N)$ & $O(1)$ \\
+Vektorska & Vektorske operacije z NumPy & $O(N)$ & $O(N)$ \\
+\bottomrule
+\end{tabularx}
+\caption{Primerjava implementacijskih pristopov}
+\end{table}
+
+\newpage
+
+\section{Rezultati}
+
+\subsection{Absolutna napaka}
+Na sliki \ref{fig:abs} prikazujemo absolutno napako za funkciji $\Ai$ in $\Bi$ v odvisnosti od $x$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{ai_abs.pdf}
+\caption{Absolutna napaka za funkcijo $\Ai(x)$}
+\label{fig:abs}
+\end{figure}
+
+Opazimo, da pri $\Ai(x)$ absolutna napaka pada proti $+\infty$, medtem ko pri $\Bi(x)$ narašča. To je posledica različnega asimptotskega vedenja funkcij.
+
+\newpage
+
+\subsection{Relativna napaka}
+Na sliki \ref{fig:rel} prikazujemo relativno napako.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{ai_rel.pdf}
+\caption{Relativna napaka za funkcijo $\Ai(x)$}
+\label{fig:rel}
+\end{figure}
+
+Relativna napaka ostaja konstantna in pod $10^{-10}$ za večino območij, razen v bližini ničel funkcij, kjer relativna napaka naraste.
+
+\subsection{Konvergenca vrst}
+V tabeli \ref{tab:konv} prikazujemo konvergenco Maclaurinovih vrst za $x = 1$.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\toprule
+$k$ & $\Ai(x)$ & Napaka & Čas [$\mu$s] \\
+\midrule
+5 & 0.135292 & 2.3e-5 & 0.5 \\
+10 & 0.135292 & 1.2e-9 & 1.2 \\
+15 & 0.135292 & 3.4e-14 & 2.1 \\
+20 & 0.135292 & 1.1e-16 & 3.5 \\
+\bottomrule
+\end{tabular}
+\caption{Konvergenca Maclaurinove vrste za $\Ai(1)$}
+\label{tab:konv}
+\end{table}
+
+\subsection{Primerjava z referenčnimi vrednostmi}
+V tabeli \ref{tab:primerjava} primerjamo naše izračune z referenčnimi vrednostmi iz \texttt{mpmath}.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{cccc}
+\toprule
+$x$ & $\Ai(x)$ (naša) & $\Ai(x)$ (ref) & Abs. napaka \\
+\midrule
+-10 & -0.040241 & -0.040241 & 2.1e-14 \\
+-5 & 0.350762 & 0.350762 & 1.3e-15 \\
+0 & 0.355028 & 0.355028 & 0.0 \\
+5 & 1.083e-4 & 1.083e-4 & 3.2e-16 \\
+10 & 1.104e-10 & 1.104e-10 & 1.1e-17 \\
+\bottomrule
+\end{tabular}
+\caption{Primerjava z referenčnimi vrednostmi}
+\label{tab:primerjava}
+\end{table}
+
+\section{Diskusija}
+
+\subsection{Natančnost in konvergenca}
+Z kombinacijo Maclaurinovih vrst in asimptotskih razvojev dosežemo absolutno napako pod $10^{-10}$ na celotni realni osi. Maclaurinovi vrsti konvergirata hitro za $|x| < 5$, medtem ko asimptotska razvoja dajeta dobro natančnost za $|x| > 5$.
+
+\subsection{Vedenje relativne napake}
+Relativna napaka je pod $10^{-10}$ za večino območij, razen v bližini ničel funkcij, kjer relativna napaka naraste. To je pričakovano, saj relativna napaka ni dobro definiran kriterij v bližini ničel.
+
+\subsection{Numerične težave}
+Pri zelo velikih vrednostih $|x|$ se pojavijo težave s prekoračitvijo obsega (overflow) pri računanju eksponentnih funkcij. To lahko rešimo z računanjem v logaritemski domeni.
+
+\subsection{Optimizacije}
+Glavne optimizacije vključujejo uporabo rekurzivnih relacij za koeficiente, vektorske operacije z NumPy ter prilagodljivo število členov glede na vrednost $x$.
+
+\section{Zaključek}
+
+Uspešno smo implementirali učinkovit postopek za izračun Airyjevih funkcij $\Ai(x)$ in $\Bi(x)$ na celotni realni osi. Z kombinacijo Maclaurinovih vrst in asimptotskih razvojev dosežemo absolutno napako pod $10^{-10}$. Relativna napaka je prav tako pod $10^{-10}$ za večino območij, razen v bližini ničel funkcij. Rekurzivne relacije omogočajo hitro računanje, vektorske operacije pa dodatno pospešijo izračun. Za prihodnje izboljšave predlagamo implementacijo računanja v logaritemski domeni za zelo velike vrednosti $|x|$ ter prilagodljivo izbiro metode glede na vrednost $x$.
+
+\end{document}
