@@ -211,18 +211,10 @@ Pri dolgih simulacijah, kjer je $N_t \gg N_x$, je pasovna metoda bistveno hitrej
 
 \section{Zaključek}
 
-V poročilu smo uspešno implementirali numerično reševanje časovne Schrödingerjeve enačbe z uporabo Crank-Nicolsonove metode. Preverili smo oba primera iz naloge: koherentno stanje v harmoničnem potencialu in Gaussov valovni paket v prostem prostoru.
+V poročilu smo uspešno implementirali numerično reševanje časovne Schrödingerjeve enačbe z uporabo Crank-Nicolsonove metode. Preverili smo oba primera iz naloge, in sicer koherentno stanje v harmoničnem potencialu in Gaussov valovni paket v prostem prostoru.
 
-Glavne ugotovitve so sledeče:
+Glavne ugotovitve so sledeče. Crank-Nicolsonova metoda je unitarna in zelo natančna, kar se kaže v odličnem ohranjanju verjetnosti skozi celoten čas simulacije. Višji redi prostorske diskretizacije, to je pettockovna, sedemtockovna in devettockovna shema, bistveno izboljšajo natančnost rešitve v primerjavi z osnovno tritočkovno shemo. Pri harmoničnem oscilatorju opazimo, da tudi pri relativno fini časovni diskretizaciji višina maksimuma valovnega paketa kaže opazna nihanja, kar nakazuje na potrebo po zelo finih mrežah za doseganje visoke natančnosti. Pri prostem delcu smo opazili razmerje med grupno in fazno hitrostjo, ki je v skladu s pričakovano disperzijsko relacijo. Izbira numerične metode za reševanje linearnega sistema, to je med inverzno in pasovno metodo, je odvisna predvsem od razmerja med številom prostorskih in časovnih točk, pri čemer je za dolge simulacije pasovna metoda bistveno bolj učinkovita.
 
-\begin{itemize}
-    \item Crank-Nicolsonova metoda je unitarna in zelo natančna, z odličnim ohranjanjem verjetnosti.
-    \item Višji redi prostorske diskretizacije (pettočkovna, sedemtočkovna in devettočkovna shema) bistveno izboljšajo natančnost rešitve.
-    \item Pri harmoničnem oscilatorju opazimo, da ima tudi pri relativno fini časovni diskretizaciji višina maksimuma opazna nihanja, kar kaže na potrebo po zelo finih mrežah za visoko natančnost.
-    \item Pri prostem delcu smo opazili razmerje med grupno in fazno hitrostjo, ki je v skladu z disperzijsko relacijo.
-    \item Izbira numerične metode (inverzna vs pasovna) je odvisna predvsem od razmerja med številom prostorskih in časovnih točk – za dolge simulacije je pasovna metoda bistveno bolj učinkovita.
-\end{itemize}
-
-Naloga je pokazala, da je Crank-Nicolsonova metoda s primerno izbranimi diferenčnimi shemami izjemno orodje za reševanje Schrödingerjeve enačbe, ki omogoča visoko natančnost ob ohranjanju verjetnosti.
+Naloga je pokazala, da je Crank-Nicolsonova metoda s primerno izbranimi diferenčnimi shemami izjemno orodje za reševanje Schrödingerjeve enačbe, saj omogoča visoko natančnost ob hkratnem ohranjanju verjetnosti.
 
 \end{document}
