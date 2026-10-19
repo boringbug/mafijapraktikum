@@ -1,4 +1,4 @@
-PWD /home/bigflopa/University/mafijapraktikum/Lastne_vrednosti_in_vektorji
+PWD /home/flopa/Physics/mafijapraktikum/Lastne_vrednosti_in_vektorji
 INPUT /usr/share/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
 INPUT lastne_vrednosti_in_lastni_vektorji.tex
@@ -8,6 +8,7 @@ INPUT /usr/share/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/share/texmf-dist/tex/latex/base/size12.clo
 INPUT /usr/share/texmf-dist/tex/latex/base/size12.clo
 INPUT /usr/share/texmf-dist/tex/latex/base/size12.clo
+INPUT /usr/share/texmf-dist/fonts/map/fontname/texfonts.map
 INPUT /usr/share/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/share/texmf-dist/tex/latex/base/inputenc.sty
 INPUT /usr/share/texmf-dist/tex/latex/base/inputenc.sty
@@ -83,15 +84,9 @@ INPUT /usr/share/texmf-dist/tex/generic/bitset/bitset.sty
 INPUT /usr/share/texmf-dist/tex/generic/bitset/bitset.sty
 INPUT /usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 INPUT /usr/share/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
-INPUT /usr/share/texmf-dist/tex/generic/atbegshi/atbegshi.sty
-INPUT /usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty
-INPUT /usr/share/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
 INPUT /usr/share/texmf-dist/tex/latex/hyperref/hpdftex.def
-INPUT /usr/share/texmf-dist/tex/latex/atveryend/atveryend.sty
-INPUT /usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty
-INPUT /usr/share/texmf-dist/tex/latex/base/atveryend-ltx.sty
 INPUT /usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /usr/share/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 INPUT /usr/share/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty

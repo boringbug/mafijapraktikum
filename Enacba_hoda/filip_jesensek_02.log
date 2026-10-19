@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.5)  12 OCT 2026 13:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Arch Linux) (preloaded format=pdflatex 2026.6.5)  19 OCT 2026 14:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**airyjeve_funkcije_porocilo.tex
-(./airyjeve_funkcije_porocilo.tex
+**filip_jesensek_02.tex
+(./filip_jesensek_02.tex
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
 (/usr/share/texmf-dist/tex/latex/base/article.cls
@@ -238,145 +238,149 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count309
 \@lastruleclass=\count310
 \@thisrulewidth=\dimen176
-) (/usr/share/texmf-dist/tex/latex/tools/tabularx.sty
-Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+) (/usr/share/texmf-dist/tex/latex/siunitx/siunitx.sty
+Package: siunitx 2025-07-09 v3.4.14 A comprehensive (SI) units package
+\l__siunitx_number_uncert_offset_int=\count311
+\l__siunitx_number_exponent_fixed_int=\count312
+\l__siunitx_number_min_decimal_int=\count313
+\l__siunitx_number_min_integer_int=\count314
+\l__siunitx_number_round_precision_int=\count315
+\l__siunitx_number_lower_threshold_int=\count316
+\l__siunitx_number_upper_threshold_int=\count317
+\l__siunitx_number_group_first_int=\count318
+\l__siunitx_number_group_size_int=\count319
+\l__siunitx_number_group_minimum_int=\count320
+\l__siunitx_angle_tmp_dim=\dimen177
+\l__siunitx_angle_marker_box=\box55
+\l__siunitx_angle_unit_box=\box56
+\l__siunitx_compound_count_int=\count321
+ (/usr/share/texmf-dist/tex/latex/translations/translations.sty
+Package: translations 2022/02/05 v1.12 internationalization of LaTeX2e packages (CN)
+)
+\l__siunitx_table_tmp_box=\box57
+\l__siunitx_table_tmp_dim=\dimen178
+\l__siunitx_table_column_width_dim=\dimen179
+\l__siunitx_table_integer_box=\box58
+\l__siunitx_table_decimal_box=\box59
+\l__siunitx_table_uncert_box=\box60
+\l__siunitx_table_before_box=\box61
+\l__siunitx_table_after_box=\box62
+\l__siunitx_table_before_dim=\dimen180
+\l__siunitx_table_carry_dim=\dimen181
+\l__siunitx_unit_tmp_int=\count322
+\l__siunitx_unit_position_int=\count323
+\l__siunitx_unit_total_int=\count324
  (/usr/share/texmf-dist/tex/latex/tools/array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
-\col@sep=\dimen177
-\ar@mcellbox=\box55
-\extrarowheight=\dimen178
+\col@sep=\dimen182
+\ar@mcellbox=\box63
+\extrarowheight=\dimen183
 \NC@list=\toks25
 \extratabsurround=\skip55
 \backup@length=\skip56
-\ar@cellbox=\box56
+\ar@cellbox=\box64
+)) (/usr/share/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2023/08/05 v3.6o Customizing captions (AR)
+ (/usr/share/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2023/07/31 v2.4d caption3 kernel (AR)
+\caption@tempdima=\dimen184
+\captionmargin=\dimen185
+\caption@leftmargin=\dimen186
+\caption@rightmargin=\dimen187
+\caption@width=\dimen188
+\caption@indent=\dimen189
+\caption@parindent=\dimen190
+\caption@hangindent=\dimen191
+Package caption Info: Standard document class detected.
 )
-\TX@col@width=\dimen179
-\TX@old@table=\dimen180
-\TX@old@col=\dimen181
-\TX@target=\dimen182
-\TX@delta=\dimen183
-\TX@cols=\count311
-\TX@ftn=\toks26
-) (/usr/share/texmf-dist/tex/latex/float/float.sty
-Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count312
-\float@exts=\toks27
-\float@box=\box57
-\@float@everytoks=\toks28
-\@floatcapt=\box58
-) (/usr/share/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count313
-\lst@gtempboxa=\box59
-\lst@token=\toks29
-\lst@length=\count314
-\lst@currlwidth=\dimen184
-\lst@column=\count315
-\lst@pos=\count316
-\lst@lostspace=\dimen185
-\lst@width=\dimen186
-\lst@newlines=\count317
-\lst@lineno=\count318
-\lst@maxwidth=\dimen187
- (/usr/share/texmf-dist/tex/latex/listings/lstpatch.sty
-File: lstpatch.sty 2025/11/14 1.11b (Carsten Heinz)
-) (/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2025/11/14 1.11b (Carsten Heinz)
-\c@lstnumber=\count319
-\lst@skipnumbers=\count320
-\lst@framebox=\box60
-) (/usr/share/texmf-dist/tex/latex/listings/listings.cfg
-File: listings.cfg 2025/11/14 1.11b listings configuration
-))
-Package: listings 2025/11/14 1.11b (Carsten Heinz)
-
-==> First Aid for listings.sty no longer applied!
-    Expected:
-        2024/09/23 1.10c (Carsten Heinz)
-    but found:
-        2025/11/14 1.11b (Carsten Heinz)
-    so I'm assuming it got fixed.
-(/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty
-Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
- (/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package xcolor Info: Driver file: pdftex.def on input line 274.
- (/usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx)
-Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1349.
-Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1353.
-Package xcolor Info: Model `RGB' extended on input line 1365.
-Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1367.
-Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1368.
-Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1369.
-Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1370.
-Package xcolor Info: Model `Gray' substituted by `gray' on input line 1371.
-Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
+\c@caption@flags=\count325
+\c@continuedfloat=\count326
+Package caption Info: hyperref package is loaded.
+) (/usr/share/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2023/07/28 v1.6b Sub-captions (AR)
+Package caption Info: New subtype `subfigure' on input line 238.
+\c@subfigure=\count327
+Package caption Info: New subtype `subtable' on input line 238.
+\c@subtable=\count328
 ) (/usr/share/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/share/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count321
-\Gm@cntv=\count322
-\c@Gm@tempcnt=\count323
-\Gm@bindingoffset=\dimen188
-\Gm@wd@mp=\dimen189
-\Gm@odd@mp=\dimen190
-\Gm@even@mp=\dimen191
-\Gm@layoutwidth=\dimen192
-\Gm@layoutheight=\dimen193
-\Gm@layouthoffset=\dimen194
-\Gm@layoutvoffset=\dimen195
-\Gm@dimlist=\toks30
-) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+\Gm@cnth=\count329
+\Gm@cntv=\count330
+\c@Gm@tempcnt=\count331
+\Gm@bindingoffset=\dimen192
+\Gm@wd@mp=\dimen193
+\Gm@odd@mp=\dimen194
+\Gm@even@mp=\dimen195
+\Gm@layoutwidth=\dimen196
+\Gm@layoutheight=\dimen197
+\Gm@layouthoffset=\dimen198
+\Gm@layoutvoffset=\dimen199
+\Gm@dimlist=\toks26
+)
+Package translations Info: No language package found. I am going to use `english' as default language. on input line 18.
+ (/usr/share/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2025/01/14 v1.3e Standard LaTeX Color (DPC)
+ (/usr/share/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+ (/usr/share/texmf-dist/tex/latex/graphics/mathcolor.ltx)) (/usr/share/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count324
-) (./airyjeve_funkcije_porocilo.aux)
-\openout1 = `airyjeve_funkcije_porocilo.aux'.
+\l__color_backend_stack_int=\count332
+) (./filip_jesensek_02.aux)
+\openout1 = `filip_jesensek_02.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 18.
+LaTeX Font Info:    ... okay on input line 18.
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count325
-\scratchdimen=\dimen196
-\scratchbox=\box61
-\nofMPsegments=\count326
-\nofMParguments=\count327
-\everyMPshowfont=\toks31
-\MPscratchCnt=\count328
-\MPscratchDim=\dimen197
-\MPnumerator=\count329
-\makeMPintoPDFobject=\count330
-\everyMPtoPDFconversion=\toks32
+\scratchcounter=\count333
+\scratchdimen=\dimen256
+\scratchbox=\box65
+\nofMPsegments=\count334
+\nofMParguments=\count335
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count336
+\MPscratchDim=\dimen257
+\MPnumerator=\count337
+\makeMPintoPDFobject=\count338
+\everyMPtoPDFconversion=\toks28
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 41.
- (./airyjeve_funkcije_porocilo.out) (./airyjeve_funkcije_porocilo.out)
+Package hyperref Info: Link coloring OFF on input line 18.
+ (./filip_jesensek_02.out) (./filip_jesensek_02.out)
 \@outlinefile=\write3
-\openout3 = `airyjeve_funkcije_porocilo.out'.
+\openout3 = `filip_jesensek_02.out'.
 
-\c@lstlisting=\count331
+ (/usr/share/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
+File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
+)
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 18.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -386,15 +390,15 @@ Package hyperref Info: Link coloring OFF on input line 41.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(71.13188pt, 455.24411pt, 71.13188pt)
-* v-part:(T,H,B)=(71.13188pt, 702.78308pt, 71.13188pt)
+* h-part:(L,W,R)=(42.67912pt, 512.14963pt, 42.67912pt)
+* v-part:(T,H,B)=(42.67912pt, 759.6886pt, 42.67912pt)
 * \paperwidth=597.50787pt
 * \paperheight=845.04684pt
-* \textwidth=455.24411pt
-* \textheight=702.78308pt
-* \oddsidemargin=-1.1381pt
-* \evensidemargin=-1.1381pt
-* \topmargin=-38.1381pt
+* \textwidth=512.14963pt
+* \textheight=759.6886pt
+* \oddsidemargin=-29.59087pt
+* \evensidemargin=-29.59087pt
+* \topmargin=-66.59087pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=12.0pt
@@ -412,83 +416,69 @@ Package hyperref Info: Link coloring OFF on input line 41.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 44.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 21.
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 44.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 21.
  (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (9.48723pt too wide) in paragraph at lines 136--137
-[]\OT1/cmr/m/n/12 Kot pre-hodno to^^Tcko izber-emo $\OML/cmm/m/it/12 x[] \OMS/cmsy/m/n/12 ^^Y \OT1/cmr/m/n/12 5$, kjer obe metodi da-jeta zado-voljivo natan^^Tcnost. 
+Overfull \hbox (0.5543pt too wide) in paragraph at lines 74--85
+\OT1/cmr/m/n/12 ler-jeva metoda pred-stavlja na-jenos-tavnej^^Tsi pristop s kon-ver-genco prvega reda. Kljub nizki natan^^Tcnosti
  []
 
-[2]
-Underfull \hbox (badness 1097) in paragraph at lines 159--159
-[]|\OT1/cmr/m/n/12 Rekurzivne relacije
- []
-
-[3
-pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.163 \newpage
-              ]
-<ai_abs.pdf, id=136, 867.24pt x 578.16pt>
-File: ai_abs.pdf Graphic file (type pdf)
-<use ai_abs.pdf>
-Package pdftex.def Info: ai_abs.pdf  used on input line 172.
-(pdftex.def)             Requested size: 409.71692pt x 273.14676pt.
- [4
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.179 \newpage
-               <./ai_abs.pdf>]
-<ai_rel.pdf, id=186, 867.24pt x 578.16pt>
-File: ai_rel.pdf Graphic file (type pdf)
-<use ai_rel.pdf>
-Package pdftex.def Info: ai_rel.pdf  used on input line 186.
-(pdftex.def)             Requested size: 409.71692pt x 273.14676pt.
- [5
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.231 
-      
-pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.231 
-       <./ai_rel.pdf>] [6
-pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.250 \end{document}
-                    ] (./airyjeve_funkcije_porocilo.aux)
+[2] [3]
+<diffeq_plots/01_basic_cooling_comparison.pdf, id=96, 1071.78358pt x 855.25148pt>
+File: diffeq_plots/01_basic_cooling_comparison.pdf Graphic file (type pdf)
+<use diffeq_plots/01_basic_cooling_comparison.pdf>
+Package pdftex.def Info: diffeq_plots/01_basic_cooling_comparison.pdf  used on input line 133.
+(pdftex.def)             Requested size: 460.93153pt x 367.81622pt.
+<diffeq_plots/02_step_size_dependence.pdf, id=98, 1072.15019pt x 419.86873pt>
+File: diffeq_plots/02_step_size_dependence.pdf Graphic file (type pdf)
+<use diffeq_plots/02_step_size_dependence.pdf>
+Package pdftex.def Info: diffeq_plots/02_step_size_dependence.pdf  used on input line 156.
+(pdftex.def)             Requested size: 460.93153pt x 180.508pt.
+ [4 <./diffeq_plots/01_basic_cooling_comparison.pdf>]
+<diffeq_plots/03_periodic_heating.pdf, id=162, 1071.8331pt x 855.27403pt>
+File: diffeq_plots/03_periodic_heating.pdf Graphic file (type pdf)
+<use diffeq_plots/03_periodic_heating.pdf>
+Package pdftex.def Info: diffeq_plots/03_periodic_heating.pdf  used on input line 195.
+(pdftex.def)             Requested size: 460.93153pt x 367.79982pt.
+<diffeq_plots/04_parameter_study.pdf, id=164, 1071.8331pt x 710.97057pt>
+File: diffeq_plots/04_parameter_study.pdf Graphic file (type pdf)
+<use diffeq_plots/04_parameter_study.pdf>
+Package pdftex.def Info: diffeq_plots/04_parameter_study.pdf  used on input line 218.
+(pdftex.def)             Requested size: 460.93153pt x 305.74393pt.
+ [5 <./diffeq_plots/02_step_size_dependence.pdf>] [6 <./diffeq_plots/03_periodic_heating.pdf> <./diffeq_plots/04_parameter_study.pdf>]
+<diffeq_plots/06_computational_efficiency.pdf, id=355, 1071.8951pt x 420.03877pt>
+File: diffeq_plots/06_computational_efficiency.pdf Graphic file (type pdf)
+<use diffeq_plots/06_computational_efficiency.pdf>
+Package pdftex.def Info: diffeq_plots/06_computational_efficiency.pdf  used on input line 239.
+(pdftex.def)             Requested size: 460.93153pt x 180.62596pt.
+ [7 <./diffeq_plots/06_computational_efficiency.pdf>] [8] (./filip_jesensek_02.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
-Package rerunfilecheck Info: File `airyjeve_funkcije_porocilo.out' has not changed.
-(rerunfilecheck)             Checksum: 03D49E4F4FBC17D9521384CBB1086F20;3141.
+Package rerunfilecheck Info: File `filip_jesensek_02.out' has not changed.
+(rerunfilecheck)             Checksum: 5C6CCD369E2E7F7DA1F4B97124DF993D;2132.
  ) 
 Here is how much of TeX's memory you used:
- 12321 strings out of 469515
- 183464 string characters out of 5470808
- 612825 words of memory out of 5000000
- 40783 multiletter control sequences out of 15000+600000
- 636653 words of font info for 75 fonts, out of 8000000 for 9000
+ 15706 strings out of 469515
+ 306033 string characters out of 5470808
+ 681949 words of memory out of 5000000
+ 44185 multiletter control sequences out of 15000+600000
+ 636785 words of font info for 75 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 75i,11n,79p,644b,452s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on airyjeve_funkcije_porocilo.pdf (6 pages, 193544 bytes).
+ 75i,10n,79p,320b,1039s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on filip_jesensek_02.pdf (8 pages, 289717 bytes).
 PDF statistics:
- 300 PDF objects out of 1000 (max. 8388607)
- 194 compressed objects within 2 object streams
- 52 named destinations out of 1000 (max. 500000)
- 187 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 475 PDF objects out of 1000 (max. 8388607)
+ 177 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 154 words of extra memory for PDF output out of 10000 (max. 10000000)
 
