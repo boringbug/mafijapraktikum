@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1777982062.05255 "filip_jesensek_05.tex" "filip_jesensek_05.pdf" "filip_jesensek_05" 1777982062.43977 0
+["pdflatex"] 1795639307.50325 "filip_jesensek_05.tex" "filip_jesensek_05.pdf" "filip_jesensek_05" 1795639307.96015 0
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1775415801 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1775415801 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/share/texmf-dist/fonts/map/fontname/texfonts.map" 1775415801 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -84,12 +84,12 @@
   "/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg" 1775415801 678 4792914a8f45be57bb98413425e4c7af ""
   "/usr/share/texmf-dist/tex/latex/xcolor/xcolor.sty" 1775415801 55384 b454dec21c2d9f45ec0b793f0995b992 ""
   "/usr/share/texmf-dist/web2c/texmf.cnf" 1775415801 43569 fd570f2fa160877d211e859f687312ba ""
-  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1776630290 5385779 47c0c393a77fd4a098bacfd57d66b88a ""
-  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1776630269 2328187 e0283dd720a850edfa1528efa73f1fe0 ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1795277125 5385779 47c0c393a77fd4a098bacfd57d66b88a ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1795277079 2328194 703ee027b0c12abaef36f7a8793da432 ""
   "bubo2mono_spectrogram.pdf" 1777980606.63754 4475554 3733b68b6a555ddd9bc80d391655f761 ""
   "bubomono_spectrogram.pdf" 1777980605.63254 4213733 b32bdd6b25eb45a8039745a552271a9d ""
-  "filip_jesensek_05.aux" 1777982062.38509 4252 4900ed6f4b0b9d22e8555452c697657f "pdflatex"
-  "filip_jesensek_05.tex" 1777982061.00973 11130 607fd37de5d70e12221b9472413b31d1 ""
+  "filip_jesensek_05.aux" 1795639307.90357 4252 4900ed6f4b0b9d22e8555452c697657f "pdflatex"
+  "filip_jesensek_05.tex" 1777982198.78759 11130 607fd37de5d70e12221b9472413b31d1 ""
   "mix22_comparison.pdf" 1777980620.66756 326046 e91a412fbca4abe710f5ab1e8630dd04 ""
   "mix22_spectrogram.pdf" 1777980610.77055 5168866 9074f0fff2d6fbf4e44050f670d50b2b ""
   "mix22_spectrograms_comparison.pdf" 1777980616.45755 13805558 e867b73eab81c93bbbfbaf3844884aca ""
